@@ -53,11 +53,12 @@
         </div><!-- End Preload -->
         <!-- Header ================================================== -->
         @{Html.RenderPartial("~/Views/Shared/_HeaderPartial.cshtml");};
-        <!-- End Header =============================================== -->
-        <!-- SubHeader =============================================== -->
-        @{Html.RenderPartial("~/Views/Shared/_SubHeaderPartial.cshtml");};
-        <!-- End SubHeader ============================================ -->
-        <!-- Content ================================================== -->*@
+        <!-- End Header =============================================== -->*@
+        
+    <!-- SubHeader =============================================== -->
+    @{Html.RenderPartial("~/Views/Home/_SubHeaderPartial.cshtml");}
+    <!-- End SubHeader ============================================ -->
+        <!-- Content ================================================== -->
 <div class="container margin_60">
 
     <div class="main_title">
@@ -320,10 +321,10 @@
 <div class="layer"></div><!-- Mobile menu overlay mask -->
 <!-- Login modal -->
 
-@{Html.RenderPartial("~/Views/Home/LoginModal.cshtml");};
+@{Html.RenderPartial("~/Views/Home/LoginModal.cshtml");}
 <!-- End modal -->
 <!-- Register modal -->
-@{Html.RenderPartial("~/Views/Home/RegisterModal.cshtml");};
+@{Html.RenderPartial("~/Views/Home/RegisterModal.cshtml");}
 <!-- End Register modal -->
 <!-- COMMON SCRIPTS -->
 @*<script src="js/jquery-2.2.4.min.js"></script>
@@ -334,6 +335,7 @@
     <!-- SPECIFIC SCRIPTS -->
     <script src="js/video_header.js"></script>*@
 
+@Scripts.Render("~/bundles/video_header")
 <script>
     $(document).ready(function () {
         'use strict';

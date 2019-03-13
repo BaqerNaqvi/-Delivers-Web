@@ -23,13 +23,28 @@ namespace Delives.pk
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/home").Include(
+            bundles.Add(new ScriptBundle("~/bundles/common").Include(
                       "~/Scripts/common_scripts_min.js",
                       "~/Scripts/functions.js",
                       "~/Scripts/video_header.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/video_header").Include(
+                      "~/Scripts/video_header.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/search").Include(
+                      "~/Scripts/cat_nav_mobile.js",
+                      "~/Scripts/map.js",
+                      "~/Scripts/infobox.js",
+                      "~/Scripts/ion.rangeSlider.js"));
+            
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/base.css"));
+
+            bundles.Add(new StyleBundle("~/Content/checkboxes").Include(
+                      "~/Content/skins/square/grey.css",
+                      "~/Content/ion.rangeSlider.css",
+                      "~/Content/ion.rangeSlider.skinFlat.css"
+                      ));
         }
     }
 }

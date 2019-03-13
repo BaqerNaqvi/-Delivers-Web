@@ -14,7 +14,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/home")
+    @Scripts.Render("~/bundles/common")
 
 </head>
 <body>
@@ -34,15 +34,12 @@
     <!-- Header ================================================== -->
     @{Html.RenderPartial("~/Views/Shared/_HeaderPartial.cshtml");}
     <!-- End Header =============================================== -->
-    <!-- SubHeader =============================================== -->
-    @{Html.RenderPartial("~/Views/Shared/_SubHeaderPartial.cshtml");}
-    <!-- End SubHeader ============================================ -->
     <!-- Content ================================================== -->
     @RenderBody()
     <!-- Footer ================================================== -->
     @{Html.RenderPartial("~/Views/Shared/_FooterPartial.cshtml");}
     <!-- End Footer =============================================== -->
-    //@Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
 </body>
 </html>

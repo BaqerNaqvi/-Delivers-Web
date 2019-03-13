@@ -4,12 +4,13 @@
     "\\Delives.pk",
     "\\Delives.pk\\Delives.pk",
     "\\Delives.pk\\Delives.pk\\App_Start",
+    "\\Delives.pk\\Delives.pk\\Content",
     "\\Delives.pk\\Delives.pk\\Controllers",
     "\\Delives.pk\\Delives.pk\\Views",
     "\\Delives.pk\\Delives.pk\\Views\\Delivery",
     "\\Delives.pk\\Delives.pk\\Views\\Home",
     "\\Delives.pk\\Delives.pk\\Views\\Shared"
   ],
-  "SelectedNode": "\\Delives.pk\\Delives.pk\\Views\\Home\\Index.cshtml",
+  "SelectedNode": "\\Delives.pk\\Delives.pk\\Views\\Delivery\\Index.cshtml",
   "PreviewInSolutionExplorer": false
 }
