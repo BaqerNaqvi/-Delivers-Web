@@ -228,11 +228,12 @@
     <Compile Include="Controllers\DeliveryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\ListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ChangePasswordModel.cs" />
+    <Compile Include="Models\ItemModels.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -414,6 +415,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\List\list-main.js" />
     <Content Include="Scripts\map.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
@@ -462,10 +464,14 @@
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Shared\_HeaderPartial.cshtml" />
     <Content Include="Views\Shared\_SubHeaderPartial.cshtml" />
-    <Content Include="Views\Search\Index.cshtml" />
-    <Content Include="Views\Search\SearchModal.cshtml" />
+    <Content Include="Views\List\Index.cshtml" />
+    <Content Include="Views\List\SearchModal.cshtml" />
     <Content Include="Views\Home\_SubHeaderPartial.cshtml" />
-    <Content Include="Views\Search\_SubHeaderPartial.cshtml" />
+    <Content Include="Views\List\_SubHeaderPartial.cshtml" />
+    <Content Include="Views\List\_ListViewPartial.cshtml" />
+    <Content Include="Views\List\_ToolsPartial.cshtml" />
+    <Content Include="Views\List\_ResultPartial.cshtml" />
+    <Content Include="Views\List\_ListItemPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,9 +12,8 @@
 
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,300,300italic' rel='stylesheet' type='text/css'>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/common")
+    @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
@@ -40,6 +39,7 @@
     @{Html.RenderPartial("~/Views/Shared/_FooterPartial.cshtml");}
     <!-- End Footer =============================================== -->
     @*@Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/bundles/common")
     @RenderSection("scripts", required: false)
 </body>
 </html>
