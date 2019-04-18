@@ -229,11 +229,14 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ListController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\ItemModels.cs" />
+    <Compile Include="Models\MenuModels.cs" />
+    <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -472,6 +475,8 @@
     <Content Include="Views\List\_ToolsPartial.cshtml" />
     <Content Include="Views\List\_ResultPartial.cshtml" />
     <Content Include="Views\List\_ListItemPartial.cshtml" />
+    <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\Menu\_SubHeaderPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

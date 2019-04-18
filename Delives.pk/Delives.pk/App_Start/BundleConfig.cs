@@ -37,7 +37,7 @@ namespace Delives.pk
                       "~/Scripts/infobox.js",
                       "~/Scripts/ion.rangeSlider.js",
                       "~/Scripts/List/list-main.js"));
-            
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/base.css"));
 
@@ -46,6 +46,11 @@ namespace Delives.pk
                       "~/Content/ion.rangeSlider.css",
                       "~/Content/ion.rangeSlider.skinFlat.css"
                       ));
+
+            bundles.Add(new StyleBundle("~/Content/menu").Include(
+                      "~/Content/skins/square/grey.css"
+                      ));
+
         }
     }
 }
