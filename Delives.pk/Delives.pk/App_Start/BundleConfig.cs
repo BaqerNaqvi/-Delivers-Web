@@ -38,6 +38,10 @@ namespace Delives.pk
                       "~/Scripts/ion.rangeSlider.js",
                       "~/Scripts/List/list-main.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/menu").Include(
+                      "~/Scripts/Menu/menu-main.js"));
+
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/base.css"));
 
