@@ -35,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -245,6 +246,7 @@
     <Compile Include="Security\AuthHandler.cs" />
     <Compile Include="Security\DeliversAPIPrincipal.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilities\CommonFunction.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\animate.min.css" />
@@ -386,6 +388,14 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\DELIVERY-LOGO.png" />
+    <Content Include="Images\pins\FOOD.png" />
+    <Content Include="Images\pins\GROCERY.png" />
+    <Content Include="Images\pins\Contact.png" />
+    <Content Include="Images\pins\Fish.png" />
+    <Content Include="Images\pins\Hamburger.png" />
+    <Content Include="Images\pins\Mexican.png" />
+    <Content Include="Images\pins\MEET.png" />
+    <Content Include="Images\pins\Sushi.png" />
     <Content Include="Images\Rest\Large\large_01.jpg" />
     <Content Include="Images\Rest\Small\small_01.jpg" />
     <Content Include="Images\Rest\Small\small_02.jpg" />
@@ -405,9 +415,11 @@
     <Content Include="Content\fontello\font\fontello.woff" />
     <Content Include="Content\Videos\intro.ogv" />
     <Content Include="Content\skins\.DS_Store" />
+    <Content Include="Images\pins\.DS_Store" />
     <None Include="Properties\PublishProfiles\Delivers.Pk.pubxml" />
     <Content Include="Scripts\cat_nav_mobile.js" />
     <Content Include="Scripts\common_scripts_min.js" />
+    <Content Include="Scripts\Delivery\delivery-main.js" />
     <Content Include="Scripts\functions.js" />
     <Content Include="Scripts\infobox.js" />
     <Content Include="Scripts\ion.rangeSlider.js" />
@@ -478,6 +490,10 @@
     <Content Include="Views\List\_ListItemPartial.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\Menu\_SubHeaderPartial.cshtml" />
+    <Content Include="Views\Delivery\_ListItemPartial.cshtml" />
+    <Content Include="Views\List\_ListItemTypePartial.cshtml" />
+    <Content Include="Views\List\_ListFilterPartial.cshtml" />
+    <Content Include="Views\Delivery\_PopularItemsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

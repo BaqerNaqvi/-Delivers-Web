@@ -31,6 +31,8 @@ namespace Delives.pk
             bundles.Add(new ScriptBundle("~/bundles/video_header").Include(
                       "~/Scripts/video_header.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/delivery").Include(
+                      "~/Scripts/Delivery/delivery-main.js"));
             bundles.Add(new ScriptBundle("~/bundles/list").Include(
                       "~/Scripts/cat_nav_mobile.js",
                       "~/Scripts/map.js",

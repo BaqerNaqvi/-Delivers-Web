@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -67,6 +68,11 @@ namespace Delives.pk.Security
             {
                 return false;
             }
+        }
+        public static AuthenticationHeaderValue AuthenticationHeader()
+        {
+            var byteArray = Encoding.ASCII.GetBytes(ConfigurationManager.AppSettings["usernamePassword"]);
+            return new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
         }
     }
 }

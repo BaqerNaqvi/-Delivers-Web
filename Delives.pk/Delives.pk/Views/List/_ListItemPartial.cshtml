@@ -1,42 +1,50 @@
 ﻿@model IEnumerable<Delives.pk.Models.ItemViewModel>
 @if (Model != null && Model.Count() > 0)
 {
-foreach(var item in Model)
-{
-<div class="strip_list wow fadeIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;">
-        <div class="ribbon_1">
-            Popular
+    foreach (var item in Model)
+    {
+        var voted = "";
+        <div class="strip_list wow fadeIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;">
+            @if (item.IsFeatured)
+            {
+                <div class="ribbon_1">
+                    Popular
+                </div>
+            }
+            <div class="row">
+                <div class="col-md-9 col-sm-9">
+                    <div class="desc">
+                        <div class="thumb_strip">
+                            <a href="detail_page.html"><img src=@item.LogoImage alt=""></a>
+                        </div>
+                        <div class="rating">
+                            @for (int i = 0; i < 5; i++)
+                            {
+                                voted = (item.Rating > i ? "voted" : "");
+                                <i class="icon_star @voted"></i>
+                            } (<small><a href="#0">@(item.Reviewes != null ? item.Reviewes.Count() : 0) reviews</a></small>)
+                        </div>
+                        <h3>@item.Name</h3>
+                        <div class="type">
+                            @item.TypeName
+                        </div>
+                        <div class="location">
+                            @item.Address <span class="opening">Opens at @item.Opens.</span> Minimum order: Rs.@item.MinOrder
+                        </div>
+                        <ul>
+                            @*<li>Take away<i class="icon_check_alt2 okno"></i></li>*@
+                            <li>Delivery<i class="icon_check_alt2 ok"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <div class="go_to">
+                        <div>
+                            <a href="~/Menu/Index/@item.Id" class="btn_1">View Menu</a>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End row-->
         </div>
-        <div class="row">
-            <div class="col-md-9 col-sm-9">
-                <div class="desc">
-                    <div class="thumb_strip">
-                        <a href="detail_page.html"><img src=@item.LogoImage alt=""></a>
-                    </div>
-                    <div class="rating">
-                        <i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i> (<small><a href="#0">98 reviews</a></small>)
-                    </div>
-                    <h3>@item.Name</h3>
-                    <div class="type">
-                        Mexican / American
-                    </div>
-                    <div class="location">
-                        @item.Address <span class="opening">Opens at @item.Opens.</span> Minimum order: $@item.MinimumOrder
-                    </div>
-                    <ul>
-                        <li>Take away<i class="icon_check_alt2 ok"></i></li>
-                        <li>Delivery<i class="icon_check_alt2 no"></i></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-3">
-                <div class="go_to">
-                    <div>
-                        <a href="~/Menu/Index/@item.Id" class="btn_1">View Menu</a>
-                    </div>
-                </div>
-            </div>
-        </div><!-- End row-->
-    </div>
-}
+    }
 }
