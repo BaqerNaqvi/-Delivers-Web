@@ -63,7 +63,7 @@
             OrderBy: null
         };
     },
-    getListItems: function () {
+    getListItems: function (recenterMap = false) {
         listConfig.searchFilters.CurrentPage += 1;
         //listConfig.searchFilters.TypeList = 1;
         this.jqXHR = $.ajax({
@@ -76,6 +76,7 @@
             let data = JSON.parse(response);
             if (data.Success) {
                 $(data.Html).insertBefore($('.load_more_bt'));
+                if (recenterMap)
                 mapConfig.recenterMap(locationConfig.latitude, locationConfig.longitude);
                 mapConfig.setMarkersPoint(data.Object);
             }
@@ -116,7 +117,7 @@
     loadLocationDependentData: function (position) {
         locationConfig.geoLocationSuccess(position);
         listConfig.resetSearchFilters();
-        listConfig.getListItems();
+        listConfig.getListItems(true);
     }
 };
 
