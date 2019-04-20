@@ -9,6 +9,7 @@ namespace Delives.pk.Models
     {
         public int Id { get; set; }
         public int Type { get; set; }
+        public string TypeName { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         //public string Location { get; set; }
@@ -49,7 +50,7 @@ namespace Delives.pk.Models
     public class SearchResponseModel
     {
         public Object Data { get; set; }
-        public string Success { get; set; }
+        public bool Success { get; set; }
         public List<string> Messages { get; set; }
     }
     public class ItemSearchModel

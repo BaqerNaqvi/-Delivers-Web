@@ -6,7 +6,7 @@
     jqXHR: null,
     searchFilters: {
         TypeList: [],
-        Cords: "32.22982263_74.18175494",
+        Cords: "32.1611321_74.1765673",
         CurrentPage: 0,
         ItemsPerPage: 10,
         SearchTerm: "",
@@ -20,7 +20,7 @@
     resetSearchFilters: function () {
         listConfig.searchFilters = {
             TypeList: [],
-            Cords: locationConfig.coords !== null ? locationConfig.coords : "32.22982263_74.18175494",
+            Cords: locationConfig.coords !== null ? locationConfig.coords : "32.1611321_74.1765673",
             CurrentPage: 0,
             ItemsPerPage: 10,
             SearchTerm: "",
@@ -51,7 +51,7 @@
         var distance = $('#range').data('ionRangeSlider').options;
         listConfig.searchFilters = {
             TypeList: itemTypes,
-            Cords: locationConfig.coords,
+            Cords: locationConfig.coords !== null ? locationConfig.coords : "32.1611321_74.1765673",
             CurrentPage: resetPage ? 0 : listConfig.searchFilters.CurrentPage,
             ItemsPerPage: 10,
             SearchTerm: $('#searchTerm').val(),
@@ -73,7 +73,15 @@
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({ itemSearchModel: listConfig.searchFilters })
         }).done(function (response) {
-            $(response).insertBefore($('.load_more_bt'));
+            let data = JSON.parse(response);
+            if (data.Success) {
+                $(data.Html).insertBefore($('.load_more_bt'));
+                mapConfig.recenterMap(locationConfig.latitude, locationConfig.longitude);
+                mapConfig.setMarkersPoint(data.Object);
+            }
+            else {
+                console.log(data.Message);
+            }
             //alert("success");
         }).fail(function (jqXHR, textStatus, errorThrown) {
             //alert("error");
@@ -93,6 +101,7 @@
             $('.load-filter-types input.item-type').iCheck({
                 checkboxClass: 'icheckbox_square-grey'
             });
+               
             //alert("success");
         }).fail(function (jqXHR, textStatus, errorThrown) {
             //alert("error");

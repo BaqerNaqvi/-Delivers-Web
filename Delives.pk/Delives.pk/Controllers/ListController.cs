@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -35,30 +36,58 @@ namespace Delives.pk.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<PartialViewResult> FetchItemsPartialAsync(ItemSearchModel itemSearchModel)
+        public async Task<JsonResult> FetchItemsPartialAsync(ItemSearchModel itemSearchModel)
         {
-            List<ItemViewModel> items = await GetItemsAsync(itemSearchModel);
-            return PartialView("~/Views/List/_ListItemPartial.cshtml", items);
+            SearchResponseModel searchResponseModel = new SearchResponseModel()
+            {
+                Success = false,
+                Data = null,
+
+            };
+            try
+            {
+                List<ItemViewModel> items = await GetItemsAsync(itemSearchModel);
+                var html = RenderRazorViewToString("~/Views/List/_ListItemPartial.cshtml", items);
+                return Json(new { Success = true, Message = "", Object = items, Html = html }, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                return Json(new { Success = false, Message = "Something went wrong while fetching items" }, JsonRequestBehavior.AllowGet);
+            }
         }
         private async Task<List<ItemViewModel>> GetItemsAsync(ItemSearchModel itemSearchModel)
         {
-            string path = "http://www.delivers.pk/api/Listing/GetItems";
-            SearchResponseModel responseContent = null;
-            using (HttpClient client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri(path);
-                client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
-
-                //client.BaseAddress = new Uri(path);
-                HttpResponseMessage response = await client.PostAsJsonAsync(path, itemSearchModel);
-                if (response.IsSuccessStatusCode)
+                string path = "http://www.delivers.pk/api/Listing/GetItems";
+                SearchResponseModel responseContent = null;
+                using (HttpClient client = new HttpClient())
                 {
-                    responseContent = await response.Content.ReadAsAsync<SearchResponseModel>();
+                    client.BaseAddress = new Uri(path);
+                    client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
+
+                    //client.BaseAddress = new Uri(path);
+                    HttpResponseMessage response = await client.PostAsJsonAsync(path, itemSearchModel);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        responseContent = await response.Content.ReadAsAsync<SearchResponseModel>();
+                    }
+                }
+                if (responseContent.Success)
+                {
+                    var json = JsonConvert.SerializeObject(responseContent.Data);
+                    var itemsResponseModel = JsonConvert.DeserializeObject<ItemsResponseModel>(json);
+                    return itemsResponseModel.Items;
+                }
+                else
+                {
+                    return null;
                 }
             }
-            var json = JsonConvert.SerializeObject(responseContent.Data);
-            var itemsResponseModel = JsonConvert.DeserializeObject<ItemsResponseModel>(json);
-            return itemsResponseModel.Items;
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
         [HttpPost]
         public async Task<PartialViewResult> FetchItemTypesPartialAsync(ItemTypeViewModel itemTypeViewModel)
@@ -68,23 +97,51 @@ namespace Delives.pk.Controllers
         }
         private async Task<List<ItemTypeViewModel>> GetItemTypesAsync(ItemTypeViewModel itemTypeViewModel)
         {
-            string path = "http://www.delivers.pk/api/Listing/GetCatogries";
-            SearchResponseModel responseContent = null;
-            using (HttpClient client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri(path);
-                client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
-
-                //client.BaseAddress = new Uri(path);
-                HttpResponseMessage response = await client.PostAsJsonAsync(path, itemTypeViewModel);
-                if (response.IsSuccessStatusCode)
+                string path = "http://www.delivers.pk/api/Listing/GetCatogries";
+                SearchResponseModel responseContent = null;
+                using (HttpClient client = new HttpClient())
                 {
-                    responseContent = await response.Content.ReadAsAsync<SearchResponseModel>();
+                    client.BaseAddress = new Uri(path);
+                    client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
+
+                    //client.BaseAddress = new Uri(path);
+                    HttpResponseMessage response = await client.PostAsJsonAsync(path, itemTypeViewModel);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        responseContent = await response.Content.ReadAsAsync<SearchResponseModel>();
+                    }
+                }
+                if (responseContent.Success)
+                {
+                    var json = JsonConvert.SerializeObject(responseContent.Data);
+                    var itemsResponseModel = JsonConvert.DeserializeObject<List<ItemTypeViewModel>>(json);
+                    return itemsResponseModel;
+                }
+                else
+                {
+                    return null;
                 }
             }
-            var json = JsonConvert.SerializeObject(responseContent.Data);
-            var itemsResponseModel = JsonConvert.DeserializeObject<List<ItemTypeViewModel>>(json);
-            return itemsResponseModel;
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
+        #region UtilityFunction
+        public string RenderRazorViewToString(string viewName, object model)
+        {
+            ViewData.Model = model;
+            using (var sw = new StringWriter())
+            {
+                var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                var viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+                viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
+                return sw.GetStringBuilder().ToString();
+            }
+        }
+        #endregion
     }
 }

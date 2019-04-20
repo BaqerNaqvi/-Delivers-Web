@@ -243,6 +243,7 @@
     <Compile Include="Security\AuthHandler.cs" />
     <Compile Include="Security\DeliversAPIPrincipal.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilities\CommonFunction.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\animate.min.css" />
@@ -384,6 +385,14 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\DELIVERY-LOGO.png" />
+    <Content Include="Images\pins\FOOD.png" />
+    <Content Include="Images\pins\GROCERY.png" />
+    <Content Include="Images\pins\Contact.png" />
+    <Content Include="Images\pins\Fish.png" />
+    <Content Include="Images\pins\Hamburger.png" />
+    <Content Include="Images\pins\Mexican.png" />
+    <Content Include="Images\pins\MEET.png" />
+    <Content Include="Images\pins\Sushi.png" />
     <Content Include="Images\Rest\Large\large_01.jpg" />
     <Content Include="Images\Rest\Small\small_01.jpg" />
     <Content Include="Images\Rest\Small\small_02.jpg" />
@@ -403,6 +412,7 @@
     <Content Include="Content\fontello\font\fontello.woff" />
     <Content Include="Content\Videos\intro.ogv" />
     <Content Include="Content\skins\.DS_Store" />
+    <Content Include="Images\pins\.DS_Store" />
     <None Include="Properties\PublishProfiles\Delivers.Pk.pubxml" />
     <Content Include="Scripts\cat_nav_mobile.js" />
     <Content Include="Scripts\common_scripts_min.js" />
