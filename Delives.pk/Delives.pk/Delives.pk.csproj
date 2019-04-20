@@ -230,11 +230,14 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ListController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\ItemModels.cs" />
+    <Compile Include="Models\MenuModels.cs" />
+    <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -429,6 +432,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\List\list-main.js" />
     <Content Include="Scripts\map.js" />
+    <Content Include="Scripts\Menu\menu-main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -484,6 +488,8 @@
     <Content Include="Views\List\_ToolsPartial.cshtml" />
     <Content Include="Views\List\_ResultPartial.cshtml" />
     <Content Include="Views\List\_ListItemPartial.cshtml" />
+    <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\Menu\_SubHeaderPartial.cshtml" />
     <Content Include="Views\Delivery\_ListItemPartial.cshtml" />
     <Content Include="Views\List\_ListItemTypePartial.cshtml" />
     <Content Include="Views\List\_ListFilterPartial.cshtml" />

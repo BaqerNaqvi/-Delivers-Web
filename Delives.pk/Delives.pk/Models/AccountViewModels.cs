@@ -93,7 +93,7 @@ namespace Delives.pk.Models
         public string PhoneNumber { get; set; }
 
         public string CNIC { get; set; }
-
+        public int Type { get; set; }
     }
 
     public class ResetPasswordViewModel

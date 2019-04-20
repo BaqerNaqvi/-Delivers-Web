@@ -159,20 +159,35 @@ namespace Delives.pk.Controllers
             var response = new ResponseModel();
             if (ModelState.IsValid)
             {
-                //var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
-                //var result = await UserManager.CreateAsync(user, model.Password);
-                //if (result.Succeeded)
-                //{
-                //    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                //    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                //    var callbackUrl = Url.Action("ConfirmEmail", "Account", new {userId = user.Id, code = code},
-                //        protocol: Request.Url.Scheme);
-                //    await
-                //        UserManager.SendEmailAsync(user.Id, "Confirm your account",
-                //            "Please confirm your account by clicking :  " + callbackUrl);
-                //    return RedirectToAction("Index", "Home");
-                //}
-                //AddErrors(result);
+                var user = new ApplicationUser
+                {
+                    UserName = model.PhoneNumber,
+                    Email = "production",
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    CreationTime = DateTime.Now,
+                    EditTime = DateTime.Now,
+                    PhoneNumber = model.PhoneNumber,
+                    IsApproved = true,
+                    CNIC = model.CNIC,
+                    Status = true,
+                    Type = model.Type
+                };
+                var result = UserManager.Create(user, model.Password);
+                if (result.Succeeded)
+                {
+                    //GeneratePhoneCodeApiMethod(user.Id, model.PhoneNumber);
+                    //4digit code VerifyPhone(VerifyPhoneNumberCustomeModel model)
+                    //onVerification 
+                    //then MVC logic -var user = UserManager.Find(model.PhoneNumber, model.Password);
+                    // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    //return RedirectToAction("Index", "Home");
+
+                }
+                else
+                {
+                    ModelState.AddModelError("", result.Errors.FirstOrDefault());
+                }
             }
             else
             {
@@ -180,7 +195,7 @@ namespace Delives.pk.Controllers
                 {
                     foreach (ModelError error in modelState.Errors)
                     {
-                      //  DoSomethingWith(error);
+                        //  DoSomethingWith(error);
                     }
                 }
             }
