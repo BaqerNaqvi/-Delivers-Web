@@ -10,6 +10,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Delives.pk.Models;
+using System.Net.Http;
+using Delives.pk.Security;
+using Newtonsoft.Json;
 
 namespace Delives.pk.Controllers
 {
@@ -78,7 +81,8 @@ namespace Delives.pk.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return Json(new { Success = false, Message = "Model state is not valid" }, JsonRequestBehavior.AllowGet);
+                //return View(model);
             }
 
             // This doesn't count login failures towards account lockout
@@ -87,15 +91,19 @@ namespace Delives.pk.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return Json(new { Success = true, Message = "Login Successful" }, JsonRequestBehavior.AllowGet);
+                    //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
-                    return View("Lockout");
+                    return Json(new { Success = false, Message = "This account has been locked" }, JsonRequestBehavior.AllowGet);
+                    //return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return Json(new { Success = false, Message = "Requires Verification" }, JsonRequestBehavior.AllowGet);
+                    //return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                    return Json(new { Success = false, Message = "Invalid login attempt." }, JsonRequestBehavior.AllowGet);
+                    //return View(model);
             }
         }
 
@@ -154,7 +162,7 @@ namespace Delives.pk.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<JsonResult> Register(RegisterViewModel model)
         {
             var response = new ResponseModel();
             if (ModelState.IsValid)
@@ -176,7 +184,8 @@ namespace Delives.pk.Controllers
                 var result = UserManager.Create(user, model.Password);
                 if (result.Succeeded)
                 {
-                    //GeneratePhoneCodeApiMethod(user.Id, model.PhoneNumber);
+                    var phoneCode = GeneratePhoneCodeApiMethod(user.Id, user.PhoneNumber); // remove phoneCode from JSON 
+                    return Json(new { Success = true, Message = "", Object = new { UserId = user.Id} }, JsonRequestBehavior.AllowGet);
                     //4digit code VerifyPhone(VerifyPhoneNumberCustomeModel model)
                     //onVerification 
                     //then MVC logic -var user = UserManager.Find(model.PhoneNumber, model.Password);
@@ -187,6 +196,7 @@ namespace Delives.pk.Controllers
                 else
                 {
                     ModelState.AddModelError("", result.Errors.FirstOrDefault());
+                    return Json(new { Success = false, Message = String.Join("\n", result.Errors) }, JsonRequestBehavior.AllowGet);
                 }
             }
             else
@@ -200,11 +210,48 @@ namespace Delives.pk.Controllers
                 }
             }
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return Json(new { Success = false, Message = "Unable to create User" }, JsonRequestBehavior.AllowGet); ;
         }
 
         //
         // GET: /Account/ConfirmEmail
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberCustomeModel model)
+        {
+            try
+            {
+                if (model == null || model.UserId == null || model.Code == null)
+                {
+                    return Json(new { Success = false, Message = "Either UserId or Code is empty" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    string path = "http://www.delivers.pk/api/Account/VerifyPhoneNumber";
+                    SearchResponseModel responseContent = null;
+                    using (HttpClient client = new HttpClient())
+                    {
+                        client.BaseAddress = new Uri(path);
+                        client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
+
+                        //client.BaseAddress = new Uri(path);
+                        HttpResponseMessage response = await client.PostAsJsonAsync(path, model);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var user = UserManager.FindById(model.UserId);
+                            await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                            //return RedirectToAction("Index", "Delivery");
+                        }
+                    }
+
+                    return Json(new { Success = responseContent.Success, Message = String.Join(" ", responseContent.Messages) }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Success = true, Message = "Something went wrong while fetching" }, JsonRequestBehavior.AllowGet);
+            }
+        }
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
@@ -511,6 +558,15 @@ namespace Delives.pk.Controllers
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
+        }
+        public string GeneratePhoneCodeApiMethod(string userId, string mobile)
+        {
+            var phoneCode = UserManager.GenerateChangePhoneNumberToken(userId, mobile);
+            // mobile number 
+            mobile = mobile.Substring(1).Replace("-", "");
+            mobile = "92" + mobile;
+            Services.Services.EmailService.SendSms(mobile, "Your verification code is : " + phoneCode);
+            return phoneCode;
         }
         #endregion
     }

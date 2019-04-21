@@ -4,7 +4,7 @@
     foreach (var item in Model)
     {
         var voted = "";
-        <a href="detail_page.html" class="strip_list">
+        <a href="~/Menu/Index/@item.Id" class="strip_list">
             @if (item.IsFeatured)
             {
                 <div class="ribbon_1">

@@ -79,7 +79,7 @@
     <div class="container">
         <h3>Choose from over 2,000 Restaurants</h3>
         <p>Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula.</p>
-        <a href="list_page.html">View all Restaurants</a>
+        <a href="~/List/Index">View all Restaurants</a>
     </div><!-- End container -->
 </div>
 <!-- End hight_light -->
@@ -130,10 +130,13 @@
 <div class="layer"></div><!-- Mobile menu overlay mask -->
 <!-- Login modal -->
 
-@{Html.RenderPartial("~/Views/Home/LoginModal.cshtml");}
+@{Html.RenderPartial("~/Views/Shared/LoginModal.cshtml");}
 <!-- End modal -->
 <!-- Register modal -->
-@{Html.RenderPartial("~/Views/Home/RegisterModal.cshtml");}
+@{Html.RenderPartial("~/Views/Shared/RegisterModal.cshtml");}
+<!-- End Register modal -->
+<!-- Register modal -->
+@{Html.RenderPartial("~/Views/Shared/VerifyPhoneModal.cshtml");}
 <!-- End Register modal -->
 <!-- COMMON SCRIPTS -->
 @*<script src="js/jquery-2.2.4.min.js"></script>

@@ -59,8 +59,8 @@ namespace Delives.pk.Models
         public List<int> TypeList { get; set; }
         public int CurrentPage { get; set; }
         public int ItemsPerPage { get; set; }
-        public int DistanceFrom { get; set; }
-        public int DistanceTo { get; set; }
+        public string DistanceFrom { get; set; }
+        public string DistanceTo { get; set; }
         public int Rating { get; set; }
         public string SearchTerm { get; set; }
         public string Cords { get; set; }

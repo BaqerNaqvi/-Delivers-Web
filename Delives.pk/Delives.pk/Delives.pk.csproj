@@ -436,6 +436,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Shared\functions.js" />
     <Content Include="Scripts\video_header.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
@@ -475,8 +476,8 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Delivery\Index.cshtml" />
-    <Content Include="Views\Home\LoginModal.cshtml" />
-    <Content Include="Views\Home\RegisterModal.cshtml" />
+    <Content Include="Views\Shared\LoginModal.cshtml" />
+    <Content Include="Views\Shared\RegisterModal.cshtml" />
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Shared\_HeaderPartial.cshtml" />
     <Content Include="Views\Shared\_SubHeaderPartial.cshtml" />
@@ -494,6 +495,7 @@
     <Content Include="Views\List\_ListItemTypePartial.cshtml" />
     <Content Include="Views\List\_ListFilterPartial.cshtml" />
     <Content Include="Views\Delivery\_PopularItemsPartial.cshtml" />
+    <Content Include="Views\Shared\VerifyPhoneModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

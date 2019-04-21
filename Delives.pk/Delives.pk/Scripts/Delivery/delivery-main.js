@@ -6,7 +6,7 @@
     jqXHR: null,
     searchFilters: {
         TypeList: [],
-        Cords: "32.1611321_74.1765673",
+        Cords: null,
         CurrentPage: 1,
         ItemsPerPage: 6,
         SearchTerm: "",
@@ -20,7 +20,7 @@
     resetSearchFilters: function () {
         deliveryConfig.searchFilters = {
             TypeList: [],
-            Cords: (locationConfig.coords !== null ? locationConfig.coords : "32.1611321_74.1765673"),
+            Cords: locationConfig.getCoords(),
             CurrentPage: 1,
             ItemsPerPage: 6,
             SearchTerm: "",
@@ -35,7 +35,7 @@
     getListItems: function () {
         this.jqXHR = $.ajax({
             method: "POST",
-            url: "FetchItemsPartialAsync",
+            url: "/Delivery/FetchItemsPartialAsync",
             dataType: "html",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({ itemSearchModel: deliveryConfig.searchFilters })
@@ -44,6 +44,7 @@
             //alert("success");
         }).fail(function (jqXHR, textStatus, errorThrown) {
             //alert("error");
+            console.log(errorThrown);
         }).always(function () {
             //alert("complete");
         });
@@ -67,11 +68,11 @@ $(() => {
         });
 
     });
-    if (locationConfig.coords === null) {
-        if (locationConfig.checkGeoLocationSupported() && locationConfig.errorCode === null) {
-            locationConfig.getGeoLocation(deliveryConfig.loadLocationDependentData);
-        }
-    }
-    //deliveryConfig.resetSearchFilters();
-    //deliveryConfig.getListItems();
+    //if (locationConfig.coords === null) {
+    //    if (locationConfig.checkGeoLocationSupported() && locationConfig.errorCode === null) {
+    //        locationConfig.getGeoLocation(deliveryConfig.loadLocationDependentData);
+    //    }
+    //}
+    deliveryConfig.resetSearchFilters();
+    deliveryConfig.getListItems();
 });

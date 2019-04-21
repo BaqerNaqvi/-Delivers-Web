@@ -6,7 +6,7 @@
     jqXHR: null,
     searchFilters: {
         TypeList: [],
-        Cords: "32.1611321_74.1765673",
+        Cords: null,
         CurrentPage: 0,
         ItemsPerPage: 10,
         SearchTerm: "",
@@ -20,7 +20,7 @@
     resetSearchFilters: function () {
         listConfig.searchFilters = {
             TypeList: [],
-            Cords: locationConfig.coords !== null ? locationConfig.coords : "32.1611321_74.1765673",
+            Cords: locationConfig.getCoords(),
             CurrentPage: 0,
             ItemsPerPage: 10,
             SearchTerm: "",
@@ -51,7 +51,7 @@
         var distance = $('#range').data('ionRangeSlider').options;
         listConfig.searchFilters = {
             TypeList: itemTypes,
-            Cords: locationConfig.coords !== null ? locationConfig.coords : "32.1611321_74.1765673",
+            Cords: locationConfig.getCoords(),
             CurrentPage: resetPage ? 0 : listConfig.searchFilters.CurrentPage,
             ItemsPerPage: 10,
             SearchTerm: $('#searchTerm').val(),
@@ -69,23 +69,24 @@
         this.jqXHR = $.ajax({
             method: "POST",
             url: "FetchItemsPartialAsync",
-            dataType: "html",
+            dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({ itemSearchModel: listConfig.searchFilters })
         }).done(function (response) {
-            let data = JSON.parse(response);
-            if (data.Success) {
-                $(data.Html).insertBefore($('.load_more_bt'));
+            //let data = JSON.parse(response);
+            if (response.Success) {
+                $(response.Html).insertBefore($('.load_more_bt'));
                 if (recenterMap)
                 mapConfig.recenterMap(locationConfig.latitude, locationConfig.longitude);
-                mapConfig.setMarkersPoint(data.Object);
+                mapConfig.setMarkersPoint(response.Object);
             }
             else {
-                console.log(data.Message);
+                console.log(response.Message);
             }
             //alert("success");
         }).fail(function (jqXHR, textStatus, errorThrown) {
             //alert("error");
+            console.log(errorThrown);
         }).always(function () {
             //alert("complete");
         });
@@ -106,6 +107,7 @@
             //alert("success");
         }).fail(function (jqXHR, textStatus, errorThrown) {
             //alert("error");
+            console.log(errorThrown);
         }).always(function () {
             //alert("complete");
         });
@@ -160,11 +162,13 @@ $(() => {
     listConfig.resetSearchFilters();
     listConfig.searchFilters.SearchTerm = myParam;
     listConfig.getFilterTypes();
-    if (locationConfig.coords === null) {
-        if (locationConfig.checkGeoLocationSupported() && locationConfig.errorCode === null) {
-            locationConfig.getGeoLocation(listConfig.loadLocationDependentData);
-        }
-    }
+    //if (locationConfig.coords === null) {
+    //    if (locationConfig.checkGeoLocationSupported() && locationConfig.errorCode === null) {
+    //        locationConfig.getGeoLocation(listConfig.loadLocationDependentData);
+    //    }
+    //}
+    listConfig.resetSearchFilters();
+    listConfig.getListItems(true);
 });
 
 $('#performSearch').on('click', () => {
