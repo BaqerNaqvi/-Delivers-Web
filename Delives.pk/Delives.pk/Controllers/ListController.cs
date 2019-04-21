@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,16 +47,36 @@ namespace Delives.pk.Controllers
             };
             try
             {
-                List<ItemViewModel> items = await GetItemsAsync(itemSearchModel);
-                var html = RenderRazorViewToString("~/Views/List/_ListItemPartial.cshtml", items);
-                return Json(new { Success = true, Message = "", Object = items, Html = html }, JsonRequestBehavior.AllowGet);
+                ItemsResponseModel itemsResponseModel = await GetItemsAsync(itemSearchModel);
+                if (itemsResponseModel != null)
+                {
+                    if (itemsResponseModel.TotalItems == 0)
+                    {
+                        return Json(new { Success = true, Status= HttpStatusCode.NotFound, Message = "No item(s) found" }, JsonRequestBehavior.AllowGet);
+                    }
+                    else if (itemsResponseModel.TotalItems <= (itemsResponseModel.CurrentPage * itemsResponseModel.ItemsPerPage))
+                    {
+                        var html = RenderRazorViewToString("~/Views/List/_ListItemPartial.cshtml", itemsResponseModel.Items);
+                        return Json(new { Success = true, Status = HttpStatusCode.ResetContent, Message = "Something went wrong while fetching items" }, JsonRequestBehavior.AllowGet);
+                    }
+                    else if (itemsResponseModel.Items != null)
+                    {
+                        var html = RenderRazorViewToString("~/Views/List/_ListItemPartial.cshtml", itemsResponseModel.Items);
+                        return Json(new { Success = true, Status = HttpStatusCode.OK, Message = "", Object = itemsResponseModel.Items, Html = html }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new { Success = false, Status = HttpStatusCode.InternalServerError, Message = "Something went wrong while fetching items" }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                return Json(new { Success = false, Status = HttpStatusCode.InternalServerError, Message = "Something went wrong while fetching items" }, JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
             {
-                return Json(new { Success = false, Message = "Something went wrong while fetching items" }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false, Status = HttpStatusCode.InternalServerError, Message = "Something went wrong while fetching items" }, JsonRequestBehavior.AllowGet);
             }
         }
-        private async Task<List<ItemViewModel>> GetItemsAsync(ItemSearchModel itemSearchModel)
+        private async Task<ItemsResponseModel> GetItemsAsync(ItemSearchModel itemSearchModel)
         {
             try
             {
@@ -77,7 +98,7 @@ namespace Delives.pk.Controllers
                 {
                     var json = JsonConvert.SerializeObject(responseContent.Data);
                     var itemsResponseModel = JsonConvert.DeserializeObject<ItemsResponseModel>(json);
-                    return itemsResponseModel.Items;
+                    return itemsResponseModel;
                 }
                 else
                 {

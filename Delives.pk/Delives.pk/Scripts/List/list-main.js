@@ -75,18 +75,31 @@
         }).done(function (response) {
             //let data = JSON.parse(response);
             if (response.Success) {
-                $(response.Html).insertBefore($('.load_more_bt'));
-                if (recenterMap)
-                mapConfig.recenterMap(locationConfig.latitude, locationConfig.longitude);
-                mapConfig.setMarkersPoint(response.Object);
+                if (response.Status === 404) {
+                    $('.load_more_bt').hide();
+                    toastr.error(response.Message);
+                }
+                else {
+                    $(response.Html).insertBefore($('.load_more_bt'));
+                    if (recenterMap)
+                        mapConfig.recenterMap(locationConfig.latitude, locationConfig.longitude);
+                    mapConfig.setMarkersPoint(response.Object);
+
+                    if (response.Status === 205) {
+                        $('.load_more_bt').hide();
+                    }
+                    else {
+                        $('.load_more_bt').show();
+                    }
+                }
             }
             else {
-                console.log(response.Message);
+                toastr.error(response.Message);
             }
             //alert("success");
         }).fail(function (jqXHR, textStatus, errorThrown) {
             //alert("error");
-            console.log(errorThrown);
+            toastr.error(errorThrown);
         }).always(function () {
             //alert("complete");
         });
@@ -107,7 +120,7 @@
             //alert("success");
         }).fail(function (jqXHR, textStatus, errorThrown) {
             //alert("error");
-            console.log(errorThrown);
+            toastr.error(errorThrown);
         }).always(function () {
             //alert("complete");
         });
@@ -172,7 +185,9 @@ $(() => {
 });
 
 $('#performSearch').on('click', () => {
+    $('.load_more_bt').show();
     listConfig.setSearchFilters(true);
     $('#tools').nextAll('div').remove();
+    mapConfig.removeAllMarkers();
     listConfig.getListItems();
 });

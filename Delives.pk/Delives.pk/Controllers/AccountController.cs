@@ -13,6 +13,7 @@ using Delives.pk.Models;
 using System.Net.Http;
 using Delives.pk.Security;
 using Newtonsoft.Json;
+using System.Net;
 
 namespace Delives.pk.Controllers
 {
@@ -81,28 +82,29 @@ namespace Delives.pk.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new { Success = false, Message = "Model state is not valid" }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false, Status = HttpStatusCode.PreconditionFailed, Message = "Required data is either empty or corrupt" }, JsonRequestBehavior.AllowGet);
                 //return View(model);
             }
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.PhoneNumber, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return Json(new { Success = true, Message = "Login Successful" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Success = true, Status = HttpStatusCode.OK, Message = "Login Successful" }, JsonRequestBehavior.AllowGet);
                     //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
-                    return Json(new { Success = false, Message = "This account has been locked" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Success = false, Status = HttpStatusCode.Unauthorized, Message = "This account has been locked" }, JsonRequestBehavior.AllowGet);
                     //return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return Json(new { Success = false, Message = "Requires Verification" }, JsonRequestBehavior.AllowGet);
+                    var user = UserManager.Find(model.PhoneNumber, model.Password);
+                    return Json(new { Success = true, Status = HttpStatusCode.PartialContent, Message = "Requires Verification", Object = new { UserId = user.Id} }, JsonRequestBehavior.AllowGet);
                     //return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
-                    return Json(new { Success = false, Message = "Invalid login attempt." }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Success = false, Status = HttpStatusCode.InternalServerError, Message = "Invalid login attempt." }, JsonRequestBehavior.AllowGet);
                     //return View(model);
             }
         }
@@ -185,7 +187,7 @@ namespace Delives.pk.Controllers
                 if (result.Succeeded)
                 {
                     var phoneCode = GeneratePhoneCodeApiMethod(user.Id, user.PhoneNumber); // remove phoneCode from JSON 
-                    return Json(new { Success = true, Message = "", Object = new { UserId = user.Id} }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Success = true, Message = "Registeration successful", Object = new { UserId = user.Id} }, JsonRequestBehavior.AllowGet);
                     //4digit code VerifyPhone(VerifyPhoneNumberCustomeModel model)
                     //onVerification 
                     //then MVC logic -var user = UserManager.Find(model.PhoneNumber, model.Password);

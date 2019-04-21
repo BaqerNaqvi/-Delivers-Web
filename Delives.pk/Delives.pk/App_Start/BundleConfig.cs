@@ -26,6 +26,7 @@ namespace Delives.pk
             bundles.Add(new ScriptBundle("~/bundles/common").Include(
                       "~/Scripts/common_scripts_min.js",
                       "~/Scripts/Shared/functions.js",
+                      "~/Scripts/toastr.js",
                       "~/Scripts/functions.js",
                       "~/Scripts/video_header.js"));
 

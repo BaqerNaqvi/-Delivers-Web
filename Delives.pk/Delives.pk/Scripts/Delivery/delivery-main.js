@@ -44,7 +44,7 @@
             //alert("success");
         }).fail(function (jqXHR, textStatus, errorThrown) {
             //alert("error");
-            console.log(errorThrown);
+            toastr.error(errorThrown);
         }).always(function () {
             //alert("complete");
         });

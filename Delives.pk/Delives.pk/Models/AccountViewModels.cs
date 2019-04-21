@@ -50,10 +50,10 @@ namespace Delives.pk.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
-
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "PhoneNumber")]
+        public string PhoneNumber { get; set; }
+        
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
@@ -61,6 +61,9 @@ namespace Delives.pk.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        [Display(Name = "Type")]
+        public int Type { get; set; }
     }
 
     public class RegisterViewModel

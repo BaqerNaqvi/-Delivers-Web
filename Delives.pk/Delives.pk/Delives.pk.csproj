@@ -382,6 +382,8 @@
     <Content Include="Content\skins\square\yellow.png" />
     <Content Include="Content\skins\square\_all.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="Content\Videos\intro.mp4" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -416,6 +418,8 @@
     <Content Include="Content\Videos\intro.ogv" />
     <Content Include="Content\skins\.DS_Store" />
     <Content Include="Images\pins\.DS_Store" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
     <None Include="Properties\PublishProfiles\Delivers.Pk.pubxml" />
     <Content Include="Scripts\cat_nav_mobile.js" />
     <Content Include="Scripts\common_scripts_min.js" />
@@ -437,6 +441,8 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Shared\functions.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\video_header.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">

@@ -93,6 +93,10 @@ var mapConfig = {
                 marker.setMap(null);
             });
     },
+    removeAllMarkers: function () {
+        mapConfig.hideAllMarkers();
+        mapConfig.markers = [];
+    },
     recenterMap: function (lat, long) {
         mapConfig.mapObject.setCenter(new google.maps.LatLng(lat !== null ? lat : 32.1611321, long !== null ? long : 74.1765673));
     }

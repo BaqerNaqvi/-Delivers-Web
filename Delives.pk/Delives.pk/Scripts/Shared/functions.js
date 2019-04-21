@@ -205,15 +205,15 @@ let userConfig = {
                 userConfig.UserModel = response.Object;
                 userConfig.openPhoneVerificationModal();
                 //open modal to verify 4 digit code
-                console.log(response.Message);
+                toastr.success(response.Message);
             }
             else {
-                console.log(response.Message);
+                toastr.error(response.Message);
             }
             //alert("success");
         }).fail(function (jqXHR, textStatus, errorThrown) {
             //alert("error");
-            console.log(errorThrown);
+            toastr.error(errorThrown);
         }).always(function () {
             //alert("complete");
         });
@@ -227,17 +227,18 @@ let userConfig = {
             data: JSON.stringify({ model: model })
         }).done(function (response) {
             if (response.Success) {
-                window.location.href = "/Delivery/Index";
+                toastr.success(response.Message);
+                location.reload(true);
+                //window.location.href = "/Delivery/Index";
                 //open modal to verify 4 digit code
-                console.log(response.Message);
             }
             else {
-                console.log(response.Message);
+                toastr.error(response.Message);
             }
             //alert("success");
         }).fail(function (jqXHR, textStatus, errorThrown) {
             //alert("error");
-            console.log(errorThrown);
+            toastr.error(errorThrown);
         }).always(function () {
             //alert("complete");
         });
@@ -250,17 +251,23 @@ let userConfig = {
             data: { model: model, "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
         }).done(function (response) {
             if (response.Success) {
-                window.location.href = "/Delivery/Index";
+                toastr.success(response.Message);
+                if (Status === 200)
+                    location.reload(true);
+                else if (Status === 206) {
+                    userConfig.UserModel = response.Object;
+                    userConfig.openPhoneVerificationModal();
+                }
+                //window.location.href = "/Delivery/Index";
                 //open modal to verify 4 digit code
-                console.log(response.Message);
             }
             else {
-                console.log(response.Message);
+                toastr.error(response.Message);
             }
             //alert("success");
         }).fail(function (jqXHR, textStatus, errorThrown) {
             //alert("error");
-            console.log(errorThrown);
+            toastr.error(errorThrown);
         }).always(function () {
             //alert("complete");
         });
@@ -276,7 +283,7 @@ let userConfig = {
     validateRegisterationForm: function () {
         $("#myRegister").validate({
             rules: {
-                name: {
+                firstName: {
                     required: {
                         depends: function () {
                             $(this).val($.trim($(this).val()));
@@ -309,7 +316,7 @@ let userConfig = {
                     minlength: 11,
                     maxlength: 11
                 },
-                password: {
+                newPassword: {
                     required: true,
                     minlength: 8,
                     maxlength: 20,
@@ -317,7 +324,7 @@ let userConfig = {
 
                 },
                 confirmPassword: {
-                    equalTo: "#password",
+                    equalTo: "#newPassword",
                     minlength: 8,
                     maxlength: 20,
                 },
@@ -343,10 +350,10 @@ let userConfig = {
                 var user = {
                     UserName: $('#phoneNumber').val(),
                     Email: "production",
-                    FirstName: $('#name').val(),
+                    FirstName: $('#firstName').val(),
                     LastName: $('#lastName').val(),
                     PhoneNumber: $('#phoneNumber').val(),
-                    Password: $('#password').val(),
+                    Password: $('#newPassword').val(),
                     Type: 1
                 };
                 userConfig.registerUser(user);
@@ -406,7 +413,7 @@ let userConfig = {
             submitHandler: function (form) {
                 console.log("Login user");
                 var model = {
-                    UserName: $('#userName').val(),
+                    PhoneNumber: $('#userName').val(),
                     Password: $('#password').val(),
                     Type: 1
                 };
@@ -430,6 +437,23 @@ $(() => {
         locationConfig.getGeoLocation();
     }
     userConfig.validateForms();
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
 });
 //#endregion DocumentReady
 
