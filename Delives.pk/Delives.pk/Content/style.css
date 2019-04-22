@@ -1,9 +1,4 @@
 /*
-Theme Name: QuickFood 
-Theme URI: http://www.ansonika.com/quickfood/
-Author: Ansonika
-Author URI: http://themeforest.net/user/Ansonika/
-
 [Table of contents] 
 
 1. SITE STRUCTURE and TYPOGRAPHY
@@ -2684,4 +2679,11 @@ ul.plan-features {
 }
 .plan-tall + .plan {
 	border-left: 0;
+}
+
+.logoCls{
+    margin-top: -22px!important;
+    margin-left: -1px!important;
+    width: 140px!important;
+    height: 140px!important;
 }

@@ -261,6 +261,7 @@
     <Content Include="Content\images\homePage1200x600.JPG" />
     <Content Include="Content\images\homepage_partner.JPG" />
     <Content Include="Content\images\homepage_Rider.JPG" />
+    <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\openhand.cur" />
     <Content Include="Content\ion.rangeSlider.css" />
     <Content Include="Content\ion.rangeSlider.skinFlat.css" />
