@@ -58,7 +58,7 @@ namespace Delives.pk.Controllers
                 HttpResponseMessage response = await client.PostAsJsonAsync(path, userObj);
                 if (response.IsSuccessStatusCode)
                 {
-                    responseContent = await response.Content.ReadAsAsync<UserInfoInCartResponseModel>(); 
+                    responseContent = await response.Content.ReadAsAsync<UserInfoInCartResponseModel>();  
                 }
             }
 
