@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Delives.pk.Models.ItemViewModel>
-@if (Model != null && Model.Count() > 5)
+@if (Model != null && Model.Count() > 0)
 {
     <div class="col-md-6 load-popular-items-left">
         @{Html.RenderPartial("~/Views/Delivery/_ListItemPartial.cshtml", Model.Take(3));}

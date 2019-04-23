@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "List";
+}
+
+@Styles.Render("~/Content/checkboxes")
+
+
+<!-- SubHeader =============================================== -->
+@{Html.RenderPartial("~/Views/List/_SubHeaderPartial.cshtml");}
+<!-- End SubHeader ============================================ -->
+
+<div id="position">
+    <div class="container">
+        <ul>
+            <li><a href="#0">Home</a></li>
+            <li><a href="#0">Category</a></li>
+            <li>Page active</li>
+        </ul>
+        <a href="javascript:void(0)" class="search-overlay-menu-btn"><i class="icon-search-6"></i> Search</a>
+    </div>
+</div><!-- Position -->
+
+<div class="collapse" id="collapseMap">
+    <div id="map" class="map"></div>
+</div><!-- End Map -->
+<!-- Content ================================================== -->
+<div class="container margin_60_35">
+    <div class="row">
+
+        <div class="col-md-3">
+            <p>
+                <a class="btn_map" data-toggle="collapse" href="#collapseMap" aria-expanded="false" aria-controls="collapseMap">View on map</a>
+            </p>
+
+            @{Html.RenderPartial("~/Views/List/_ListFilterPartial.cshtml");}<!--End filters col-->
+        </div><!--End col-md -->
+
+
+        @{Html.RenderPartial("~/Views/List/_ResultPartial.cshtml");}
+
+
+
+    </div><!-- End row -->
+</div><!-- End container -->
+<!-- End Content =============================================== -->
+<!-- Footer ================================================== -->
+<!-- End Footer =============================================== -->
+
+<div class="layer"></div><!-- Mobile menu overlay mask -->
+<!-- Login modal -->
+@{Html.RenderPartial("~/Views/Shared/LoginModal.cshtml");}
+<!-- End modal -->
+<!-- Register modal -->
+@{Html.RenderPartial("~/Views/Shared/RegisterModal.cshtml");}
+<!-- End Register modal -->
+<!-- Register modal -->
+@{Html.RenderPartial("~/Views/Shared/VerifyPhoneModal.cshtml");}
+<!-- End Register modal -->
+<!-- Search Menu -->
+
+@{Html.RenderPartial("~/Views/List/SearchModal.cshtml");}
+<!-- End Search Menu -->
+
+
+
+@section Scripts {
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    @Scripts.Render("~/bundles/list")
+}

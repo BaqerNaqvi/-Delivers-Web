@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Delives.pk.Models.ItemViewModel>
+@if (Model != null && Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        var voted = "";
+        <a href="~/Menu/Index/@item.Id" class="strip_list">
+            @if (item.IsFeatured)
+            {
+                <div class="ribbon_1">
+                    Popular
+                </div>
+            }
+            <div class="desc">
+                <div class="thumb_strip">
+                    <img src=@item.LogoImage alt="">
+                </div>
+                <div class="rating">
+                    @for (int i = 0; i < 5; i++)
+                    {
+                        voted = (item.Rating > i ? "voted" : "");
+                        <i class="icon_star @voted"></i>
+                    }
+                </div>
+                <h3>@item.Name</h3>
+                <div class="type">
+                    @item.TypeName
+                </div>
+                <div class="location">
+                    @item.Address <span class="opening">Opens at @item.Opens</span>
+                </div>
+                <ul>
+                    @*<li>Take away<i class="icon_check_alt2 ok"></i></li>*@
+                    <li>Delivery<i class="icon_check_alt2 ok"></i></li>
+                </ul>
+            </div><!-- End desc-->
+        </a>
+    }
+}
