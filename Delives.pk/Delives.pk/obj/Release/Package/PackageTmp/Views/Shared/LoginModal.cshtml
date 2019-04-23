@@ -1,0 +1,17 @@
+<div class="modal fade" id="login_2" tabindex="-1" role="dialog" aria-labelledby="myLogin" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content modal-popup">
+            <a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
+            <form action="#" class="popup-form" id="myLogin" onsubmit="return false">
+                @Html.AntiForgeryToken()
+                <div class="login_icon"><i class="icon_lock_alt"></i></div>
+                <input id="userName" name="userName" type="text" class="form-control form-white" placeholder="Phone number" maxlength="20" autocomplete="off">
+                <input id="password" name="password" type="password" class="form-control form-white" placeholder="Password" maxlength="20" autocomplete="off">
+                <div class="text-left">
+                    <a href="#">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn btn-submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

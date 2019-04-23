@@ -295,7 +295,7 @@ header{
 	z-index:99999;
 }
 header.sticky{
-	background-color: #78cfcf;
+	background-color: #d9dfe2ba;
 	-webkit-box-shadow: 0px 2px 10px -2px rgba(0, 0, 0, 0.41);
 	-moz-box-shadow:0px 2px 10px -2px rgba(0, 0, 0, 0.41);
 	box-shadow:0px 2px 10px -2px rgba(0, 0, 0, 0.41);
@@ -1311,7 +1311,7 @@ ul.opening_list li span{
 	width:100%;
 	height:100%;
 	bottom:0;
-	background-color:#78cfcf; 
+	background-color: #e7f1f1b3; 
 	z-index:999999; 
 }
 .sk-spinner-wave.sk-spinner {
@@ -2682,8 +2682,32 @@ ul.plan-features {
 }
 
 .logoCls{
-    margin-top: -22px!important;
-    margin-left: -1px!important;
-    width: 140px!important;
-    height: 140px!important;
+   margin-top: -6px!important;
+    margin-left: 14px!important;
+    width: 100px;
+    height: 100px;
+}
+
+.pac-item{
+    font-family: cursive !important;
+    padding: 5px !important;
+    cursor: default;
+    padding: 0 4px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 33px !important;
+    text-align: left;
+    border-top: 1px solid #e6e6e6;
+    font-size: 20px !important;
+    color: #673333 !important;
+}
+.pac-container.pac-logo{
+    border-radius: 12px !important;
+}
+
+.pac-item-query {
+    font-size: 13px !important;
+    padding-right: 3px !important;
+    color: #673333 !important;
 }

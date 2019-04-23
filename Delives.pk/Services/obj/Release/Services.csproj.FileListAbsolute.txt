@@ -1,0 +1,13 @@
+C:\Users\baqer.naqvi.AFINITI\source\repos\-Delivers-Web1\Delives.pk\Services\bin\Release\Services.dll.config
+C:\Users\baqer.naqvi.AFINITI\source\repos\-Delivers-Web1\Delives.pk\Services\bin\Release\Services.dll
+C:\Users\baqer.naqvi.AFINITI\source\repos\-Delivers-Web1\Delives.pk\Services\bin\Release\Services.pdb
+C:\Users\baqer.naqvi.AFINITI\source\repos\-Delivers-Web1\Delives.pk\Services\bin\Release\EntityFramework.dll
+C:\Users\baqer.naqvi.AFINITI\source\repos\-Delivers-Web1\Delives.pk\Services\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\baqer.naqvi.AFINITI\source\repos\-Delivers-Web1\Delives.pk\Services\bin\Release\Newtonsoft.Json.dll
+C:\Users\baqer.naqvi.AFINITI\source\repos\-Delivers-Web1\Delives.pk\Services\bin\Release\EntityFramework.xml
+C:\Users\baqer.naqvi.AFINITI\source\repos\-Delivers-Web1\Delives.pk\Services\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\baqer.naqvi.AFINITI\source\repos\-Delivers-Web1\Delives.pk\Services\bin\Release\Newtonsoft.Json.pdb
+C:\Users\baqer.naqvi.AFINITI\source\repos\-Delivers-Web1\Delives.pk\Services\bin\Release\Newtonsoft.Json.xml
+C:\Users\baqer.naqvi.AFINITI\source\repos\-Delivers-Web1\Delives.pk\Services\obj\Release\Services.csprojResolveAssemblyReference.cache
+C:\Users\baqer.naqvi.AFINITI\source\repos\-Delivers-Web1\Delives.pk\Services\obj\Release\Services.dll
+C:\Users\baqer.naqvi.AFINITI\source\repos\-Delivers-Web1\Delives.pk\Services\obj\Release\Services.pdb

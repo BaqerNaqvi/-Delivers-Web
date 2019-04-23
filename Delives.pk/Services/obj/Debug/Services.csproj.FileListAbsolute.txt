@@ -23,6 +23,5 @@ C:\Users\baqer.naqvi.AFINITI\Source\Repos\-Delivers-Web1\Delives.pk\Services\bin
 C:\Users\baqer.naqvi.AFINITI\Source\Repos\-Delivers-Web1\Delives.pk\Services\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\baqer.naqvi.AFINITI\Source\Repos\-Delivers-Web1\Delives.pk\Services\bin\Debug\Newtonsoft.Json.pdb
 C:\Users\baqer.naqvi.AFINITI\Source\Repos\-Delivers-Web1\Delives.pk\Services\bin\Debug\Newtonsoft.Json.xml
-C:\Users\baqer.naqvi.AFINITI\Source\Repos\-Delivers-Web1\Delives.pk\Services\obj\Debug\Services.csprojResolveAssemblyReference.cache
 C:\Users\baqer.naqvi.AFINITI\Source\Repos\-Delivers-Web1\Delives.pk\Services\obj\Debug\Services.dll
 C:\Users\baqer.naqvi.AFINITI\Source\Repos\-Delivers-Web1\Delives.pk\Services\obj\Debug\Services.pdb

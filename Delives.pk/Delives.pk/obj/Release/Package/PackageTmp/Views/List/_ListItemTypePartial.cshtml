@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Delives.pk.Models.ItemTypeViewModel>
+@if (Model != null && Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        <li>
+            <label>
+                <input type="checkbox" checked class="icheck item-type item-type-@item.CatId" value="@item.CatId" >@item.Name<small>(@item.ItemCount)</small>
+            </label>
+        </li>
+    }
+}
