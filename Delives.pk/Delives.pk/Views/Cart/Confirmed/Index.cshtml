@@ -1,5 +1,5 @@
 ﻿
-@model List<Delives.pk.Models.OrderLocal>
+@model Delives.pk.Models.OrderConfirmedResponseModel
 
 @Styles.Render("~/Content/cart")
 
@@ -8,7 +8,7 @@
 <!-- End SubHeader ============================================ -->
 
 @{
-    var deliveryCharges = 0;
+    var deliveryCharges = Model.Data.DeliveryFee;
     var grandTotal = 0;
     grandTotal += deliveryCharges;
 
@@ -37,21 +37,28 @@
                         Lorem ipsum dolor sit amet, nostrud nominati vis ex, essent conceptam eam ad. Cu etiam comprehensam nec. Cibo delicata mei an, eum porro legere no.
                     </p>
                 </div>
-                @foreach (var item in Model)
+                @foreach (var item in Model.Data.Orders )
                 {
-                    <h4>@item.OrderByName</h4>
+                    var detailObj = item.OrderDetails.FirstOrDefault();
+                    var resName = "";
+                    if (detailObj != null)
+                    {
+                        resName = detailObj.ItemDetail.ListItem != null ? detailObj.ItemDetail.ListItem.Name : "";
+                    }
+                    <h4>@resName</h4>
                     <table class="table table-striped nomargin">
                         <tbody>
                             @foreach (var order in item.OrderDetails)
                             {
+                                var _price = order.ItemDetail.Price * order.Quantity;
                                 <tr>
                                     <td>
                                         <strong>@order.Quantity x</strong> @order.ItemDetail.Name
                                     </td>
                                     <td>
-                                        <strong class="pull-right">Rs @order.ItemDetail.Price * @order.Quantity</strong>
+                                        <strong class="pull-right">Rs @_price</strong>
                                         @{ 
-                                            grandTotal += order.ItemDetail.Price;
+                                            grandTotal += _price;
                                         }
                                     </td>
                                 </tr>
@@ -61,7 +68,7 @@
                                     Delivery charges
                                 </td>
                                 <td>
-                                    <strong class="pull-right">Rs 50</strong>
+                                    <strong class="pull-right">Rs @deliveryCharges</strong>
                                 </td>
                             </tr>
 
@@ -73,10 +80,10 @@
                     <tbody>
                         <tr>
                             <td>
-                                Delivery schedule <a href="#" class="tooltip-1" data-placement="top" title="" data-original-title="Please consider 30 minutes of margin for the delivery!"><i class="icon_question_alt"></i></a>
+                                Estimated Delivery time <a href="#" class="tooltip-1" data-placement="top" title="" data-original-title="Please consider 30 minutes of margin for the delivery!"><i class="icon_question_alt"></i></a>
                             </td>
                             <td>
-                                <strong class="pull-right">Today 07.30 pm</strong>
+                                <strong class="pull-right" id="deliveryTimeNode">@Model.Data.DeliveryTime minutes</strong>
                             </td>
                         </tr>
                         <tr>
@@ -95,3 +102,10 @@
     </div><!-- End row -->
 </div><!-- End container -->
 <!-- End Content =============================================== -->
+
+@*<script>
+    var now = new Date();
+    now.setMinutes(now.getMinutes() + @Model.Data.DeliveryTime); // timestamp
+    now = new Date(now).toLocaleTimeString(); // Date object
+    $("#deliveryTimeNode").html(now);
+</script>*@

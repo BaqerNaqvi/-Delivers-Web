@@ -91,7 +91,7 @@ namespace Delives.pk.Controllers
                         responseContent = await response.Content.ReadAsAsync<PlaceOrderResponseModel>();
                     }
                 }
-                System.Web.HttpContext.Current.Session["ConfirmedOrderIds"] = responseContent.OrderId;
+                System.Web.HttpContext.Current.Session["ConfirmedOrderSerialNo"] = responseContent.SerialNo;
             }
             catch (Exception e)
             {
@@ -107,22 +107,22 @@ namespace Delives.pk.Controllers
         [HttpGet]
         public async Task<ActionResult> OrderConfirmed(List<string> OrderIds)
         {
-            string path = "http://www.delivers.pk/api/order/getDetails";
+            string path = "http://www.delivers.pk/api/order/getDetailsBySerialNo";
             OrderConfirmedResponseModel responseContent = null;
 
-            List<OrderLocal> returnObj = new List<OrderLocal>(); 
+            //List<OrderLocal> returnObj = new List<OrderLocal>(); 
 
             try
             {
-                var OrderIdsList = System.Web.HttpContext.Current.Session["ConfirmedOrderIds"] as List<string>;
+                var OrderSerialNo = System.Web.HttpContext.Current.Session["ConfirmedOrderSerialNo"] as string;
                 
                 //System.Web.HttpContext.Current.Session["ConfirmedOrderIds"] = null;
 
 
                 //OrderIdsList
 
-                foreach (var item in OrderIdsList)
-                {
+               // foreach (var item in OrderIdsList)
+                //{
                     using (HttpClient client = new HttpClient())
                     {
                         client.BaseAddress = new Uri(path);
@@ -132,7 +132,7 @@ namespace Delives.pk.Controllers
                         //client.BaseAddress = new Uri(path);
                         OrderConfirmedRequestModel msModel = new OrderConfirmedRequestModel()
                         {
-                            OrderId = item
+                            SerialNo = OrderSerialNo
                         };
 
                         HttpResponseMessage response = await client.PostAsJsonAsync(path, msModel);
@@ -141,11 +141,11 @@ namespace Delives.pk.Controllers
                             responseContent = await response.Content.ReadAsAsync<OrderConfirmedResponseModel>();
                         }
 
-                        if (responseContent!=null)
-                        {
-                            returnObj.Add(responseContent.Data);
-                        }
-                    }
+                        //if (responseContent!=null)
+                        //{
+                        //    returnObj.Add(responseContent.Data);
+                        //}
+              //      }
                 }
                 
                 
@@ -156,7 +156,7 @@ namespace Delives.pk.Controllers
 //                throw;
             }
             
-            return View("~/Views/Cart/Confirmed/Index.cshtml",returnObj);
+            return View("~/Views/Cart/Confirmed/Index.cshtml", responseContent);
         }
 
         public async Task<ActionResult> Snapshot()

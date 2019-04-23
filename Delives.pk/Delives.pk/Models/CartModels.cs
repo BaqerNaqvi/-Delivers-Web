@@ -53,6 +53,7 @@ namespace Delives.pk.Models
     public class PlaceOrderResponseModel
     {
         public List<string> OrderId { get; set; }
+        public string SerialNo { get; set; }
         public string Data { get; set; }
         public string Success { get; set; }
         public List<string> Messages { get; set; }
@@ -76,14 +77,23 @@ namespace Delives.pk.Models
 
     public class OrderConfirmedResponseModel
     {
-        public OrderLocal Data { get; set; }
+        public GetOrderBySerialNoResponse Data { get; set; }
         public string Success { get; set; }
         public List<string> Messages { get; set; }
     }
 
+    public class GetOrderBySerialNoResponse
+    {
+        public int DeliveryTime { get; set; }
+
+        public int DeliveryFee { get; set; }
+
+        public List<OrderLocal> Orders { get; set; }
+    }
+
     public class OrderConfirmedRequestModel
     {
-        public string OrderId { get; set; }
+        public string SerialNo { get; set; }
     }
 
     public class OrderLocal
