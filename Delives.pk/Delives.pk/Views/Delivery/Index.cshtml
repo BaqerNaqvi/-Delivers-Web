@@ -216,9 +216,12 @@
         // Autocomplete.
         function setupClickListener(id, types) {
             var radioButton = document.getElementById(id);
-            radioButton.addEventListener('click', function () {
-                autocomplete.setTypes(types);
-            });
+            if (radioButton != null) {
+                radioButton.addEventListener('click', function () {
+                    autocomplete.setTypes(types);
+                });
+            }
+           
         }
 
         setupClickListener('changetype-all', []);
@@ -226,11 +229,14 @@
         setupClickListener('changetype-establishment', ['establishment']);
         setupClickListener('changetype-geocode', ['geocode']);
 
-        document.getElementById('use-strict-bounds')
-            .addEventListener('click', function () {
+        var ele1 = document.getElementById('use-strict-bounds');
+        if(ele1!=undefined && ele1!=null){
+            ele1.addEventListener('click', function () {
                 console.log('Checkbox clicked! New state=' + this.checked);
                 autocomplete.setOptions({ strictBounds: this.checked });
             });
+        }
+            
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8Mj9nHFZn1Wh7wZriz4Mpq0uF26vVhig&libraries=places&callback=initMap"

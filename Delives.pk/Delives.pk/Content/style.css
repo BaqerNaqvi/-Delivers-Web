@@ -72,13 +72,21 @@ h3 .slide_typo strong {font-family:"Helvetica Neue", Helvetica, Arial, sans-seri
 	border-top-right-radius: 3px;
 }
 
-.main_title{ text-align:center; margin-bottom:45px; }
+.main_title{ text-align:center; margin-bottom:45px; border-radius: 5px;
+    color: white;
+    background-color: #ec008c;}
 .main_title h2{ font-size:46px; letter-spacing:-1px; font-weight:300; margin-bottom:0;}
 .main_title p{ font-size:18px; color:#555; line-height:1.2; margin-bottom:30px; font-weight:300;}
 
 .feature h3{margin-top:0;}
 .feature h3 span{color:#ec008c;}
+.main_title h2{
+    color:white;
+}
 
+.main_title p{
+    color:#302725
+}
 /*General links color*/
 a {color:#ec008c;text-decoration: none;-webkit-transition: all 0.2s ease;transition: all 0.2s ease; outline:none;}
 a:hover,a:focus {color: #111;text-decoration: none; outline:none;}
@@ -2700,7 +2708,7 @@ ul.plan-features {
     text-align: left;
     border-top: 1px solid #e6e6e6;
     font-size: 20px !important;
-    color: #673333 !important;
+    color: #ec008c !important;
 }
 .pac-container.pac-logo{
     border-radius: 12px !important;
@@ -2709,5 +2717,5 @@ ul.plan-features {
 .pac-item-query {
     font-size: 13px !important;
     padding-right: 3px !important;
-    color: #673333 !important;
+    color: #ec008c !important;
 }
