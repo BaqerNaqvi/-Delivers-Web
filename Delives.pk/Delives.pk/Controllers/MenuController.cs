@@ -24,7 +24,7 @@ namespace Delives.pk.Controllers
             return View(menuDetails);
         }
 
-        private async Task<List<MenuViewModel>> GetMenuAsync(int id)
+        private async Task<MenuResponseModel> GetMenuAsync(int id)
         {
             string path = "http://www.delivers.pk/api/Listing/GetMenu";
             MenuResponseModel responseContent = null;
@@ -49,7 +49,7 @@ namespace Delives.pk.Controllers
                     responseContent = await response.Content.ReadAsAsync<MenuResponseModel>();
                 }
             }
-            return responseContent.Data;
+            return responseContent;
         }
     }
 }

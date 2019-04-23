@@ -226,6 +226,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\DeliveryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -234,6 +235,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CartModels.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\ItemModels.cs" />
     <Compile Include="Models\MenuModels.cs" />
@@ -425,6 +427,8 @@
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
     <None Include="Properties\PublishProfiles\Delivers.Pk.pubxml" />
+    <Content Include="Scripts\Cart\cart-main.js" />
+    <Content Include="Scripts\Cart\cart-snapshot.js" />
     <Content Include="Scripts\cat_nav_mobile.js" />
     <Content Include="Scripts\common_scripts_min.js" />
     <Content Include="Scripts\Delivery\delivery-main.js" />
@@ -445,6 +449,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Shared\functions.js" />
+    <Content Include="Scripts\Shared\order-summary.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\video_header.js" />
@@ -499,13 +504,20 @@
     <Content Include="Views\List\_ToolsPartial.cshtml" />
     <Content Include="Views\List\_ResultPartial.cshtml" />
     <Content Include="Views\List\_ListItemPartial.cshtml" />
-    <Content Include="Views\Menu\Index.cshtml" />
-    <Content Include="Views\Menu\_SubHeaderPartial.cshtml" />
     <Content Include="Views\Delivery\_ListItemPartial.cshtml" />
     <Content Include="Views\List\_ListItemTypePartial.cshtml" />
     <Content Include="Views\List\_ListFilterPartial.cshtml" />
     <Content Include="Views\Delivery\_PopularItemsPartial.cshtml" />
     <Content Include="Views\Shared\VerifyPhoneModal.cshtml" />
+    <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\Menu\_SubHeaderPartial.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\OrderSnapshot.cshtml" />
+    <Content Include="Views\Cart\_SubHeaderPartial.cshtml" />
+    <Content Include="Views\Cart\Snapshot\Index.cshtml" />
+    <Content Include="Views\Cart\Snapshot\_SubHeaderPartial.cshtml" />
+    <Content Include="Views\Cart\Confirmed\Index.cshtml" />
+    <Content Include="Views\Cart\Confirmed\_SubHeaderPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
