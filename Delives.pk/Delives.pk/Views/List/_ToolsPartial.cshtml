@@ -7,9 +7,10 @@
         <div class="col-md-3 col-sm-3 col-xs-6">
             <div class="styled-select">
                 <select name="sort_rating" id="sort_rating">
-                    <option value="" selected="">Sort by ranking</option>
-                    <option value="lower">Lowest ranking</option>
-                    <option value="higher">Highest ranking</option>
+                    <option value="distance-asc" selected="selected" data-order-by="distance" data-sort-order="asc">Nearest results first</option>
+                    <option value="distance-desc"  data-order-by="distance" data-sort-order="desc">Farther results first</option>
+                    <option value="rating-asc"  data-order-by="rating" data-sort-order="asc">Lowest rating</option>
+                    <option value="rating-desc"  data-order-by="rating" data-sort-order="desc">Highest rating</option>
                 </select>
             </div>
         </div>

@@ -1,5 +1,6 @@
 ﻿using Delives.pk.Models;
 using Delives.pk.Security;
+using Delives.pk.Utilities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace Delives.pk.Controllers
         [HttpPost]
         public async Task<JsonResult> FetchItemsPartialAsync(ItemSearchModel itemSearchModel)
         {
-            SearchResponseModel searchResponseModel = new SearchResponseModel()
+            ResponseModel searchResponseModel = new ResponseModel()
             {
                 Success = false,
                 Data = null,
@@ -57,7 +58,7 @@ namespace Delives.pk.Controllers
                     else if (itemsResponseModel.TotalItems <= (itemsResponseModel.CurrentPage * itemsResponseModel.ItemsPerPage))
                     {
                         var html = RenderRazorViewToString("~/Views/List/_ListItemPartial.cshtml", itemsResponseModel.Items);
-                        return Json(new { Success = true, Status = HttpStatusCode.ResetContent, Message = "Something went wrong while fetching items" }, JsonRequestBehavior.AllowGet);
+                        return Json(new { Success = true, Status = HttpStatusCode.ResetContent, Message = "Change filters to search for more items" }, JsonRequestBehavior.AllowGet);
                     }
                     else if (itemsResponseModel.Items != null)
                     {
@@ -80,21 +81,19 @@ namespace Delives.pk.Controllers
         {
             try
             {
-                string path = "http://www.delivers.pk/api/Listing/GetItems";
-                SearchResponseModel responseContent = null;
+                string actionPath = "Listing/GetItems";
+                ResponseModel responseContent = null;
                 using (HttpClient client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri(path);
+                    client.BaseAddress = new Uri(CommonFunction.GetWebAPIBaseURL());
                     client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
-
-                    //client.BaseAddress = new Uri(path);
-                    HttpResponseMessage response = await client.PostAsJsonAsync(path, itemSearchModel);
+                    HttpResponseMessage response = await client.PostAsJsonAsync(actionPath, itemSearchModel);
                     if (response.IsSuccessStatusCode)
                     {
-                        responseContent = await response.Content.ReadAsAsync<SearchResponseModel>();
+                        responseContent = await response.Content.ReadAsAsync<ResponseModel>();
                     }
                 }
-                if (responseContent.Success)
+                if (responseContent != null && responseContent.Success)
                 {
                     var json = JsonConvert.SerializeObject(responseContent.Data);
                     var itemsResponseModel = JsonConvert.DeserializeObject<ItemsResponseModel>(json);
@@ -120,21 +119,21 @@ namespace Delives.pk.Controllers
         {
             try
             {
-                string path = "http://www.delivers.pk/api/Listing/GetCatogries";
-                SearchResponseModel responseContent = null;
+                string actionPath = "Listing/GetCatogries";
+                ResponseModel responseContent = null;
                 using (HttpClient client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri(path);
+                    client.BaseAddress = new Uri(CommonFunction.GetWebAPIBaseURL()); ;
                     client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
 
                     //client.BaseAddress = new Uri(path);
-                    HttpResponseMessage response = await client.PostAsJsonAsync(path, itemTypeViewModel);
+                    HttpResponseMessage response = await client.PostAsJsonAsync(actionPath, itemTypeViewModel);
                     if (response.IsSuccessStatusCode)
                     {
-                        responseContent = await response.Content.ReadAsAsync<SearchResponseModel>();
+                        responseContent = await response.Content.ReadAsAsync<ResponseModel>();
                     }
                 }
-                if (responseContent.Success)
+                if (responseContent != null && responseContent.Success)
                 {
                     var json = JsonConvert.SerializeObject(responseContent.Data);
                     var itemsResponseModel = JsonConvert.DeserializeObject<List<ItemTypeViewModel>>(json);

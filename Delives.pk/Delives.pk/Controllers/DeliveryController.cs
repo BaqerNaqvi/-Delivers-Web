@@ -1,5 +1,6 @@
 ﻿using Delives.pk.Models;
 using Delives.pk.Security;
+using Delives.pk.Utilities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -38,18 +39,18 @@ namespace Delives.pk.Controllers
         }
         private async Task<List<ItemViewModel>> GetItemsAsync(ItemSearchModel itemSearchModel)
         {
-            string path = "http://www.delivers.pk/api/Listing/GetItems";
-            SearchResponseModel responseContent = null;
+            string actionPath = "Listing/GetItems";
+            ResponseModel responseContent = null;
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri(path);
+                client.BaseAddress = new Uri(CommonFunction.GetWebAPIBaseURL());
                 client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
 
                 //client.BaseAddress = new Uri(path);
-                HttpResponseMessage response = await client.PostAsJsonAsync(path, itemSearchModel);
+                HttpResponseMessage response = await client.PostAsJsonAsync(actionPath, itemSearchModel);
                 if (response.IsSuccessStatusCode)
                 {
-                    responseContent = await response.Content.ReadAsAsync<SearchResponseModel>();
+                    responseContent = await response.Content.ReadAsAsync<ResponseModel>();
                 }
             }
             var json = JsonConvert.SerializeObject(responseContent.Data);

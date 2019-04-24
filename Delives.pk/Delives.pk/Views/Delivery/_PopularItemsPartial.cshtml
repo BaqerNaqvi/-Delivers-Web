@@ -2,10 +2,10 @@
 @if (Model != null && Model.Count() > 0)
 {
     <div class="col-md-6 load-popular-items-left">
-        @{Html.RenderPartial("~/Views/Delivery/_ListItemPartial.cshtml", Model.Take(3));}
+        @{Html.RenderPartial("~/Views/Delivery/_ListItemPartial.cshtml", Model.Take(Model.Count() / 2));}
 
     </div><!-- End col-md-6-->
     <div class="col-md-6 load-popular-items-right">
-        @{Html.RenderPartial("~/Views/Delivery/_ListItemPartial.cshtml", Model.Skip(3).Take(3));}
+        @{Html.RenderPartial("~/Views/Delivery/_ListItemPartial.cshtml", Model.Skip(Model.Count() / 2).Take(Model.Count()));}
     </div><!-- End col-md-6-->
 }
