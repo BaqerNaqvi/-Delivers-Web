@@ -80,18 +80,13 @@ $(() => {
 window.onscroll = function () { scrollFunction() };
 
 function scrollFunction() {
-    var ele = document.getElementsByClassName("sticky")[0];
     if (document.body.scrollTop > 40 || document.documentElement.scrollTop >=40) {
         document.getElementById("logoImage").style.height = "50px";
         document.getElementById("logoImage").style.width = "50px";
-        if (ele != undefined) {
-            ele.style.border = "1px solid #ec008c";
-        }
+       
     } else {
         document.getElementById("logoImage").style.height = "100px";
         document.getElementById("logoImage").style.width = "100px";
-        if (ele != undefined) {
-            ele.style.border = "";
-        }
+       
     }
 }
