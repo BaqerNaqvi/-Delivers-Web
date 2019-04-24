@@ -24,6 +24,7 @@ namespace Delives.pk.Models
 
         public class MenuResponseModel
         {
+            public ListItemLocal_Short RestaurentInfo { get; set; }
             public List<MenuViewModel> Data { get; set; }
             public string Success { get; set; }
             public List<string> Messages { get; set; }

@@ -44,10 +44,28 @@ namespace Services.Models
     public class ListItemLocal_Short
     {
         public long Id { get; set; }
+        public int Type { get; set; }
         public string Name { get; set; }
-        public string Address { get; set; }
+        public string Description { get; set; }
+        public string Location { get; set; }
 
-        public string LogoImage { get; set; }  
+        public string Phone { get; set; }
+        public string Rating { get; set; }
+        public string Address { get; set; }
+        public string LogoImage { get; set; }
+
+        public string Cords { get; set; } // lat_long
+
+        public string BgImage { get; set; }
+        public bool Status { get; set; }
+        public string CreationDate { get; set; }
+        public double Distance { get; set; }
+
+        public string Opens { get; set; }
+        public string Closes { get; set; }
+        public int MinOrder { get; set; }
+        public virtual List<RatingLocal> Reviewes { get; set; }
+
     }
 
 

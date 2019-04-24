@@ -1,13 +1,13 @@
-﻿@model List<Delives.pk.Models.MenuModels.MenuViewModel>
+﻿@model Delives.pk.Models.MenuModels.MenuResponseModel
 
 @{
 
     int index = 1;
-    string headerValue = Model.Count == 0 ? "Menu Coming Soon" : "Menu";
+    string headerValue = Model.Data.Count == 0 ? "Menu Coming Soon" : "Menu";
 }
-
+@Styles.Render("~/Content/menu")
 <!-- SubHeader =============================================== -->
-@{Html.RenderPartial("~/Views/Menu/_SubHeaderPartial.cshtml");}
+@{Html.RenderPartial("~/Views/Menu/_SubHeaderPartial.cshtml",Model.RestaurentInfo);}
 <!-- End SubHeader ============================================ -->
 
 <div id="position">
@@ -51,7 +51,7 @@
                     <p>
                         Te ferri iisque aliquando pro, posse nonumes efficiantur in cum. Sensibus reprimique eu pro. Fuisset mentitum deleniti sit ea.
                     </p>*@
-                @if (Model.Count > 0)
+                @if (Model.Data.Count > 0)
                 {
                     <table class="table table-striped cart-list">
                         <thead>
@@ -68,7 +68,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var menu in Model)
+                            @foreach (var menu in Model.Data)
                             {
                                 <tr>
                                     <td>
@@ -82,28 +82,28 @@
                                         <strong>RS @menu.Price</strong>
                                     </td>
                                     <td class="options">
-                                        <div >
-                                            <a href="#" onclick="menuJSObj.addToLocalStorage(@Json.Encode(menu))" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon_plus_alt2"></i></a>
+                                        <div>
+                                            <a href="#" onclick="orderSummaryJSObj.addToLocalStorage(@Json.Encode(menu))" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon_plus_alt2"></i></a>
                                             @*<div class="dropdown-menu">
-                                                <h5>Select an option</h5>
-                                                <label>
-                                                    <input type="radio" value="option1" name="options_1" checked>Medium <span>+ $3.30</span>
-                                                </label>
-                                                <label>
-                                                    <input type="radio" value="option2" name="options_1">Large <span>+ $5.30</span>
-                                                </label>
-                                                <label>
-                                                    <input type="radio" value="option3" name="options_1">Extra Large <span>+ $8.30</span>
-                                                </label>
-                                                <h5>Add ingredients</h5>
-                                                <label>
-                                                    <input type="checkbox" value="">Extra Tomato <span>+ $4.30</span>
-                                                </label>
-                                                <label>
-                                                    <input type="checkbox" value="">Extra Peppers <span>+ $2.50</span>
-                                                </label>
-                                                <a href="#0" class="add_to_basket">Add to cart</a>
-                                            </div>*@
+                                                    <h5>Select an option</h5>
+                                                    <label>
+                                                        <input type="radio" value="option1" name="options_1" checked>Medium <span>+ $3.30</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" value="option2" name="options_1">Large <span>+ $5.30</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" value="option3" name="options_1">Extra Large <span>+ $8.30</span>
+                                                    </label>
+                                                    <h5>Add ingredients</h5>
+                                                    <label>
+                                                        <input type="checkbox" value="">Extra Tomato <span>+ $4.30</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="checkbox" value="">Extra Peppers <span>+ $2.50</span>
+                                                    </label>
+                                                    <a href="#0" class="add_to_basket">Add to cart</a>
+                                                </div>*@
                                         </div>
                                     </td>
                                 </tr>
@@ -123,7 +123,10 @@
         <div class="col-md-3" id="sidebar">
             <div class="theiaStickySidebar">
                 <div id="cart_box">
-                    
+                    <div id="cart_box_section-1"></div>
+                    <div id="cart_box_section-2">
+                        <a class="btn_full" href="~/cart/index">Order now</a>
+                    </div>
                 </div><!-- End cart_box -->
             </div><!-- End theiaStickySidebar -->
         </div><!-- End col-md-3 -->
@@ -131,6 +134,10 @@
     </div><!-- End row -->
 </div><!-- End container -->
 <!-- End Content =============================================== -->
-
+@Scripts.Render("~/bundles/order-summary")
 @Scripts.Render("~/bundles/menu")
 
+<script>
+    var currentResName = "@Model.RestaurentInfo.Name";
+    var currentResId = "@Model.RestaurentInfo.Id";
+</script>

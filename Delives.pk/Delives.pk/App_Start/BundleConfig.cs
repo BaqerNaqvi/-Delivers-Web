@@ -43,7 +43,25 @@ namespace Delives.pk
                       "~/Scripts/List/list-main.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/menu").Include(
+
                       "~/Scripts/Menu/menu-main.js"));
+
+
+            bundles.Add(new ScriptBundle("~/bundles/cart").Include(
+
+                      "~/Scripts/theia-sticky-sidebar.js",
+                      "~/Scripts/Cart/cart-main.js"
+                      ));
+
+            bundles.Add(new ScriptBundle("~/bundles/cart-snapshot").Include(
+
+                     "~/Scripts/theia-sticky-sidebar.js",
+                     "~/Scripts/Cart/cart-snapshot.js"
+                     ));
+
+            bundles.Add(new ScriptBundle("~/bundles/order-summary").Include(
+              "~/Scripts/Shared/order-summary.js"
+                    ));
 
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -58,6 +76,9 @@ namespace Delives.pk
             bundles.Add(new StyleBundle("~/Content/menu").Include(
                       "~/Content/skins/square/grey.css"
                       ));
+            bundles.Add(new StyleBundle("~/Content/cart").Include(
+                     "~/Content/skins/square/grey.css"
+                     ));
 
         }
     }
