@@ -12,6 +12,8 @@ namespace Delives.pk.Models
         public List<string> Messages { get; set; }
 
         public Object Data { get; set; }
+
+        public int Code { get; set; }
     }
 
 }

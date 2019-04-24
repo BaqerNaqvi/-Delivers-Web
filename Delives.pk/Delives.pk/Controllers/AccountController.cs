@@ -14,6 +14,7 @@ using System.Net.Http;
 using Delives.pk.Security;
 using Newtonsoft.Json;
 using System.Net;
+using Delives.pk.Utilities;
 
 namespace Delives.pk.Controllers
 {
@@ -27,7 +28,7 @@ namespace Delives.pk.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -39,9 +40,9 @@ namespace Delives.pk.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -80,32 +81,51 @@ namespace Delives.pk.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return Json(new { Success = false, Status = HttpStatusCode.PreconditionFailed, Message = "Required data is either empty or corrupt" }, JsonRequestBehavior.AllowGet);
-                //return View(model);
-            }
+                //if (!ModelState.IsValid)
+                //{
+                //    return Json(new { Success = false, Status = 5, Message = "Required data is missing" }, JsonRequestBehavior.AllowGet);
+                //}
+                string actionPath = "Account/Login";
+                ResponseModel responseContent = null;
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(CommonFunction.GetWebAPIBaseURL());
+                    client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.PhoneNumber, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+                    //client.BaseAddress = new Uri(path);
+                    HttpResponseMessage response = await client.PostAsJsonAsync(actionPath, model);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        responseContent = await response.Content.ReadAsAsync<ResponseModel>();
+                    }
+                }
+                if (responseContent != null)
+                {
+                    var json = JsonConvert.SerializeObject(responseContent.Data);
+                    var itemsResponseModel = JsonConvert.DeserializeObject<UserModel>(json);
+                    switch (responseContent.Code)
+                    {
+                        case 1:
+                            var result = await SignInManager.PasswordSignInAsync(model.PhoneNumber, model.Password, model.RememberMe, shouldLockout: false);
+                            return Json(new { Success = true, Status = responseContent.Code, Message = "Login successful", Object = new { UserId = itemsResponseModel.Id != Guid.Empty ? itemsResponseModel.Id : itemsResponseModel.UserId } }, JsonRequestBehavior.AllowGet);
+                        case 2:
+                            return Json(new { Success = true, Status = responseContent.Code, Message = "Please verify phone number", Object = new { UserId = itemsResponseModel.Id != Guid.Empty ? itemsResponseModel.Id : itemsResponseModel.UserId } }, JsonRequestBehavior.AllowGet);
+                        case 3:
+                            var user = UserManager.Find(model.PhoneNumber, model.Password);
+                            return Json(new { Success = false, Status = responseContent.Code, Message = "Invalid login type" }, JsonRequestBehavior.AllowGet);
+                        case 4:
+                        default:
+                            ModelState.AddModelError("", "Invalid login attempt.");
+                            return Json(new { Success = false, Status = responseContent.Code, Message = "Invalid phone number/password" }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                return Json(new { Success = false, Status = 5, Message = "Something went wrong while login attempt" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
             {
-                case SignInStatus.Success:
-                    return Json(new { Success = true, Status = HttpStatusCode.OK, Message = "Login Successful" }, JsonRequestBehavior.AllowGet);
-                    //return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return Json(new { Success = false, Status = HttpStatusCode.Unauthorized, Message = "This account has been locked" }, JsonRequestBehavior.AllowGet);
-                    //return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    var user = UserManager.Find(model.PhoneNumber, model.Password);
-                    return Json(new { Success = true, Status = HttpStatusCode.PartialContent, Message = "Requires Verification", Object = new { UserId = user.Id} }, JsonRequestBehavior.AllowGet);
-                    //return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return Json(new { Success = false, Status = HttpStatusCode.InternalServerError, Message = "Invalid login attempt." }, JsonRequestBehavior.AllowGet);
-                    //return View(model);
+                return Json(new { Success = false, Status = 5, Message = "Something went wrong while login attempt" }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -138,7 +158,7 @@ namespace Delives.pk.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -166,53 +186,38 @@ namespace Delives.pk.Controllers
         [AllowAnonymous]
         public async Task<JsonResult> Register(RegisterViewModel model)
         {
-            var response = new ResponseModel();
-            if (ModelState.IsValid)
+            try
             {
-                var user = new ApplicationUser
+                //if (!ModelState.IsValid)
+                //{
+                //    return Json(new { Success = false, Status = 5, Message = "Required data is missing" }, JsonRequestBehavior.AllowGet);
+                //}
+                string actionPath = "Account/Registration";
+                ResponseModel responseContent = null;
+                using (HttpClient client = new HttpClient())
                 {
-                    UserName = model.PhoneNumber,
-                    Email = "production",
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    CreationTime = DateTime.Now,
-                    EditTime = DateTime.Now,
-                    PhoneNumber = model.PhoneNumber,
-                    IsApproved = true,
-                    CNIC = model.CNIC,
-                    Status = true,
-                    Type = model.Type
-                };
-                var result = UserManager.Create(user, model.Password);
-                if (result.Succeeded)
-                {
-                    var phoneCode = GeneratePhoneCodeApiMethod(user.Id, user.PhoneNumber); // remove phoneCode from JSON 
-                    return Json(new { Success = true, Message = "Registeration successful", Object = new { UserId = user.Id} }, JsonRequestBehavior.AllowGet);
-                    //4digit code VerifyPhone(VerifyPhoneNumberCustomeModel model)
-                    //onVerification 
-                    //then MVC logic -var user = UserManager.Find(model.PhoneNumber, model.Password);
-                    // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    //return RedirectToAction("Index", "Home");
+                    client.BaseAddress = new Uri(CommonFunction.GetWebAPIBaseURL());
+                    client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
 
-                }
-                else
-                {
-                    ModelState.AddModelError("", result.Errors.FirstOrDefault());
-                    return Json(new { Success = false, Message = String.Join("\n", result.Errors) }, JsonRequestBehavior.AllowGet);
-                }
-            }
-            else
-            {
-                foreach (ModelState modelState in ViewData.ModelState.Values)
-                {
-                    foreach (ModelError error in modelState.Errors)
+                    //client.BaseAddress = new Uri(path);
+                    HttpResponseMessage response = await client.PostAsJsonAsync(actionPath, model);
+                    if (response.IsSuccessStatusCode)
                     {
-                        //  DoSomethingWith(error);
+                        responseContent = await response.Content.ReadAsAsync<ResponseModel>();
                     }
                 }
+                if (responseContent != null && responseContent.Success)
+                {
+                    var json = JsonConvert.SerializeObject(responseContent.Data);
+                    var itemsResponseModel = JsonConvert.DeserializeObject<UserModel>(json);
+                    return Json(new { Success = true, Message = "Registeration successful", Object = new { UserId = itemsResponseModel.Id != Guid.Empty ? itemsResponseModel.Id : itemsResponseModel.UserId } }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { Success = false, Message = String.Join("\n", responseContent.Messages) }, JsonRequestBehavior.AllowGet);
             }
-            // If we got this far, something failed, redisplay form
-            return Json(new { Success = false, Message = "Unable to create User" }, JsonRequestBehavior.AllowGet); ;
+            catch (Exception ex)
+            {
+                return Json(new { Success = false, Message = "Something went wrong while registration" }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         //
@@ -223,35 +228,35 @@ namespace Delives.pk.Controllers
         {
             try
             {
-                if (model == null || model.UserId == null || model.Code == null)
+                //if (!ModelState.IsValid)
+                //{
+                //    return Json(new { Success = false, Message = "Either UserId or Code is empty" }, JsonRequestBehavior.AllowGet);
+                //}
+                string actionPath = "Account/VerifyPhoneNumber";
+                ResponseModel responseContent = null;
+                using (HttpClient client = new HttpClient())
                 {
-                    return Json(new { Success = false, Message = "Either UserId or Code is empty" }, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    string path = "http://www.delivers.pk/api/Account/VerifyPhoneNumber";
-                    SearchResponseModel responseContent = null;
-                    using (HttpClient client = new HttpClient())
+                    client.BaseAddress = new Uri(CommonFunction.GetWebAPIBaseURL());
+                    client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
+
+                    //client.BaseAddress = new Uri(path);
+                    HttpResponseMessage response = await client.PostAsJsonAsync(actionPath, model);
+                    if (response.IsSuccessStatusCode)
                     {
-                        client.BaseAddress = new Uri(path);
-                        client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
-
-                        //client.BaseAddress = new Uri(path);
-                        HttpResponseMessage response = await client.PostAsJsonAsync(path, model);
-                        if (response.IsSuccessStatusCode)
-                        {
-                            var user = UserManager.FindById(model.UserId);
-                            await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                            //return RedirectToAction("Index", "Delivery");
-                        }
+                        responseContent = await response.Content.ReadAsAsync<ResponseModel>();
                     }
-
+                }
+                if (responseContent != null && responseContent.Success)
+                {
+                    var user = UserManager.FindById(model.UserId);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     return Json(new { Success = responseContent.Success, Message = String.Join(" ", responseContent.Messages) }, JsonRequestBehavior.AllowGet);
                 }
+                return Json(new { Success = responseContent.Success, Message = String.Join(" ", responseContent.Messages) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new { Success = true, Message = "Something went wrong while fetching" }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false, Message = "Something went wrong while verifying phone number" }, JsonRequestBehavior.AllowGet);
             }
         }
         [AllowAnonymous]

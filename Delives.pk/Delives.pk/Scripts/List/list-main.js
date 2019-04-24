@@ -14,8 +14,8 @@
         DistanceTo: "120",
         Rating: "0",
         IsWeb: true,
-        SortOrder: null,
-        OrderBy: null
+        SortOrder: "asc",
+        OrderBy: "distance"
     },
     resetSearchFilters: function () {
         listConfig.searchFilters = {
@@ -28,8 +28,8 @@
             DistanceTo: 120,
             Rating: "0",
             IsWeb: true,
-            SortOrder: null,
-            OrderBy: null
+            SortOrder: "asc",
+            OrderBy: "distance"
         };
     },
     setSearchFilters: function (resetPage = false) {
@@ -48,19 +48,19 @@
         else {
             itemRating = itemRating[0];
         }
-        var distance = $('#range').data('ionRangeSlider').options;
+        //var distance = $('#range').data('ionRangeSlider').options;
         listConfig.searchFilters = {
             TypeList: itemTypes,
             Cords: locationConfig.getCoords(),
             CurrentPage: resetPage ? 0 : listConfig.searchFilters.CurrentPage,
             ItemsPerPage: 10,
             SearchTerm: $('#searchTerm').val(),
-            DistanceFrom: distance.from,
-            DistanceTo: distance.to,
+            DistanceFrom: listConfig.searchFilters.DistanceFrom,
+            DistanceTo: listConfig.searchFilters.DistanceTo,
             Rating: itemRating,
             IsWeb: true,
-            SortOrder: null,
-            OrderBy: null
+            SortOrder: $("#sort_rating").find(":selected").data("sort-order"),
+            OrderBy: $("#sort_rating").find(":selected").data("order-by")
         };
     },
     getListItems: function (recenterMap = false) {
@@ -81,12 +81,20 @@
                 }
                 else {
                     $(response.Html).insertBefore($('.load_more_bt'));
-                    if (recenterMap)
-                        mapConfig.recenterMap(locationConfig.latitude, locationConfig.longitude);
-                    mapConfig.setMarkersPoint(response.Object);
+                    if (recenterMap) {
+                        let coords = localStorage.getItem('coords');
+                        if (coords !== undefined && coords !== undefined) {
+                            coords = localStorage.getItem('coords').split('_');
+                            if (coords.length > 1)
+                                mapConfig.recenterMap(coords[0], coords[1]);
+                        }
+                    }
+                    if (response.Object !== undefined && response.Object !== null)
+                        mapConfig.setMarkersPoint(response.Object);
 
                     if (response.Status === 205) {
                         $('.load_more_bt').hide();
+                        toastr.error(response.Message);
                     }
                     else {
                         $('.load_more_bt').show();
@@ -116,7 +124,7 @@
             $('.load-filter-types input.item-type').iCheck({
                 checkboxClass: 'icheckbox_square-grey'
             });
-               
+
             //alert("success");
         }).fail(function (jqXHR, textStatus, errorThrown) {
             //alert("error");
@@ -156,18 +164,18 @@ $(() => {
                 // Called right after range slider instance initialised
                 listConfig.setDistanceFromTo(data.from, data.to);
             },
-            //onChange: function (data) {
-            //    // Called every time handle position is changed
-            //    listConfig.setDistanceFromTo(data.from, data.to);
-            //},
-            //onFinish: function (data) {
-            //    // Called then action is done and mouse is released
-            //    listConfig.setDistanceFromTo(data.from, data.to);
-            //},
-            //onUpdate: function (data) {
-            //    // Called then slider is changed using Update public method
-            //    listConfig.setDistanceFromTo(data.from, data.to);
-            //}
+            onChange: function (data) {
+                // Called every time handle position is changed
+                listConfig.setDistanceFromTo(data.from, data.to);
+            },
+            onFinish: function (data) {
+                // Called then action is done and mouse is released
+                listConfig.setDistanceFromTo(data.from, data.to);
+            },
+            onUpdate: function (data) {
+                // Called then slider is changed using Update public method
+                listConfig.setDistanceFromTo(data.from, data.to);
+            }
         });
     });
     const urlParams = new URLSearchParams(window.location.search);
@@ -180,7 +188,6 @@ $(() => {
     //        locationConfig.getGeoLocation(listConfig.loadLocationDependentData);
     //    }
     //}
-    listConfig.resetSearchFilters();
     listConfig.getListItems(true);
 });
 
@@ -190,4 +197,5 @@ $('#performSearch').on('click', () => {
     $('#tools').nextAll('div').remove();
     mapConfig.removeAllMarkers();
     listConfig.getListItems();
+    $(".search-overlay-close").trigger('click');
 });

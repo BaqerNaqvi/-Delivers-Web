@@ -54,9 +54,9 @@ jQuery(function ($) {
     $(window).on("resize", function () {
         $('.modal:visible').each(centerModal);
     });
-    if (locationConfig.checkGeoLocationSupported()) {
-        locationConfig.getGeoLocation();
-    }
+    //if (locationConfig.checkGeoLocationSupported()) {
+    //    locationConfig.getGeoLocation();
+    //}
 });
 
 //<!--Magnific popup-->
