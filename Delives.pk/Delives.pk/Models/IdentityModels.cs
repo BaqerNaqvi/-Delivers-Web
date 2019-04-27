@@ -71,4 +71,22 @@ namespace Delives.pk.Models
             }
         }
     }
+    public class UserModel
+    {
+        public Guid Id { get; set; }
+        public Guid UserId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string PhoneNumber { get; set; }
+        public bool PhoneNumberConfirmed { get; set; }
+        public int Type { get; set; }
+        public bool IsApproved { get; set; }
+        public string CNIC { get; set; }
+        public bool Status { get; set; }
+        public string StatusString { get; set; }
+        public string ProfileImageUrl { get; set; }
+        public string Cords { get; set; }
+        public string Address { get; set; }
+        public bool TwoFactorEnabled { get; set; }
+    }
 }

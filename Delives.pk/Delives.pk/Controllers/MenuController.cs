@@ -19,6 +19,7 @@ namespace Delives.pk.Controllers
 
         public async Task<ActionResult> Index(int id)
         {
+            ViewBag.Title = "Menu ";
             //var searchTerm = Request.QueryString["q"];
             var menuDetails = await GetMenuAsync(id);
             return View(menuDetails);
