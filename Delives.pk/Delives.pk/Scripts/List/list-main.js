@@ -32,7 +32,7 @@
             OrderBy: "distance"
         };
     },
-    setSearchFilters: function (resetPage = false) {
+    setSearchFilters: function (resetPage ) {
         var itemTypes = $('.load-filter-types input:checked').map(function () {
             return $(this).val();
         }).toArray();
@@ -64,8 +64,12 @@
         };
     },
     getListItems: function (recenterMap = false) {
+
+        $('#preloader').delay(200).fadeIn('slow');
+        $('#search-address').text("Please wait")
+
+
         listConfig.searchFilters.CurrentPage += 1;
-        //listConfig.searchFilters.TypeList = 1;
         this.jqXHR = $.ajax({
             method: "POST",
             url: "FetchItemsPartialAsync",
@@ -73,8 +77,13 @@
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({ itemSearchModel: listConfig.searchFilters })
         }).done(function (response) {
+            $('#res-result-count').text(localStorage.getItem("search-add"));
+            $('#preloader').hide();
+            $('#search-address').text("")
+
             //let data = JSON.parse(response);
             if (response.Success) {
+                debugger
                 if (response.Status === 404) {
                     $('.load_more_bt').hide();
                     toastr.error(response.Message);
@@ -140,7 +149,7 @@
     loadLocationDependentData: function (position) {
         locationConfig.geoLocationSuccess(position);
         listConfig.resetSearchFilters();
-        listConfig.getListItems(true);
+        
     }
 };
 
@@ -188,7 +197,10 @@ $(() => {
     //        locationConfig.getGeoLocation(listConfig.loadLocationDependentData);
     //    }
     //}
-    listConfig.getListItems(true);
+    $(window).load(function () {
+        listConfig.getListItems(true);
+
+    });
 });
 
 $('#performSearch').on('click', () => {

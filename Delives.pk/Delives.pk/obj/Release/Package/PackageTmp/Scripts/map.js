@@ -40,7 +40,7 @@ var mapConfig = {
     },
     setMarkersPoint: function (markersData) {
         markersData.forEach(function (item) {
-            console.log(item.Cords);
+            //console.log(item.Cords);
             var [lat, long] = item.Cords.split('_');
             if (lat !== null && long !== null) {
                 mapConfig.marker = new google.maps.Marker({

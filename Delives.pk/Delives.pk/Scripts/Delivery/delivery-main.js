@@ -33,6 +33,7 @@
         };
     },
     getListItems: function () {
+
         this.jqXHR = $.ajax({
             method: "POST",
             url: "/Delivery/FetchItemsPartialAsync",

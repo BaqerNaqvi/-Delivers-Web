@@ -11,7 +11,7 @@
         ItemsPerPage: 6,
         SearchTerm: "",
         DistanceFrom: "0",
-        DistanceTo: "1000",
+        DistanceTo: "100",
         Rating: "0",
         IsWeb: true,
         SortOrder: null,
@@ -20,12 +20,12 @@
     resetSearchFilters: function () {
         deliveryConfig.searchFilters = {
             TypeList: [],
-            Cords: locationConfig.getCoords(),
+            Cords: "31.520369600000002_74.35874729999999",//locationConfig.getCoords(),
             CurrentPage: 1,
             ItemsPerPage: 6,
             SearchTerm: "",
             DistanceFrom: "0",
-            DistanceTo: "1000",
+            DistanceTo: "100",
             Rating: "0",
             IsWeb: true,
             SortOrder: null,
@@ -83,8 +83,10 @@ function scrollFunction() {
     if (document.body.scrollTop > 40 || document.documentElement.scrollTop >=40) {
         document.getElementById("logoImage").style.height = "50px";
         document.getElementById("logoImage").style.width = "50px";
+       
     } else {
         document.getElementById("logoImage").style.height = "100px";
         document.getElementById("logoImage").style.width = "100px";
+       
     }
 }

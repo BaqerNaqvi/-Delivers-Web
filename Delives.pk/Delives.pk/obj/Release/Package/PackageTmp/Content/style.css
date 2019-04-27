@@ -57,7 +57,7 @@ h3 .slide_typo strong {font-family:"Helvetica Neue", Helvetica, Arial, sans-seri
 .slide_typo_2{color:#fff; font-size:18px; white-space:nowrap}
 
 .box_style_2 h2.inner {
-	background-color:#78cfcf; 
+	background-color:#ad3638d1; 
 	color:#fff; 
 	margin:-25px -25px 25px -25px; 
 	padding:12px 15px; 
@@ -72,13 +72,23 @@ h3 .slide_typo strong {font-family:"Helvetica Neue", Helvetica, Arial, sans-seri
 	border-top-right-radius: 3px;
 }
 
-.main_title{ text-align:center; margin-bottom:45px; }
+.main_title{ 
+        padding: 1%;
+    text-align:center; margin-bottom:45px; border-radius: 5px;
+    color: white;
+    background-color: #ad3638d1}
 .main_title h2{ font-size:46px; letter-spacing:-1px; font-weight:300; margin-bottom:0;}
 .main_title p{ font-size:18px; color:#555; line-height:1.2; margin-bottom:30px; font-weight:300;}
 
 .feature h3{margin-top:0;}
 .feature h3 span{color:#ec008c;}
+.main_title h2{
+    color:white;
+}
 
+.main_title p{
+    color:#302725
+}
 /*General links color*/
 a {color:#ec008c;text-decoration: none;-webkit-transition: all 0.2s ease;transition: all 0.2s ease; outline:none;}
 a:hover,a:focus {color: #111;text-decoration: none; outline:none;}
@@ -266,16 +276,16 @@ a.button_intro.outilne, .button_intro.outline  {
 	padding: 10px 23px;
 }
 #cart_box a.btn_full, #cart_box .btn_full{
-	background: #ec008c;
+	background: #ad3638d1;
 	font-size:15px;
 }
 #cart_box a.btn_full:hover, #cart_box .btn_full:hover{
 	background: #333;
 }
 #cart_box a.btn_full_outline{
-	color:#ec008c;
+	color:#ad3638d1;
 	background:none;
-	border:2px solid #ec008c;
+	border:2px solid #ad3638d1;
 }
 #cart_box a.btn_full_outline:hover{
 	color:#333;
@@ -335,7 +345,7 @@ footer a{
 	color:#555;
 }
 footer a:hover{
-	color:#ec008c;
+	color:#ad3638d1;
 }
 footer ul{
 	margin:0;
@@ -386,7 +396,7 @@ footer .btn_1{
 a#promote{
 	display:inline-block;
 	position:relative;
-	background:#ec008c;
+	background:#ad3638d1;
 	position:relative; 
 	color:#fff;
 	padding:10px 15px 10px 42px;
@@ -795,7 +805,7 @@ a#filters_col_bt .icon_set_1_icon-65{
 	margin-bottom:25px;
 }
 a.strip_list:hover h3{
-	color:#ec008c;
+	color:#ad3638d1;
 }
 .desc{
 	padding-left:135px;
@@ -813,7 +823,7 @@ a.strip_list:hover h3{
 	color:#333;
 }
 .desc h3 a:hover{
-	color:#EC008C;
+	color:#ad3638d1;
 }
 .desc .type{
 	font-size:12px;
@@ -1155,7 +1165,7 @@ ul.additional_links li:first-child{
 }
 
 /*2.5 Restaurant detail page*/
-#Img_carousel .sp-selected-thumbnail {border-bottom: 2px solid #ec008c;}
+#Img_carousel .sp-selected-thumbnail {border-bottom: 2px solid #ad3638d1;}
 #summary_review{
 	margin:30px 0 40px 0;
 	padding:25px 25px 10px 25px;
@@ -1481,12 +1491,12 @@ ul.opening_list li span{
 	top:-30px;
 }
 .form-control.form-white {
-	color: #fff;
+	color: black;
 	font-size: 16px;
 	height:42px;
 	position: relative;
 	border-radius: 0;
-	border: 1px solid white;
+	border: 1px solid #f3e8e8d1;
 	line-height:42px;
 	background: transparent;
 	-webkit-transition: background-color 0.3s;
@@ -1551,11 +1561,11 @@ select.form-control.form-white{
 	max-width: 650px;
 }
 .modal-popup {
+    border-radius: 14px;
 	position: relative;
 	padding:1px 30px 10px 30px;
 	text-align: center;
-	background: #78cfcf;
-	border-radius: 0px;
+	background: #ad3638f7;
 	border:none;
 }
 .modal-popup a{
@@ -1641,7 +1651,7 @@ s.checkbox-holder {
 .btn.btn-submit {
 	width: 100%;
 	margin-top: 30px;
-	color: #85c99d;
+	color: #ad3638d1;
 	padding:10px;
 	background: #fff;
 	font-weight:600;
@@ -1824,7 +1834,7 @@ footer .form-group {
 	line-height:1.6 !important;
 }
 .panel-title a .indicator{
-	color:#ec008c;
+	color:#ad3638d1;
 }
 .panel-title a:hover .indicator{
 	color:#333;
@@ -2023,7 +2033,7 @@ a.load_more_bt{
 }
 a.load_more_bt:hover{
 	background-color:#fff;
-	color:#ec008c;
+	color:#ad3638d1;
 }
 #tools{
 	background:#fff;
@@ -2240,7 +2250,7 @@ a.search-overlay-menu-btn {
 	border-left: 1px solid #ddd;
 }
 a.search-overlay-menu-btn:hover {
-	color: #ec008c;
+	color: #ad3638d1;
 }
 a.btn_filter#search_bt{
 	padding:7px;
@@ -2337,7 +2347,7 @@ a.btn_filter#search_bt:before{
 	color: #fff;
 }
 .search-overlay-menu .search-overlay-close:hover {
-	color: #ec008c;
+	color:#ad3638d1;
 	cursor: pointer;
 }
 
@@ -2369,7 +2379,7 @@ a.btn_filter#search_bt:before{
   font-weight: normal;
   text-shadow:none;
   text-transform:none !important;
-  border-top: 2px solid #ec008c;
+  border-top: 2px solid #ad3638d1;
   margin-left:-86px;
 }
 
@@ -2382,7 +2392,7 @@ a.btn_filter#search_bt:before{
 	width: 0;
 	position: absolute;
 	pointer-events: none;
-	border-bottom-color: #ec008c;
+	border-bottom-color: #ad3638d1;
 	border-width: 7px;
 	margin-left: -7px;
 }
@@ -2421,24 +2431,24 @@ a.btn_filter#search_bt:before{
 	 text-align:center;
 	 padding:5px 10px;
 	 margin-top:15px;
-	 color:#ec008c
+	 color:#ad3638d1
 }
  .dropdown-options .dropdown-menu a.add_to_basket:hover{
-	 background-color:#ec008c;
+	 background-color:#ad3638d1;
 	 color:#fff;
 }
 
 /*Drop-down menu options position */
  .dropdown-options.dropup .dropdown-menu{
 	 border-top:0; 
-	 border-bottom: 2px solid #ec008c;
+	 border-bottom: 2px solid #ad3638d1;
 	 margin-bottom: 10px;
 }
  .dropdown-options.dropup .dropdown-menu:before{
 	top: 100%;
 	left: 50%;
-	border-color: #ec008c transparent transparent transparent;
-	border-bottom-color: #ec008c;
+	border-color: #ad3638d1 transparent transparent transparent;
+	border-bottom-color: #ad3638d1;
 	border-width: 7px 7px 0 7px;
 	margin-left: -7px;
 }
@@ -2663,7 +2673,7 @@ ul.plan-features {
 	font-size: 36px;
 	font-weight: bold;
 	color: white;
-	background: #ec008c;
+	background: #ad3638d1;
 	border-radius: 130px;
 	-webkit-border-radius: 130px;
 	-moz-border-radius: 130px;
@@ -2686,4 +2696,28 @@ ul.plan-features {
     margin-left: 14px!important;
     width: 100px;
     height: 100px;
+}
+
+.pac-item{
+    font-family: cursive !important;
+    padding: 5px !important;
+    cursor: default;
+    padding: 0 4px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 33px !important;
+    text-align: left;
+    border-top: 1px solid #e6e6e6;
+    font-size: 20px !important;
+    color: #ad3638d1 !important;
+}
+.pac-container.pac-logo{
+    border-radius: 12px !important;
+}
+
+.pac-item-query {
+    font-size: 13px !important;
+    padding-right: 3px !important;
+    color: #ad3638d1 !important;
 }

@@ -210,7 +210,10 @@
             infowindow.open(map, marker);
             var cords = place.geometry.location.lat() + "_" + place.geometry.location.lng();
             localStorage.setItem("coords", cords);
-        });
+
+            localStorage.setItem("search-add", $('#pac-input').val());
+            $('#search-loc-form').submit();
+            });
 
         // Sets a listener on a radio button to change the filter type on Places
         // Autocomplete.
@@ -238,6 +241,7 @@
         }
             
     }
+
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8Mj9nHFZn1Wh7wZriz4Mpq0uF26vVhig&libraries=places&callback=initMap"
         async defer></script>
