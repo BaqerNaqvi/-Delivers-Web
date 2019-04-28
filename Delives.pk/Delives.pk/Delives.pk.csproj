@@ -522,6 +522,8 @@
     <Content Include="Views\Cart\Snapshot\_SubHeaderPartial.cshtml" />
     <Content Include="Views\Cart\Confirmed\Index.cshtml" />
     <Content Include="Views\Cart\Confirmed\_SubHeaderPartial.cshtml" />
+    <Content Include="Views\Shared\ForgotPasswordModal.cshtml" />
+    <Content Include="Views\Shared\PasswordResetModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
