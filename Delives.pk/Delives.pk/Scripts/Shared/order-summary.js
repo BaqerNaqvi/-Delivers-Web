@@ -290,14 +290,16 @@
             //get these delivery charges from server
             let deliveryCharges = 50;
 
-            retrievedList.forEach((parentObj, index) => {
 
-                let itemsHTML = "";
-                parentObj.items.forEach((childObj, index2) => {
+            if (retrievedList !== undefined && retrievedList !== null && retrievedList.length >0) {
+                retrievedList.forEach((parentObj, index) => {
 
-                    price = childObj.Count * childObj.Price;
-                    subTotal += price;
-                    itemsHTML += `<tr>
+                    let itemsHTML = "";
+                    parentObj.items.forEach((childObj, index2) => {
+
+                        price = childObj.Count * childObj.Price;
+                        subTotal += price;
+                        itemsHTML += `<tr>
                                 <td>
                                     <a href="javascript:void(0)" onclick="orderSummaryJSObj.removeFromLocalStorage(${childObj.Id})" class="remove_item"><i class="icon_minus_alt"></i></a> <strong>${childObj.Count}x</strong> ${childObj.Name}
                                 </td>
@@ -305,16 +307,18 @@
                                     <strong class="pull-right">Rs ${price}</strong >
                                 </td>
                             </tr>`;
-                });
+                    });
 
-                HTML += `<h4>${parentObj.resName}</h4>
+                    HTML += `<h4>${parentObj.resName}</h4>
                     <table class="table table_summary" id="table-cart-orders">
                         <tbody>
                             ${itemsHTML}
                         </tbody>
                     </table>
                     `;
-            });
+                });
+            }
+            
 
             HTML += `<div class="row" id="options_2">
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6">

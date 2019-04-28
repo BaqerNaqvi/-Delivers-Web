@@ -269,6 +269,7 @@
     <Content Include="Content\ion.rangeSlider.css" />
     <Content Include="Content\ion.rangeSlider.skinFlat.css" />
     <Content Include="Content\magnific-popup.css" />
+    <Content Include="Content\map-modal.css" />
     <Content Include="Content\menu.css" />
     <Content Include="Content\pop_up.css" />
     <Content Include="Content\ProfileImages\defaultImage.png" />

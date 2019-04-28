@@ -77,7 +77,8 @@ namespace Delives.pk
                       "~/Content/skins/square/grey.css"
                       ));
             bundles.Add(new StyleBundle("~/Content/cart").Include(
-                     "~/Content/skins/square/grey.css"
+                     "~/Content/skins/square/grey.css",
+                     "~/Content/map-modal.css"
                      ));
 
         }
