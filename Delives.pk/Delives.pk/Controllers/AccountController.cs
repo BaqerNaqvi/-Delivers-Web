@@ -210,7 +210,7 @@ namespace Delives.pk.Controllers
                 {
                     var json = JsonConvert.SerializeObject(responseContent.Data);
                     var itemsResponseModel = JsonConvert.DeserializeObject<UserModel>(json);
-                    return Json(new { Success = true, Message = "Registeration successful", Object = new { UserId = itemsResponseModel.Id != Guid.Empty ? itemsResponseModel.Id : itemsResponseModel.UserId } }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Success = true, Message = "Registeration successful", Object = new { UserId = itemsResponseModel.Id != Guid.Empty ? itemsResponseModel.Id : itemsResponseModel.UserId, itemsResponseModel.PhoneNumber } }, JsonRequestBehavior.AllowGet);
                 }
                 return Json(new { Success = false, Message = String.Join("\n", responseContent.Messages) }, JsonRequestBehavior.AllowGet);
             }
@@ -224,6 +224,7 @@ namespace Delives.pk.Controllers
         // GET: /Account/ConfirmEmail
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberCustomeModel model)
         {
             try
@@ -259,6 +260,123 @@ namespace Delives.pk.Controllers
                 return Json(new { Success = false, Message = "Something went wrong while verifying phone number" }, JsonRequestBehavior.AllowGet);
             }
         }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ForgotPassword(GetPhoneNumberCodeModel model)
+        {
+            try
+            {
+                //if (!ModelState.IsValid)
+                //{
+                //    return Json(new { Success = false, Message = "Either UserId or Code is empty" }, JsonRequestBehavior.AllowGet);
+                //}
+                string actionPath = "User/RequestResetPassword";
+                ResponseModel responseContent = null;
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(CommonFunction.GetWebAPIBaseURL());
+                    client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
+
+                    //client.BaseAddress = new Uri(path);
+                    HttpResponseMessage response = await client.PostAsJsonAsync(actionPath, model);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        responseContent = await response.Content.ReadAsAsync<ResponseModel>();
+                    }
+                }
+                if (responseContent != null && responseContent.Success)
+                {
+                    var json = JsonConvert.SerializeObject(responseContent.Data);
+                    var itemsResponseModel = JsonConvert.DeserializeObject<UserModel>(json);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    return Json(new { Success = responseContent.Success, Message = String.Join(" ", responseContent.Messages), Object = new { UserId = itemsResponseModel.Id != Guid.Empty ? itemsResponseModel.Id : itemsResponseModel.UserId } }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { Success = false, Message = String.Join(" ", responseContent.Messages) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Success = false, Message = "Something went wrong while user forgot password" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ResetPassword(VerifyPhoneNumberCustomeModel model)
+        {
+            try
+            {
+                //if (!ModelState.IsValid)
+                //{
+                //    return Json(new { Success = false, Message = "Either UserId or Code is empty" }, JsonRequestBehavior.AllowGet);
+                //}
+                string actionPath = "User/RequestResetPasswordWithCode";
+                ResponseModel responseContent = null;
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(CommonFunction.GetWebAPIBaseURL());
+                    client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
+
+                    //client.BaseAddress = new Uri(path);
+                    HttpResponseMessage response = await client.PostAsJsonAsync(actionPath, model);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        responseContent = await response.Content.ReadAsAsync<ResponseModel>();
+                    }
+                }
+                if (responseContent != null && responseContent.Success)
+                {
+                    //var json = JsonConvert.SerializeObject(responseContent.Data);
+                    //var itemsResponseModel = JsonConvert.DeserializeObject<UserModel>(json);
+                    var user = UserManager.FindById(model.UserId);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    return Json(new { Success = responseContent.Success, Message = String.Join(" ", responseContent.Messages), Object = new { model.UserId } }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { Success = false, Message = String.Join(" ", responseContent.Messages) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Success = false, Message = "Something went wrong while reseting password" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ResendCode(GetPhoneNumberCodeModel model)
+        {
+            try
+            {
+                //if (!ModelState.IsValid)
+                //{
+                //    return Json(new { Success = false, Message = "Either UserId or Code is empty" }, JsonRequestBehavior.AllowGet);
+                //}
+                string actionPath = "account/GetPhoneNumberCode";
+                ResponseModel responseContent = null;
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(CommonFunction.GetWebAPIBaseURL());
+                    client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
+
+                    //client.BaseAddress = new Uri(path);
+                    HttpResponseMessage response = await client.PostAsJsonAsync(actionPath, model);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        responseContent = await response.Content.ReadAsAsync<ResponseModel>();
+                    }
+                }
+                if (responseContent != null && responseContent.Success)
+                {
+                    //var json = JsonConvert.SerializeObject(responseContent.Data);
+                    //var itemsResponseModel = JsonConvert.DeserializeObject<UserModel>(json);
+                    return Json(new { Success = responseContent.Success, Message = String.Join(" ", responseContent.Messages) }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { Success = false, Message = String.Join(" ", responseContent.Messages) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Success = false, Message = "Something went wrong while resending code on phone number" }, JsonRequestBehavior.AllowGet);
+            }
+        }
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
@@ -269,42 +387,34 @@ namespace Delives.pk.Controllers
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
-
-        //
-        // GET: /Account/ForgotPassword
-        [AllowAnonymous]
-        public ActionResult ForgotPassword()
-        {
-            return View();
-        }
-
+        
         //
         // POST: /Account/ForgotPassword
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
-                {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
-                }
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var user = await UserManager.FindByNameAsync(model.Email);
+        //        if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+        //        {
+        //            // Don't reveal that the user does not exist or is not confirmed
+        //            return View("ForgotPasswordConfirmation");
+        //        }
 
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
-            }
+        //        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+        //        // Send an email with this link
+        //        // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+        //        // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+        //        // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+        //        // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+        //    }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
+        //    // If we got this far, something failed, redisplay form
+        //    return View(model);
+        //}
 
         //
         // GET: /Account/ForgotPasswordConfirmation
@@ -315,38 +425,38 @@ namespace Delives.pk.Controllers
         }
 
         //
-        // GET: /Account/ResetPassword
-        [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
-        {
-            return code == null ? View("Error") : View();
-        }
+        //// GET: /Account/ResetPassword
+        //[AllowAnonymous]
+        //public ActionResult ResetPassword(string code)
+        //{
+        //    return code == null ? View("Error") : View();
+        //}
 
-        //
-        // POST: /Account/ResetPassword
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var user = await UserManager.FindByNameAsync(model.Email);
-            if (user == null)
-            {
-                // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            if (result.Succeeded)
-            {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
-            AddErrors(result);
-            return View();
-        }
+        ////
+        //// POST: /Account/ResetPassword
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
+        //    var user = await UserManager.FindByNameAsync(model.Email);
+        //    if (user == null)
+        //    {
+        //        // Don't reveal that the user does not exist
+        //        return RedirectToAction("ResetPasswordConfirmation", "Account");
+        //    }
+        //    var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+        //    if (result.Succeeded)
+        //    {
+        //        return RedirectToAction("ResetPasswordConfirmation", "Account");
+        //    }
+        //    AddErrors(result);
+        //    return View();
+        //}
 
         //
         // GET: /Account/ResetPasswordConfirmation

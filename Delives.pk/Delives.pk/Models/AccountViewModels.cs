@@ -138,11 +138,15 @@ namespace Delives.pk.Models
     {
         [Required]
         [Display(Name = "Code")]
-        public string Code { get; set; }       
+        public string Code { get; set; }
 
         [Required]
         [Display(Name = "UserId")]
         public string UserId { get; set; }
+
+        [Required]
+        [Display(Name = "NewPassword")]
+        public string NewPassword { get; set; }
     }
 
     public class GetPhoneNumberCodeModel

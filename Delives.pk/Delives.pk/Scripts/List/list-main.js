@@ -3,7 +3,7 @@
     errorMessage: "Something went wrong",
     successMessage: "Operation Successful",
     totalItems: 10,
-    jqXHR: null,
+    xhrItems: null,
     searchFilters: {
         TypeList: [],
         Cords: null,
@@ -120,7 +120,7 @@
         });
     },
     getFilterTypes: function () {
-        this.jqXHR = $.ajax({
+        $.ajax({
             method: "POST",
             url: "FetchItemTypesPartialAsync",
             dataType: "html",
@@ -139,6 +139,11 @@
         }).always(function () {
             //alert("complete");
         });
+    },
+    loadMoreItems: function () {
+        if (listConfig.xhrItems !== undefined && listConfig.xhrItems !== null)
+        listConfig.xhrItems.abort();
+        listConfig.getListItems();
     },
     setDistanceFromTo: function (from, to) {
         listConfig.searchFilters.DistanceFrom = from;

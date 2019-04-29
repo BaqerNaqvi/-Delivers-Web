@@ -1,7 +1,108 @@
 ﻿@model Delives.pk.Models.UserInfoInCartResponseModel
 
 @Styles.Render("~/Content/cart")
+<style>
+    #over_map {
+        position: absolute;
+        top: 23px;
+        left: 400px;
+        z-index: 99;
+    }
 
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button */
+    .close-modal {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor:pointer !important;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    #custom-search-input-in-cart {
+        margin: 0;
+        /*top: 10px;*/
+        padding: 0;
+        width: 650px;
+        margin: auto;
+        position: relative;
+    }
+
+    .input-in-address-map {
+        width: 700px;
+        padding: 15px 30px;
+        border: 0;
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        border-radius: 30px;
+        -webkit-box-shadow: 0px 0px 50px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 50px 0px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 50px 0px rgba(0,0,0,0.75);
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 600;
+        color: #444;
+    }
+
+    /*.modal-header {
+        padding: 2px 16px;
+        background-color: #5cb85c;
+        color: white;
+    }
+
+    .modal-body {
+        padding: 2px 16px;
+    }
+
+    .modal-footer {
+        padding: 2px 16px;
+        background-color: #5cb85c;
+        color: white;
+    }
+
+    .modal-content {
+        position: relative;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 0;
+        border: 1px solid #888;
+        width: 80%;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+        animation-name: animatetop;
+        animation-duration: 0.4s
+    }*/
+
+
+</style>
 <!-- SubHeader =============================================== -->
 @{Html.RenderPartial("~/Views/Cart/_SubHeaderPartial.cshtml");}
 <!-- End SubHeader ============================================ -->
@@ -46,7 +147,7 @@
         <div class="col-md-6">
             <div class="box_style_2" id="order_process">
                 <h2 class="inner">Your order details</h2>
-                
+
                 <div class="form-group">
                     <label>Telephone/mobile</label>
                     <input type="text" readonly id="tel_order" value="@Model.Data.PhoneNumber" name="tel_order" class="form-control" placeholder="Telephone/mobile">
@@ -55,54 +156,57 @@
                     <label>Phone Number To Order On</label>
                     <input type="text" id="tel_order_2" value="@Model.Data.PhoneNumber" name="tel_order_2" class="form-control" placeholder="Telephone/mobile for ordering">
                 </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="email_booking_2" value="@Model.Data.Email" name="email_order" class="form-control" placeholder="Your email">
-                </div>
+                @*<div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="email_booking_2" value="@Model.Data.Email" name="email_order" class="form-control" placeholder="Your email">
+                    </div>*@
                 <div class="form-group">
                     <label>Your full address</label>
-                    <input type="text" id="address_order" value="@Model.Data.Address" name="address_order" class="form-control" placeholder=" Your full address">
+                    <input type="text" readonly="true" id="address_order" value="@Model.Data.Address" name="address_order" class="form-control" placeholder=" Your full address">
                 </div>
-
+                <div class="form-group">
+                    <label>Delivery Address</label>
+                    <input type="text" readonly="true" id="address_delivery" value="@Model.Data.Address" name="address_delivery" class="form-control" placeholder=" Your full address">
+                </div>
                 <hr>
-                <div class="row">
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <label>Delivery Day</label>
-                            <select class="form-control" name="delivery_schedule_day" id="delivery_schedule_day">
-                                <option value="" selected>Select day</option>
-                                <option value="Today">Today</option>
-                                <option value="Tomorrow">Tomorrow</option>
-                            </select>
+                @*<div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label>Delivery Day</label>
+                                <select class="form-control" name="delivery_schedule_day" id="delivery_schedule_day">
+                                    <option value="" selected>Select day</option>
+                                    <option value="Today">Today</option>
+                                    <option value="Tomorrow">Tomorrow</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <label>Delivery time</label>
-                            <select class="form-control" name="delivery_schedule_time" id="delivery_schedule_time">
-                                <option value="" selected>Select time</option>
-                                <option value="11.30am">11.30am</option>
-                                <option value="11.45am">11.45am</option>
-                                <option value="12.15am">12.15am</option>
-                                <option value="12.30am">12.30am</option>
-                                <option value="12.45am">12.45am</option>
-                                <option value="01.00pm">01.00pm</option>
-                                <option value="01.15pm">01.15pm</option>
-                                <option value="01.30pm">01.30pm</option>
-                                <option value="01.45pm">01.45pm</option>
-                                <option value="02.00pm">02.00pm</option>
-                                <option value="07.00pm">07.00pm</option>
-                                <option value="07.15pm">07.15pm</option>
-                                <option value="07.30pm">07.30pm</option>
-                                <option value="07.45pm">07.45pm</option>
-                                <option value="08.00pm">08.00pm</option>
-                                <option value="08.15pm">08.15pm</option>
-                                <option value="08.30pm">08.30pm</option>
-                                <option value="08.45pm">08.45pm</option>
-                            </select>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label>Delivery time</label>
+                                <select class="form-control" name="delivery_schedule_time" id="delivery_schedule_time">
+                                    <option value="" selected>Select time</option>
+                                    <option value="11.30am">11.30am</option>
+                                    <option value="11.45am">11.45am</option>
+                                    <option value="12.15am">12.15am</option>
+                                    <option value="12.30am">12.30am</option>
+                                    <option value="12.45am">12.45am</option>
+                                    <option value="01.00pm">01.00pm</option>
+                                    <option value="01.15pm">01.15pm</option>
+                                    <option value="01.30pm">01.30pm</option>
+                                    <option value="01.45pm">01.45pm</option>
+                                    <option value="02.00pm">02.00pm</option>
+                                    <option value="07.00pm">07.00pm</option>
+                                    <option value="07.15pm">07.15pm</option>
+                                    <option value="07.30pm">07.30pm</option>
+                                    <option value="07.45pm">07.45pm</option>
+                                    <option value="08.00pm">08.00pm</option>
+                                    <option value="08.15pm">08.15pm</option>
+                                    <option value="08.30pm">08.30pm</option>
+                                    <option value="08.45pm">08.45pm</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </div>*@
                 <hr>
 
                 <div class="row">
@@ -137,8 +241,8 @@
         </div>
         <div class="col-md-6">
             <div class="box_style_2" id="personal-details-in-cart">
-                <h2 class="inner">Personal details</h2>    
-            <div class="row">
+                <h2 class="inner">Personal details</h2>
+                <div class="row">
                     <div class="col-md-12 col-sm-12">
                         <div class="form-group">
                             <label>First Name</label>
@@ -170,13 +274,72 @@
             &nbsp;
         </div>
     </div>
+
+
+
+
+
 </div><!-- End container -->
 <!-- End Content =============================================== -->
+@*Modal starts here*@
+<div id="mapModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        @*<span class="close-modal">&times;</span>*@
+
+        @*<div id="map-for-delivery-address"></div>*@
+        <div class="modal-header">
+            <span class="close-modal">&times;</span>
+            <h4>Drag pointer to your exact location</h4>
+        </div>
+        <div class="modal-body">
+            <div id="map-for-delivery-address" style="height:400px !important;"></div>
+            <div id="over_map">
+                <div id="custom-search-input-in-cart">
+                    <div class="input-group">
+                        <input type="text" readonly="true" id="delivery-address-input" class="search-query input-in-address-map" placeholder="Type your address " autocomplete="off">
+                        <span class="input-group-btn">
+                            <input type="submit" class="btn_search" value="submit">
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="modal-footer">
+                <h3>Modal Footer</h3>
+            </div>*@
+
+    </div>
+
+</div>
+
+
+@*Modal ends here*@
+
+
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8Mj9nHFZn1Wh7wZriz4Mpq0uF26vVhig&libraries=places&callback=initMapForDeliveryAddress"
+        async defer></script>
+
+
+
 
 @Scripts.Render("~/bundles/order-summary")
 @Scripts.Render("~/bundles/cart")
+
+
+
+
 <script>
-    jQuery('#sidebar').theiaStickySidebar({
-        additionalMarginTop: 80
-    });
+
+    try {
+        jQuery('#sidebar').theiaStickySidebar({
+            additionalMarginTop: 80
+        });
+    } catch (e) {
+        console.log(e);
+    }
+
 </script>

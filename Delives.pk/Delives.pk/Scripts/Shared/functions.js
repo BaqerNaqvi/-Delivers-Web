@@ -1,4 +1,14 @@
 ﻿//#region storageConfig
+let uiConfig = {
+    showProgress: function () {
+        $('#status').show(); // will first fade out the loading animation
+        $('#preloader').show(); // will fade out the white DIV that covers the website.
+    },
+    hideProgress: function () {
+        $('#status').fadeOut(); // will first fade out the loading animation
+        $('#preloader').delay(250).fadeOut('slow'); // will fade out the white DIV that covers the website.
+    }
+};
 let storageConfig = {
     storageAvailable: function (type) {
         var storage;
@@ -198,6 +208,7 @@ let userConfig = {
     jqXHR: null,
     UserModel: {},
     registerUser: function (user) {
+        uiConfig.showProgress();
         userConfig.UserModel = {};
         this.jqXHR = $.ajax({
             method: "POST",
@@ -221,15 +232,16 @@ let userConfig = {
             toastr.error(errorThrown);
         }).always(function () {
             //alert("complete");
+            uiConfig.hideProgress();
         });
     },
     verifyPhoneNumber: function (model) {
+        uiConfig.showProgress();
         this.jqXHR = $.ajax({
             method: "POST",
             url: "/Account/VerifyPhoneNumber",
             dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ model: model })
+            data: { model: model, "__RequestVerificationToken": $('#phoneVerificationForm input[name=__RequestVerificationToken]').val() }
         }).done(function (response) {
             if (response.Success) {
                 toastr.success(response.Message);
@@ -246,14 +258,16 @@ let userConfig = {
             toastr.error(errorThrown);
         }).always(function () {
             //alert("complete");
+            uiConfig.hideProgress();
         });
     },
     loginUser: function (model) {
+        uiConfig.showProgress();
         this.jqXHR = $.ajax({
             method: "POST",
             url: "/Account/Login",
             dataType: "json",
-            data: { model: model, "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
+            data: { model: model, "__RequestVerificationToken": $('#myLogin input[name=__RequestVerificationToken]').val() }
         }).done(function (response) {
             if (response.Success) {
                 toastr.success(response.Message);
@@ -277,6 +291,87 @@ let userConfig = {
             toastr.error(errorThrown);
         }).always(function () {
             //alert("complete");
+            uiConfig.hideProgress();
+        });
+    },
+    forgotPassword: function (model) {
+        uiConfig.showProgress();
+        this.jqXHR = $.ajax({
+            method: "POST",
+            url: "/Account/ForgotPassword",
+            dataType: "json",
+            data: { model: model, "__RequestVerificationToken": $('#forgotPasswordForm input[name=__RequestVerificationToken]').val() }
+        }).done(function (response) {
+            if (response.Success) {
+                toastr.success(response.Message);
+                localStorage.setItem("UserModel", JSON.stringify(response.Object));
+                userConfig.openPasswordResetModal();
+                //window.location.href = "/Delivery/Index";
+                //open modal to verify 4 digit code
+            }
+            else {
+                toastr.error(response.Message);
+            }
+            //alert("success");
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            //alert("error");
+            toastr.error(errorThrown);
+        }).always(function () {
+            //alert("complete");
+            uiConfig.hideProgress();
+        });
+    },
+    resetPassword: function (model) {
+        uiConfig.showProgress();
+        this.jqXHR = $.ajax({
+            method: "POST",
+            url: "/Account/ResetPassword",
+            dataType: "json",
+            data: { model: model, "__RequestVerificationToken": $('#passwordResetForm input[name=__RequestVerificationToken]').val() }
+        }).done(function (response) {
+            if (response.Success) {
+                toastr.success(response.Message);
+                localStorage.setItem("UserModel", JSON.stringify(response.Object));
+                location.reload(true);
+            }
+            else {
+                toastr.error(response.Message);
+            }
+            //alert("success");
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            //alert("error");
+            toastr.error(errorThrown);
+        }).always(function () {
+            //alert("complete");
+            uiConfig.hideProgress();
+        });
+    },
+    resendCode: function (model) {
+        model = {
+            PhoneNumber: JSON.parse(localStorage.getItem("UserModel")).PhoneNumber
+        };
+        uiConfig.showProgress();
+        this.jqXHR = $.ajax({
+            method: "POST",
+            url: "/Account/ResendCode",
+            dataType: "json",
+            data: { model: model, "__RequestVerificationToken": $('#phoneVerificationForm input[name=__RequestVerificationToken]').val() }
+        }).done(function (response) {
+            if (response.Success) {
+                toastr.success(response.Message);
+                //localStorage.setItem("UserModel", JSON.stringify(response.Object));
+                //location.reload(true);
+            }
+            else {
+                toastr.error(response.Message);
+            }
+            //alert("success");
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            //alert("error");
+            toastr.error(errorThrown);
+        }).always(function () {
+            //alert("complete");
+            uiConfig.hideProgress();
         });
     },
     validateForms: function () {
@@ -286,6 +381,8 @@ let userConfig = {
         userConfig.validateRegisterationForm();
         userConfig.validatePhoneVerificationForm();
         userConfig.validateLoginForm();
+        userConfig.validateForgotPasswordForm();
+        userConfig.validatePasswordResetForm();
     },
     validateRegisterationForm: function () {
         $("#registrationForm").validate({
@@ -435,9 +532,84 @@ let userConfig = {
             }
         });
     },
+    validateForgotPasswordForm: function () {
+        $("#forgotPasswordForm").validate({
+            rules: {
+                forgotPasswordPhoneNumber: {
+                    required: {
+                        depends: function () {
+                            $(this).val($.trim($(this).val()));
+                            return true;
+                        }
+                    },
+                    minlength: 11,
+                    maxlength: 11
+                }
+
+            },
+            submitHandler: function (form) {
+                console.log("Forgot Password");
+                var model = {
+                    PhoneNumber: $('#forgotPasswordPhoneNumber').val()
+                };
+                userConfig.forgotPassword(model);
+                // do other things for a valid form
+                //form.submit();
+            }
+        });
+    },
+    validatePasswordResetForm: function () {
+        $("#passwordResetForm").validate({
+            rules: {
+                passwordResetCode: {
+                    required: {
+                        depends: function () {
+                            $(this).val($.trim($(this).val()));
+                            return true;
+                        }
+                    },
+                    digits: true,
+                    minlength: 6,
+                    maxlength: 6
+                },
+                passwordResetNewPassword: {
+                    required: true,
+                    minlength: 8,
+                    maxlength: 20,
+                    passwordRegex: true
+
+                },
+                passwordResetConfirmPassword: {
+                    equalTo: "#passwordResetNewPassword",
+                    minlength: 8,
+                    maxlength: 20,
+                },
+
+            },
+            submitHandler: function (form) {
+                console.log("Reset Password");
+                var model = {
+                    UserId: JSON.parse(localStorage.getItem("UserModel")).UserId,
+                    Code: $('#passwordResetCode').val(),
+                    NewPassword: $('#passwordResetNewPassword').val()
+                };
+                userConfig.resetPassword(model);
+                // do other things for a valid form
+                //form.submit();
+            }
+        });
+    },
     openPhoneVerificationModal: function () {
         $('.close-link').trigger('click');
         $('.openPhoneVerificationModal').trigger('click');
+    },
+    openForgotPasswordModal: function () {
+        $('.close-link').trigger('click');
+        $('.openForgotPasswordModal').trigger('click');
+    },
+    openPasswordResetModal: function () {
+        $('.close-link').trigger('click');
+        $('.openPasswordResetModal').trigger('click');
     }
 };
 //#endregion userConfig

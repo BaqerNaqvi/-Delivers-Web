@@ -109,3 +109,12 @@
     now = new Date(now).toLocaleTimeString(); // Date object
     $("#deliveryTimeNode").html(now);
 </script>*@
+
+<script>
+
+    $(document).ready(() => {
+        window.localStorage.removeItem('itemsInCart');
+        window.localStorage.removeItem('orderDetailsObj');
+    })
+    
+</script>
