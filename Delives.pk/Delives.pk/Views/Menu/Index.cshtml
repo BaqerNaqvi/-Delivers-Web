@@ -3,7 +3,7 @@
 @{
 
     int index = 1;
-    string headerValue = Model.Data.Count == 0 ? "Menu Coming Soon" : "Menu";
+    string headerValue = Model.Data.Count == 0 ? "Menu Is Not Available Yet" : "Menu";
 }
 @Styles.Render("~/Content/menu")
 <!-- SubHeader =============================================== -->
@@ -115,7 +115,10 @@
                         </tbody>
                     </table>
                 }
-
+                else
+                {
+                    <div><a class="btn_full_outline" href="/List/Index"><i class="icon-right"></i> Back to Search</a></div>
+                }
 
             </div><!-- End box_style_1 -->
         </div><!-- End col-md-6 -->
@@ -124,9 +127,19 @@
             <div class="theiaStickySidebar">
                 <div id="cart_box">
                     <div id="cart_box_section-1"></div>
-                    <div id="cart_box_section-2">
-                        <a class="btn_full" onclick="orderNowfunc()" href="~/cart/index">Add Delivery Details</a>
-                    </div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div id="cart_box_section-2">
+                                <a class="btn_full" onclick="orderNowfunc()" href="#0">Add Delivery Details</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div id="cart_box_section-2">
+                               <p id="needLogin">You need to <a href="#0" data-toggle="modal" data-target="#login_2">Login</a> to place an order</p>
+                            </div>
+                        }
+
                 </div><!-- End cart_box -->
             </div><!-- End theiaStickySidebar -->
         </div><!-- End col-md-3 -->
@@ -136,6 +149,7 @@
 <!-- End Content =============================================== -->
 @Scripts.Render("~/bundles/order-summary")
 @Scripts.Render("~/bundles/menu")
+@{Html.RenderPartial("~/Views/Shared/LoginModal.cshtml");}
 
 <script>
     var currentResName = "@Model.RestaurentInfo.Name";

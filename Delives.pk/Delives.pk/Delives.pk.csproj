@@ -397,6 +397,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\cart_icon.png" />
     <Content Include="Images\DELIVERY-LOGO.png" />
     <Content Include="Images\pins\FOOD.png" />
     <Content Include="Images\pins\GROCERY.png" />
@@ -414,6 +415,7 @@
     <Content Include="Images\Rest\Small\small_05.jpg" />
     <Content Include="Images\sub_header_1.jpg" />
     <Content Include="Images\sub_header_short.jpg" />
+    <Content Include="Images\thankyou.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">

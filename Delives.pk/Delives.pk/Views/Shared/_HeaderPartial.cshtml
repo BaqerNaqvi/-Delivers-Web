@@ -70,9 +70,12 @@
                             <li><a href="#0" data-toggle="modal" data-target="#login_2">Login</a></li>
 
                         }
-                        
                     </ul>
                 <ul id="custom-menu">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li title="View Cart"><img id="cartImg" src="~/Images/cart_icon.png" /></li>
+                    }
                     <li><a href="~/Delivery/Index">Home</a></li>
                     @if (User.Identity.IsAuthenticated)
                     {

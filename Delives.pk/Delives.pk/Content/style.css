@@ -90,7 +90,7 @@ h3 .slide_typo strong {font-family:"Helvetica Neue", Helvetica, Arial, sans-seri
     color:#302725
 }
 /*General links color*/
-a {color:#ec008c;text-decoration: none;-webkit-transition: all 0.2s ease;transition: all 0.2s ease; outline:none;}
+a {color:#bc5a5c;text-decoration: none;-webkit-transition: all 0.2s ease;transition: all 0.2s ease; outline:none;}
 a:hover,a:focus {color: #111;text-decoration: none; outline:none;}
 
 hr.more_margin {
@@ -628,16 +628,16 @@ video {
 	margin-left:-20px;
 }
 .box_home#one{
-	background:#fff url(../Images/icon_home_1.svg) no-repeat center 40px;
+	background:#fff url(../Images/icon_home_1.png) no-repeat center 40px;
 }
 .box_home#two{
-	background:#fff url(../Images/icon_home_2.svg) no-repeat center 40px;
+	background:#fff url(../Images/icon_home_2.png) no-repeat center 40px;
 }
 .box_home#three{
-	background:#fff url(../Images/icon_home_3.svg) no-repeat center 40px;
+	background:#fff url(../Images/icon_home_3.png) no-repeat center 40px;
 }
 .box_home#four{
-	background:#fff url(../Images/icon_home_4.svg) no-repeat center 40px;
+	background:#fff url(../Images/icon_home_4.png) no-repeat center 40px;
 }
 .box_home h3{
 	font-size:16px;
@@ -2736,7 +2736,9 @@ ul.plan-features {
     background-color: #ba585ab0;
     color: white;
 }
-
+ #cartImg{
+   margin-left: 12px;
+}
   .sub_content h3, #office_p{
     border-radius: 5px;
     padding: 3px;
@@ -2765,4 +2767,17 @@ height: 333px;
     color: #ad3638d1;
     background: none;
     border: 2px solid #ad3638d1;
+}
+
+#cartImg{
+    height:25px;
+    width:25px;
+    cursor:pointer;
+}
+#needLogin{
+    background-color: #ffe4c496;
+    color: #e21212;
+    padding: 7px;
+    border: solid 1px;
+    border-radius: 5px;
 }

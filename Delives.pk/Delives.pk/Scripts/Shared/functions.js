@@ -262,6 +262,7 @@ let userConfig = {
         });
     },
     loginUser: function (model) {
+        debugger;
         uiConfig.showProgress();
         this.jqXHR = $.ajax({
             method: "POST",
@@ -641,3 +642,7 @@ $(() => {
 });
 //#endregion DocumentReady
 
+
+function goToRegisterPage(){
+    window.location.href="/Account/Register";
+}

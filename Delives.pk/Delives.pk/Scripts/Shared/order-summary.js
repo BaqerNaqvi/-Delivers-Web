@@ -375,4 +375,5 @@ const groupBy = (items, key) => items.reduce(
 
 function orderNowfunc(){
     showProgress();
+    window.location.href="../../cart/index";
 }
