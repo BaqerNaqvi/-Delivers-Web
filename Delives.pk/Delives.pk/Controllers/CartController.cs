@@ -9,9 +9,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+
 
 namespace Delives.pk.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         public static Uri baseApiUrl = new Uri(CommonFunction.GetWebAPIBaseURL());
@@ -21,12 +24,13 @@ namespace Delives.pk.Controllers
             UserInfoInCartResponseModel responseContent = null;
             using (HttpClient client = new HttpClient())
             {
+                var uid= User.Identity.GetUserId();
                 string actionPath = "Account/GetUserInfo";
                 client.BaseAddress = baseApiUrl;
                 client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
                 UserInfoRequestModel msModel = new UserInfoRequestModel()
                 {
-                    UserId = "33669f22-43da-4f5d-b801-91ade07afc5d"
+                    UserId = uid//"33669f22-43da-4f5d-b801-91ade07afc5d"
                 };
 
                 HttpResponseMessage response = await client.PostAsJsonAsync(actionPath, msModel);
