@@ -99,7 +99,7 @@ const menuJSObj = {
 
     //        let markUp = ` <h3>Your order <i class="icon_cart_alt pull-right"></i></h3>
     //                <table class="table table_summary" id="table-cart-orders">
-    //                    <tbody>
+    //                    <tbody>d
     //                        ${itemsHTML}
     //                    </tbody>
     //                </table>

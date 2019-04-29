@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Delivers.pk";
+    ViewBag.Title = "Home";
 }
 
 <!-- SubHeader =============================================== -->
@@ -87,7 +87,7 @@
         <div class="sub_content">
             <i class="icon_mug"></i>
             <h3>We also deliver to your office</h3>
-            <p>
+            <p id="office_p">
                 Have you forgotten your lunch at your home? Don't worry we will bring it for you
             </p>
         </div><!-- End sub_content -->
@@ -210,7 +210,10 @@
             infowindow.open(map, marker);
             var cords = place.geometry.location.lat() + "_" + place.geometry.location.lng();
             localStorage.setItem("coords", cords);
-        });
+
+            localStorage.setItem("search-add", $('#pac-input').val());
+            $('#search-loc-form').submit();
+            });
 
         // Sets a listener on a radio button to change the filter type on Places
         // Autocomplete.
@@ -238,6 +241,7 @@
         }
             
     }
+
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8Mj9nHFZn1Wh7wZriz4Mpq0uF26vVhig&libraries=places&callback=initMap"
         async defer></script>

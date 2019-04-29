@@ -139,7 +139,12 @@ let locationConfig = {
         //   3: timed out
     },
     getGeoLocation: function (successCallBack = locationConfig.geoLocationSuccess, errorCallBack = locationConfig.geoLocationError, options = locationConfig.geoLocationOptions) {
-        navigator.geolocation.getCurrentPosition(successCallBack, errorCallBack, options);
+        try {
+            //navigator.geolocation.getCurrentPosition(successCallBack, errorCallBack, options);
+        }
+        catch (ex) {
+            //
+        }
     },
     checkGeoLocationSupported: function () {
         if (navigator.geolocation) {
@@ -202,7 +207,7 @@ let userConfig = {
             data: JSON.stringify({ model: user })
         }).done(function (response) {
             if (response.Success) {
-                userConfig.UserModel = response.Object;
+                localStorage.setItem("UserModel", JSON.stringify(response.Object));
                 userConfig.openPhoneVerificationModal();
                 //open modal to verify 4 digit code
                 toastr.success(response.Message);
@@ -228,8 +233,8 @@ let userConfig = {
         }).done(function (response) {
             if (response.Success) {
                 toastr.success(response.Message);
-                location.reload(true);
-                //window.location.href = "/Delivery/Index";
+                //location.reload(true);
+                window.location.href = "/Delivery/Index";
                 //open modal to verify 4 digit code
             }
             else {
@@ -252,10 +257,12 @@ let userConfig = {
         }).done(function (response) {
             if (response.Success) {
                 toastr.success(response.Message);
-                if (Status === 200)
+                if (response.Status === 1) {
+                    localStorage.setItem("UserModel", JSON.stringify(response.Object));
                     location.reload(true);
-                else if (Status === 206) {
-                    userConfig.UserModel = response.Object;
+                }
+                else if (response.Status === 2) {
+                    localStorage.setItem("UserModel", JSON.stringify(response.Object));
                     userConfig.openPhoneVerificationModal();
                 }
                 //window.location.href = "/Delivery/Index";
@@ -281,9 +288,9 @@ let userConfig = {
         userConfig.validateLoginForm();
     },
     validateRegisterationForm: function () {
-        $("#myRegister").validate({
+        $("#registrationForm").validate({
             rules: {
-                firstName: {
+                FirstName: {
                     required: {
                         depends: function () {
                             $(this).val($.trim($(this).val()));
@@ -296,7 +303,7 @@ let userConfig = {
 
                     //}
                 },
-                lastName: {
+                LastName: {
                     required: {
                         depends: function () {
                             $(this).val($.trim($(this).val()));
@@ -305,7 +312,7 @@ let userConfig = {
                     },
                     maxlength: 20
                 },
-                phoneNumber: {
+                PhoneNumber: {
                     required: {
                         depends: function () {
                             $(this).val($.trim($(this).val()));
@@ -316,21 +323,21 @@ let userConfig = {
                     minlength: 11,
                     maxlength: 11
                 },
-                newPassword: {
+                Password: {
                     required: true,
                     minlength: 8,
                     maxlength: 20,
                     passwordRegex: true
 
                 },
-                confirmPassword: {
-                    equalTo: "#newPassword",
+                ConfirmPassword: {
+                    equalTo: "#Password",
                     minlength: 8,
                     maxlength: 20,
                 },
-                agreement: {
-                    required: true
-                }
+                //agreement: {
+                //    required: true
+                //}
 
             },
             errorPlacement: function (error, element) {
@@ -341,19 +348,19 @@ let userConfig = {
                 }
             },
             messages: {
-                agreement: {
-                    required: "(Required)"
-                },
+                //agreement: {
+                //    required: "(Required)"
+                //},
             },
             submitHandler: function (form) {
                 console.log("Register user");
                 var user = {
-                    UserName: $('#phoneNumber').val(),
+                    UserName: $('#PhoneNumber').val(),
                     Email: "production",
-                    FirstName: $('#firstName').val(),
-                    LastName: $('#lastName').val(),
-                    PhoneNumber: $('#phoneNumber').val(),
-                    Password: $('#newPassword').val(),
+                    FirstName: $('#FirstName').val(),
+                    LastName: $('#LastName').val(),
+                    PhoneNumber: $('#PhoneNumber').val(),
+                    Password: $('#Password').val(),
                     Type: 1
                 };
                 userConfig.registerUser(user);
@@ -378,12 +385,17 @@ let userConfig = {
                 }
             },
             submitHandler: function (form) {
-                var model = {
-                    UserId: userConfig.UserModel.UserId ,
-                    Code: $('#code').val()
-                };
-                console.log("Verify phone number");
-                userConfig.verifyPhoneNumber(model);
+                try {
+                    var model = {
+                        UserId: JSON.parse(localStorage.getItem("UserModel")).UserId,
+                        Code: $('#code').val()
+                    };
+                    console.log("Verify phone number");
+                    userConfig.verifyPhoneNumber(model);
+                }
+                catch (ex) {
+                    toastr.error("Invalid user");
+                }
                 // do other things for a valid form
                 //form.submit();
             }
@@ -401,7 +413,7 @@ let userConfig = {
                     },
                     maxlength: 20
                 },
-                password: {
+                loginPassword: {
                     required: true,
                     minlength: 8,
                     maxlength: 20,
@@ -414,7 +426,7 @@ let userConfig = {
                 console.log("Login user");
                 var model = {
                     PhoneNumber: $('#userName').val(),
-                    Password: $('#password').val(),
+                    Password: $('#loginPassword').val(),
                     Type: 1
                 };
                 userConfig.loginUser(model);

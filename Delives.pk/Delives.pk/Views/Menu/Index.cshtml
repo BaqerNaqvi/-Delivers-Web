@@ -14,9 +14,10 @@
     <div class="container">
         <ul>
             <li><a href="~/Delivery/Index">Home</a></li>
-            <li><a href="">Menu</a></li>
+            <li><a href="~/List/Index">Stores</a></li>
+            <li><a>Menu</a></li>
         </ul>
-        <a href="#0" class="search-overlay-menu-btn"><i class="icon-search-6"></i> Search</a>
+        <a style="display:none" href="#0" class="search-overlay-menu-btn"><i class="icon-search-6"></i> Search</a>
     </div>
 </div><!-- Position -->
 <!-- Content ================================================== -->
@@ -38,8 +39,8 @@
             <div class="box_style_2 hidden-xs" id="help">
                 <i class="icon_lifesaver"></i>
                 <h4>Need <span>Help?</span></h4>
-                <a href="tel://004542344599" class="phone">055 3828677</a>
-                <small>Monday to Friday 9.00am - 6.00pm </small>
+                <a href="tel://0553828677" class="phone">055 3828677</a>
+                <small>Monday to Saturday 9.00am - 6.00pm </small>
             </div>
         </div><!-- End col-md-3 -->
 
@@ -124,7 +125,7 @@
                 <div id="cart_box">
                     <div id="cart_box_section-1"></div>
                     <div id="cart_box_section-2">
-                        <a class="btn_full" href="~/cart/index">Order now</a>
+                        <a class="btn_full" onclick="orderNowfunc()" href="~/cart/index">Add Delivery Details</a>
                     </div>
                 </div><!-- End cart_box -->
             </div><!-- End theiaStickySidebar -->

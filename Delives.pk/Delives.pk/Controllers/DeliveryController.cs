@@ -19,6 +19,7 @@ namespace Delives.pk.Controllers
         // GET: Delivery
         public ActionResult Index()
         {
+
             //var searchTerm = ""; // Request.QueryString["q"];
             //ItemSearchModel itemSearchModel = new ItemSearchModel()
             //{

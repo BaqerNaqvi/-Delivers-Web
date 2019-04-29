@@ -32,7 +32,7 @@
             OrderBy: "distance"
         };
     },
-    setSearchFilters: function (resetPage = false) {
+    setSearchFilters: function (resetPage ) {
         var itemTypes = $('.load-filter-types input:checked').map(function () {
             return $(this).val();
         }).toArray();
@@ -64,15 +64,22 @@
         };
     },
     getListItems: function (recenterMap = false) {
+
+        showProgress() ;
+        $('#search-address').text("Please wait")
+
+
         listConfig.searchFilters.CurrentPage += 1;
-        //listConfig.searchFilters.TypeList = 1;
-        this.xhrItems = $.ajax({
+        this.jqXHR = $.ajax({
             method: "POST",
             url: "FetchItemsPartialAsync",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({ itemSearchModel: listConfig.searchFilters })
         }).done(function (response) {
+            $('#res-result-count').text(localStorage.getItem("search-add"));
+            hideProgress();
+            $('#search-address').text("")
             //let data = JSON.parse(response);
             if (response.Success) {
                 if (response.Status === 404) {
@@ -145,7 +152,7 @@
     loadLocationDependentData: function (position) {
         locationConfig.geoLocationSuccess(position);
         listConfig.resetSearchFilters();
-        listConfig.getListItems(true);
+        
     }
 };
 
@@ -193,7 +200,11 @@ $(() => {
     //        locationConfig.getGeoLocation(listConfig.loadLocationDependentData);
     //    }
     //}
-    listConfig.getListItems(true);
+    $(window).load(function () {
+        $('#list-load-more').hide();
+        listConfig.getListItems(true);
+
+    });
 });
 
 $('#performSearch').on('click', () => {
@@ -204,3 +215,7 @@ $('#performSearch').on('click', () => {
     listConfig.getListItems();
     $(".search-overlay-close").trigger('click');
 });
+
+function showMenuFunc(){
+    showProgress();
+}

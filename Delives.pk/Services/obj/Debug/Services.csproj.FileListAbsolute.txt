@@ -40,3 +40,4 @@ D:\moosa\personal\freelancing\withbaqer\delivers_New\-Delivers-Web\Delives.pk\Se
 D:\moosa\personal\freelancing\withbaqer\delivers_New\-Delivers-Web\Delives.pk\Services\obj\Debug\Services.csproj.CopyComplete
 D:\moosa\personal\freelancing\withbaqer\delivers_New\-Delivers-Web\Delives.pk\Services\obj\Debug\Services.dll
 D:\moosa\personal\freelancing\withbaqer\delivers_New\-Delivers-Web\Delives.pk\Services\obj\Debug\Services.pdb
+C:\Users\baqer.naqvi.AFINITI\source\repos\-Delivers-Web1\Delives.pk\Services\obj\Debug\Services.csprojResolveAssemblyReference.cache

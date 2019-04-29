@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "List";
+    ViewBag.Title = "Search Results";
 }
 
 @Styles.Render("~/Content/checkboxes")
@@ -13,8 +13,8 @@
     <div class="container">
         <ul>
             <li><a href="#0">Home</a></li>
-            <li><a href="#0">Category</a></li>
-            <li>Page active</li>
+            @*<li><a href="#0">Search Results</a></li>*@
+            <li>Search Results</li>
         </ul>
         <a href="javascript:void(0)" class="search-overlay-menu-btn"><i class="icon-search-6"></i> Search</a>
     </div>
@@ -28,7 +28,7 @@
     <div class="row">
 
         <div class="col-md-3">
-            <p>
+            <p style="display:none">
                 <a class="btn_map" data-toggle="collapse" href="#collapseMap" aria-expanded="false" aria-controls="collapseMap">View on map</a>
             </p>
 

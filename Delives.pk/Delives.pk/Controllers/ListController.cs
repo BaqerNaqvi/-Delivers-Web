@@ -21,20 +21,7 @@ namespace Delives.pk.Controllers
         // GET: Search
         public ActionResult Index()
         {
-            //var searchTerm = Request.QueryString["q"];
-
-            //ItemSearchModel itemSearchModel = new ItemSearchModel()
-            //{
-            //    CurrentPage = 1,
-            //    ItemsPerPage = 10,
-            //    SearchTerm = string.IsNullOrWhiteSpace(searchTerm) ? "" : searchTerm,
-            //    Cords = "32.22982263_74.18175494",
-            //    DistanceFrom = 0,
-            //    DistanceTo = 5,
-            //    Rating = 1,
-            //    Type = 1
-            //};
-            //var searchedResults = await GetItemsAsync(itemSearchModel);
+           
             return View();
         }
         [HttpPost]
@@ -48,6 +35,10 @@ namespace Delives.pk.Controllers
             };
             try
             {
+                if (itemSearchModel.TypeList == null)
+                {
+                    itemSearchModel.TypeList = new List<int>();
+                }
                 ItemsResponseModel itemsResponseModel = await GetItemsAsync(itemSearchModel);
                 if (itemsResponseModel != null)
                 {
@@ -58,7 +49,7 @@ namespace Delives.pk.Controllers
                     else if (itemsResponseModel.TotalItems <= (itemsResponseModel.CurrentPage * itemsResponseModel.ItemsPerPage))
                     {
                         var html = RenderRazorViewToString("~/Views/List/_ListItemPartial.cshtml", itemsResponseModel.Items);
-                        return Json(new { Success = true, Status = HttpStatusCode.ResetContent, Message = "Change filters to search for more items" }, JsonRequestBehavior.AllowGet);
+                        return Json(new { Success = true, Status = HttpStatusCode.OK, Html=html, Message = "Change filters to search for more items" }, JsonRequestBehavior.AllowGet);
                     }
                     else if (itemsResponseModel.Items != null)
                     {
@@ -81,6 +72,10 @@ namespace Delives.pk.Controllers
         {
             try
             {
+                if (itemSearchModel.TypeList == null)
+                {
+                    itemSearchModel.TypeList = new List<int>();
+                }
                 string actionPath = "Listing/GetItems";
                 ResponseModel responseContent = null;
                 using (HttpClient client = new HttpClient())

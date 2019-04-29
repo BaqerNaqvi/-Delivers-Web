@@ -4,7 +4,9 @@
 <!-- SubHeader =============================================== -->
 @{Html.RenderPartial("~/Views/Cart/Snapshot/_SubHeaderPartial.cshtml");}
 <!-- End SubHeader ============================================ -->
-
+@{
+    ViewBag.Title = "Order Details";
+}
 
 <div id="position">
     <div class="container">
@@ -20,7 +22,7 @@
 <div class="container margin_60_35">
     <div class="row">
         <div class="col-md-3" id="left-panel-snapshot">
-            <div class="box_style_2 hidden-xs info">
+            <div class="box_style_2 hidden-xs info" style="display:none">
                 <h4 class="nomargin_top">Delivery time <i class="icon_clock_alt pull-right"></i></h4>
                 <p>
                     Lorem ipsum dolor sit amet, in pri partem essent. Qui debitis meliore ex, tollit debitis conclusionemque te eos.
@@ -35,8 +37,8 @@
             <div class="box_style_2 hidden-xs" id="help">
                 <i class="icon_lifesaver"></i>
                 <h4>Need <span>Help?</span></h4>
-                <a href="tel://004542344599" class="phone">+45 423 445 99</a>
-                <small>Monday to Friday 9.00am - 7.30pm</small>
+                <a href="tel://0553828677" class="phone">055 3828677</a>
+                <small>Monday to Saturday 9.00am - 6.00pm </small>
             </div>
         </div><!-- End col-md-3 -->
 
@@ -61,7 +63,7 @@
                 <div id="cart_box">
                     <div id="cart_box_section-1"></div>
                     <div id="cart_box_section-2">
-                        <a class="btn_full" onclick="cartSnapShotJSObj.placeOrder()" href="javascript:void(0)">Confirm your order</a>
+                        <a class="btn_full" onclick="cartSnapShotJSObj.placeOrder()" href="javascript:void(0)">Place Order Now</a>
                     </div>
                 </div><!-- End cart_box -->
 
@@ -74,8 +76,11 @@
 @Scripts.Render("~/bundles/order-summary")
 @Scripts.Render("~/bundles/cart-snapshot")
 <script>
-    jQuery('#sidebar').theiaStickySidebar({
-        additionalMarginTop: 80
-    });
+    //setTimeout(function () {
+
+    //    jQuery('#sidebar').theiaStickySidebar({
+    //        additionalMarginTop: 80
+    //    });
+    //}, 1000);
 </script>
 

@@ -146,3 +146,28 @@ $(window).scroll(determineDropDirection);
 $("a.add_to_basket").on("click", function () {
     $(".dropdown").removeClass("open");
 });
+
+
+window.onscroll = function () { scrollFunction() };
+
+function scrollFunction() {
+    if (document.body.scrollTop > 40 || document.documentElement.scrollTop >= 40) {
+        document.getElementById("logoImage").style.height = "50px";
+        document.getElementById("logoImage").style.width = "50px";
+        $('ul#custom-menu a').css('color','black');
+
+    } else {
+        document.getElementById("logoImage").style.height = "100px";
+        document.getElementById("logoImage").style.width = "100px";
+        $('ul#custom-menu a').css('color', 'white');
+    }
+}
+
+function showProgress() {
+    $('#preloader').delay(50).fadeIn('slow');
+    $('#status').delay(200).fadeIn('slow');
+}
+function hideProgress() {
+    $('#preloader').delay(200).fadeOut('slow');
+    $('#status').delay(200).fadeOut('slow');
+}
