@@ -1,6 +1,8 @@
 ﻿
 @model Delives.pk.Models.OrderConfirmedResponseModel
-
+@{
+    ViewBag.Title = "Order Placed";
+}
 @Styles.Render("~/Content/cart")
 
 <!-- SubHeader =============================================== -->
@@ -34,7 +36,7 @@
                     <i class="icon_check_alt2"></i>
                     <h3>Thank you!</h3>
                     <p>
-                        Lorem ipsum dolor sit amet, nostrud nominati vis ex, essent conceptam eam ad. Cu etiam comprehensam nec. Cibo delicata mei an, eum porro legere no.
+                        We have sent your order to the restaurant / store & will let you know after confirmation. Thank you for choosing <a href="http://wwww.delivers.pk">Delivers.pk</a>
                     </p>
                 </div>
                 @foreach (var item in Model.Data.Orders )
@@ -94,9 +96,10 @@
                                 <span class="pull-right">Rs @grandTotal</span>
                             </td>
                         </tr>
+
                     </tbody>
                 </table>
-
+                <a class="btn_full_outline" style="margin-top: 3%;" href="/delivery/index"><i class="icon-right"></i> Go Back To Site</a>
             </div>
         </div>
     </div><!-- End row -->
