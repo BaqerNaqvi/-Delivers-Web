@@ -137,7 +137,7 @@ a.btn_full, .btn_full{
 	font-size: inherit;
 	color:#fff;
 	width:100%;
-	background: #85c99d;
+	background: #bd5a5c;
 	cursor: pointer;
 	padding: 12px 20px;
 	outline: none;
@@ -219,10 +219,10 @@ a.btn_full_outline, .btn_full_outline{
 	border: none;
 	font-family: inherit;
 	font-size: inherit;
-	color:#85c99d;
+	color:#bd5a5c;
 	background:none;
 	width:100%;
-	border:2px solid #85c99d;
+	border:2px solid #bd5a5c;
 	cursor: pointer;
 	padding: 10px 20px;
 	display: inline-block;
@@ -2747,6 +2747,12 @@ ul.plan-features {
   #logoImage{
       height:50px !important;
       width:50px !important;
+  }
+  #delivery-address-input {
+    max-width: 30% !important;
+}
+  #map-for-delivery-address{
+height: 333px;
   }
 }
 

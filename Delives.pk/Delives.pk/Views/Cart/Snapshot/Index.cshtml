@@ -61,7 +61,7 @@
                 <div id="cart_box">
                     <div id="cart_box_section-1"></div>
                     <div id="cart_box_section-2">
-                        <a class="btn_full" onclick="cartSnapShotJSObj.placeOrder()" href="javascript:void(0)">Confirm your order</a>
+                        <a class="btn_full" onclick="cartSnapShotJSObj.placeOrder()" href="javascript:void(0)">Place Order Now</a>
                     </div>
                 </div><!-- End cart_box -->
 
@@ -74,8 +74,11 @@
 @Scripts.Render("~/bundles/order-summary")
 @Scripts.Render("~/bundles/cart-snapshot")
 <script>
-    jQuery('#sidebar').theiaStickySidebar({
-        additionalMarginTop: 80
-    });
+    //setTimeout(function () {
+
+    //    jQuery('#sidebar').theiaStickySidebar({
+    //        additionalMarginTop: 80
+    //    });
+    //}, 1000);
 </script>
 

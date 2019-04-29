@@ -1,11 +1,13 @@
 ﻿@model Delives.pk.Models.UserInfoInCartResponseModel
 
 @Styles.Render("~/Content/cart")
+@{
+    ViewBag.Title = "Delivery Details";
+}
 <style>
     #over_map {
         position: absolute;
         top: 23px;
-        left: 400px;
         z-index: 99;
     }
 
@@ -14,7 +16,7 @@
     .modal {
         display: none; /* Hidden by default */
         position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
+        z-index: 99999; /* Sit on top */
         left: 0;
         top: 0;
         width: 100%; /* Full width */
@@ -31,6 +33,11 @@
         padding: 20px;
         border: 1px solid #888;
         width: 80%; /* Could be more or less, depending on screen size */
+
+        margin-top: 7%;
+    max-height: 70%;
+    max-width: 80% !important;
+    padding:0px
     }
 
     /* The Close Button */
@@ -144,28 +151,28 @@
 
         </div><!-- End col-md-3 -->
 
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="box_style_2" id="order_process">
-                <h2 class="inner">Your order details</h2>
+                <h2 class="inner">Add/Edit Delivery Details</h2>
 
-                <div class="form-group">
+                @*<div class="form-group">
                     <label>Telephone/mobile</label>
                     <input type="text" readonly id="tel_order" value="@Model.Data.PhoneNumber" name="tel_order" class="form-control" placeholder="Telephone/mobile">
-                </div>
+                </div>*@
                 <div class="form-group">
-                    <label>Phone Number To Order On</label>
+                    <label>Deliver to Bellow Phone Number</label>
                     <input type="text" id="tel_order_2" value="@Model.Data.PhoneNumber" name="tel_order_2" class="form-control" placeholder="Telephone/mobile for ordering">
                 </div>
                 @*<div class="form-group">
                         <label>Email</label>
                         <input type="email" id="email_booking_2" value="@Model.Data.Email" name="email_order" class="form-control" placeholder="Your email">
                     </div>*@
-                <div class="form-group">
+                @*<div class="form-group">
                     <label>Your full address</label>
                     <input type="text" readonly="true" id="address_order" value="@Model.Data.Address" name="address_order" class="form-control" placeholder=" Your full address">
-                </div>
+                </div>*@
                 <div class="form-group">
-                    <label>Delivery Address</label>
+                    <label>Delivery Address [Click bellow to edit]</label>
                     <input type="text" readonly="true" id="address_delivery" value="@Model.Data.Address" name="address_delivery" class="form-control" placeholder=" Your full address">
                 </div>
                 <hr>
@@ -217,31 +224,38 @@
 
                     </div>
                 </div>
+              <div>
+                  <div id="cart_box_section-2">
+                      <hr>
+                      <a class="btn_full" onclick="cartJSObj.addAllOrderDetailsToLocalStorage()" href="/cart/Snapshot">Review Order</a>
+                      <a class="btn_full_outline" href="/List/index"><i class="icon-right"></i> Add other items</a>
+                  </div>
+              </div>
             </div><!-- End box_style_1 -->
         </div><!-- End col-md-6 -->
 
-        <div class="col-md-3" id="sidebar">
+        @*<div class="col-md-3" id="sidebar">
             <div class="theiaStickySidebar">
                 <div id="cart_box">
                     <div id="cart_box_section-1"></div>
                     <div id="cart_box_section-2">
                         <hr>
-                        <a class="btn_full" onclick="cartJSObj.addAllOrderDetailsToLocalStorage()" href="~/cart/Snapshot">Go to checkout</a>
+                        <a class="btn_full" onclick="cartJSObj.addAllOrderDetailsToLocalStorage()" href="~/cart/Snapshot">Review Order</a>
                         <a class="btn_full_outline" href="/List/index"><i class="icon-right"></i> Add other items</a>
                     </div>
                 </div><!-- End cart_box -->
             </div><!-- End theiaStickySidebar -->
-        </div><!-- End col-md-3 -->
+        </div><!-- End col-md-3 -->*@
 
     </div><!-- End row class
 
-    <div -->="row">
+    <div -->
         <div class="col-md-3">
             &nbsp;
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" style="display:none">
             <div class="box_style_2" id="personal-details-in-cart">
-                <h2 class="inner">Personal details</h2>
+                <h2 class="inner">Personal Details</h2>
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
                         <div class="form-group">
@@ -294,11 +308,11 @@
             <h4>Drag pointer to your exact location</h4>
         </div>
         <div class="modal-body">
-            <div id="map-for-delivery-address" style="height:400px !important;"></div>
+            <div id="map-for-delivery-address" style="height:360px;"></div>
             <div id="over_map">
                 <div id="custom-search-input-in-cart">
                     <div class="input-group">
-                        <input type="text" readonly="true" id="delivery-address-input" class="search-query input-in-address-map" placeholder="Type your address " autocomplete="off">
+                        <input type="text" readonly="true" id="delivery-address-input" style="max-width: 70%" class="search-query input-in-address-map" placeholder="Type your address " autocomplete="off">
                         <span class="input-group-btn">
                             <input type="submit" class="btn_search" value="submit">
                         </span>

@@ -102,6 +102,8 @@ function initMapForDeliveryAddress() {
         } else {
             window.alert('Geocoder failed due to: ' + status);
         }
+    }, (err) => {
+        console.log(err);
     });
 
 
