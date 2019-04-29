@@ -1,6 +1,6 @@
 ﻿const orderSummaryJSObj = {
 
-    addToLocalStorage: (item) => {
+    addToLocalStorage: (item,flow=null) => {
 
         //try {
 
@@ -115,7 +115,7 @@
                 }
             }
 
-            orderSummaryJSObj.paintItemsFromLocalStorageToCart();
+            orderSummaryJSObj.paintItemsFromLocalStorageToCart(flow);
         } catch (e) {
             console.log(e);
         }
@@ -191,7 +191,19 @@
 
             localStorage.setItem('itemsInCart', JSON.stringify(tempParentListFiltered));
             //paint the front end with this new local storage array.
-            orderSummaryJSObj.paintItemsFromLocalStorageToCart();
+
+            if (typeof flowGlobal !== 'undefined') {
+                orderSummaryJSObj.paintItemsFromLocalStorageToCart(flowGlobal);
+                if (flowGlobal === 'fromSnapshot') {
+                    cartSnapShotJSObj.paintItemsFromLocalStorageToCartSnapShot();
+                }
+            } else {
+                orderSummaryJSObj.paintItemsFromLocalStorageToCart();
+                if (flowGlobal === 'fromSnapshot') {
+                    cartSnapShotJSObj.paintItemsFromLocalStorageToCartSnapShot();
+                }
+            }
+            
             //new code end
 
 
@@ -279,7 +291,7 @@
 
     //    }
 
-    paintItemsFromLocalStorageToCart: () => {
+    paintItemsFromLocalStorageToCart: (flow=null) => {
 
         try {
 
@@ -288,9 +300,14 @@
             let subTotal = 0;
             let price = 0;
             //get these delivery charges from server
-            let deliveryCharges = 50;
+            let deliveryCharges = flow === 'fromMenu' ? 0 : 50;
 
+            //Rs ${deliveryCharges}
 
+            let deliveryFeeHTML = `Delivery fee <span class="pull-right">Rs ${deliveryCharges}</span>`;
+            if (flow === 'fromMenu') {
+                deliveryFeeHTML = `Delivery fee <span class="pull-right">To be calculated</span>`;
+            }
             if (retrievedList !== undefined && retrievedList !== null && retrievedList.length >0) {
                 retrievedList.forEach((parentObj, index) => {
 
@@ -335,7 +352,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    Delivery fee <span class="pull-right">Rs ${deliveryCharges}</span>
+                                    ${deliveryFeeHTML}
                                 </td>
                             </tr>
                             <tr>
@@ -373,7 +390,16 @@ const groupBy = (items, key) => items.reduce(
 //    }
 //}, false);
 
-function orderNowfunc(){
-    showProgress();
-    window.location.href="../../cart/index";
+function orderNowfunc() {
+
+    const retrievedList = JSON.parse(localStorage.getItem("itemsInCart"));
+
+    if (retrievedList === null || retrievedList.length === 0) {
+        toastr.error("Please add atleast one item to cart before proceeding!");
+        return;
+    } else {
+        showProgress();
+        window.location.href = `${window.location.origin}/cart/index`;
+    }
+    
 }

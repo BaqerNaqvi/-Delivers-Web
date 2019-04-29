@@ -1,4 +1,6 @@
 ﻿using Delives.pk.Models;
+using Delives.pk.Security;
+using Delives.pk.Utilities;
 using Services.Models;
 using System;
 using System.Collections.Generic;
@@ -15,27 +17,23 @@ namespace Delives.pk.Controllers
     public class MenuController : Controller
     {
         // GET: Menu
-       
 
+        public static Uri baseApiUrl = new Uri(CommonFunction.GetWebAPIBaseURL());
         public async Task<ActionResult> Index(int id)
         {
             ViewBag.Title = "Menu ";
-            //var searchTerm = Request.QueryString["q"];
             var menuDetails = await GetMenuAsync(id);
             return View(menuDetails);
         }
 
         private async Task<MenuResponseModel> GetMenuAsync(int id)
         {
-            string path = "http://www.delivers.pk/api/Listing/GetMenu";
             MenuResponseModel responseContent = null;
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri(path);
-                var byteArray = Encoding.ASCII.GetBytes("0336633663:Sp@cein786");
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-
-                //client.BaseAddress = new Uri(path);
+                string actionPath = "Listing/GetMenu";
+                client.BaseAddress = baseApiUrl;
+                client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
                 MenuSearchModel msModel = new MenuSearchModel()
                 {
                     CurrentPage = 1,
@@ -44,7 +42,7 @@ namespace Delives.pk.Controllers
                     ItemId = id
                 };
 
-                HttpResponseMessage response = await client.PostAsJsonAsync(path, msModel);
+                HttpResponseMessage response = await client.PostAsJsonAsync(actionPath, msModel);
                 if (response.IsSuccessStatusCode)
                 {
                     responseContent = await response.Content.ReadAsAsync<MenuResponseModel>();

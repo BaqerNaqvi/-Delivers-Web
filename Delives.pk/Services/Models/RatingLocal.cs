@@ -17,7 +17,7 @@ namespace Services.Models
         public string CreationDate { get; set; }
         public bool IsApproved { get; set; }
         public string ReviewedOnName { get; set; }
-        public string RatedByUserId { get; set; }
+        public string RatedByUserId { get; set; } 
     }
 
     public static class ReviewMapper
@@ -32,7 +32,7 @@ namespace Services.Models
                 RatedByUserName = source.AspNetUser.FirstName + " "+ source.AspNetUser.LastName,
                 RatedToItem = source.RatedToItem,
                 ReviewedOnName = source.ListItem.Name,
-                Comments = source.Comments,
+                Comments = source.Comments, 
                 RatedByUserId = source.RatedByUserId
             };
         }

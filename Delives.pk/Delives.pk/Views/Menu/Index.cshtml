@@ -83,7 +83,7 @@
                                     </td>
                                     <td class="options">
                                         <div>
-                                            <a href="#" onclick="orderSummaryJSObj.addToLocalStorage(@Json.Encode(menu))" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon_plus_alt2"></i></a>
+                                            <a href="#" onclick="orderSummaryJSObj.addToLocalStorage(@Json.Encode(menu),'fromMenu')" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon_plus_alt2"></i></a>
                                             @*<div class="dropdown-menu">
                                                     <h5>Select an option</h5>
                                                     <label>
@@ -109,8 +109,6 @@
                                 </tr>
                                 index++;
                             }
-
-
 
                         </tbody>
                     </table>
@@ -154,4 +152,5 @@
 <script>
     var currentResName = "@Model.RestaurentInfo.Name";
     var currentResId = "@Model.RestaurentInfo.Id";
+    var flowGlobal = 'fromMenu';
 </script>

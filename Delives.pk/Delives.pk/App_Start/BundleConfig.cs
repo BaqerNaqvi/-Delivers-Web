@@ -50,6 +50,7 @@ namespace Delives.pk
             bundles.Add(new ScriptBundle("~/bundles/cart").Include(
 
                       "~/Scripts/theia-sticky-sidebar.js",
+                      "~/Scripts/toastr.js",
                       "~/Scripts/Cart/cart-main.js"
                       ));
 

@@ -18,6 +18,7 @@ const cartJSObj = {
                 //console.log(obj);
                 console.log("your info has been updated");
             } else {
+                toastr.error("something went wrong, couldn't update user info");
                 console.log("something went wrong, couldn't update user info");
             }
         }
@@ -29,6 +30,19 @@ const cartJSObj = {
 
     },
     addAllOrderDetailsToLocalStorage: () => {
+
+        if (coordsForDelivery === undefined || coordsForDelivery === null || coordsForDelivery === "") {
+            toastr.error("Please provide a valid delivery address to place your order.");
+            return;
+        }
+
+        const itemsIncart = JSON.parse(localStorage.getItem("itemsInCart"));
+
+        if (itemsIncart === null || itemsIncart.length === 0) {
+            toastr.error("Please add one or more items to continue!");
+            return;
+        }
+
         const orderDetailsObj = {
             "Address": $("#address_delivery").val(),
             "Instructions": $("#notes").val(),
@@ -38,6 +52,8 @@ const cartJSObj = {
 
         //set the new updated list again in local storage 
         localStorage.setItem('orderDetailsObj', JSON.stringify(orderDetailsObj));
+
+        window.location.href = `${window.location.origin}/cart/Snapshot`;
     },
     openMapPopup: () => {
 
@@ -157,5 +173,6 @@ function initMapForDeliveryAddress() {
 $(document).ready(() => {
 
     orderSummaryJSObj.paintItemsFromLocalStorageToCart();
-
+    coordsForDelivery = localStorage.getItem("coords") !== null && localStorage.getItem("coords") !== undefined ? localStorage.getItem("coords") : null;
+    
 });
