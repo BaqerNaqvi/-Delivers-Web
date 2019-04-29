@@ -83,7 +83,7 @@
                                     </td>
                                     <td class="options">
                                         <div>
-                                            <a href="#" onclick="orderSummaryJSObj.addToLocalStorage(@Json.Encode(menu))" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon_plus_alt2"></i></a>
+                                            <a href="#" onclick="orderSummaryJSObj.addToLocalStorage(@Json.Encode(menu),'fromMenu')" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon_plus_alt2"></i></a>
                                             @*<div class="dropdown-menu">
                                                     <h5>Select an option</h5>
                                                     <label>
@@ -110,8 +110,6 @@
                                 index++;
                             }
 
-
-
                         </tbody>
                     </table>
                 }
@@ -125,7 +123,7 @@
                 <div id="cart_box">
                     <div id="cart_box_section-1"></div>
                     <div id="cart_box_section-2">
-                        <a class="btn_full" onclick="orderNowfunc()" href="~/cart/index">Add Delivery Details</a>
+                        <a class="btn_full" onclick="orderNowfunc()" href="javascript:void(0)">Add Delivery Details</a>
                     </div>
                 </div><!-- End cart_box -->
             </div><!-- End theiaStickySidebar -->
@@ -140,4 +138,5 @@
 <script>
     var currentResName = "@Model.RestaurentInfo.Name";
     var currentResId = "@Model.RestaurentInfo.Id";
+    var flowGlobal = 'fromMenu';
 </script>

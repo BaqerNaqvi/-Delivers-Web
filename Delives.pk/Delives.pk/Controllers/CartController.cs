@@ -1,4 +1,6 @@
 ﻿using Delives.pk.Models;
+using Delives.pk.Security;
+using Delives.pk.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,23 +14,22 @@ namespace Delives.pk.Controllers
 {
     public class CartController : Controller
     {
+        public static Uri baseApiUrl = new Uri(CommonFunction.GetWebAPIBaseURL());
         public async Task<ActionResult> Index()
         {
-            string path = "http://www.delivers.pk/api/Account/GetUserInfo";
+
             UserInfoInCartResponseModel responseContent = null;
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri(path);
-                var byteArray = Encoding.ASCII.GetBytes("0336633663:Sp@cein786");
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-
-                //client.BaseAddress = new Uri(path);
+                string actionPath = "Account/GetUserInfo";
+                client.BaseAddress = baseApiUrl;
+                client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
                 UserInfoRequestModel msModel = new UserInfoRequestModel()
                 {
                     UserId = "33669f22-43da-4f5d-b801-91ade07afc5d"
                 };
 
-                HttpResponseMessage response = await client.PostAsJsonAsync(path, msModel);
+                HttpResponseMessage response = await client.PostAsJsonAsync(actionPath, msModel);
                 if (response.IsSuccessStatusCode)
                 {
                     responseContent = await response.Content.ReadAsAsync<UserInfoInCartResponseModel>();
@@ -40,22 +41,18 @@ namespace Delives.pk.Controllers
         [HttpPost]
         public async Task<JsonResult> UpdateUserInfo(UpdateUserInfoRequestModel userObj)
         {
-            //UpdateUserInfoRequestModel
-            string path = "http://www.delivers.pk/api/Account/UpdateProfile";
             UserInfoInCartResponseModel responseContent = null;
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri(path);
-                var byteArray = Encoding.ASCII.GetBytes("0336633663:Sp@cein786");
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-
-                //client.BaseAddress = new Uri(path);
+                string actionPath = "Account/UpdateProfile";
+                client.BaseAddress = baseApiUrl;
+                client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
 
                 //validate the userobj before sending it fruther to prevent sql injections and stuff 
 
                 //here
 
-                HttpResponseMessage response = await client.PostAsJsonAsync(path, userObj);
+                HttpResponseMessage response = await client.PostAsJsonAsync(actionPath, userObj);
                 if (response.IsSuccessStatusCode)
                 {
                     responseContent = await response.Content.ReadAsAsync<UserInfoInCartResponseModel>();
@@ -66,26 +63,22 @@ namespace Delives.pk.Controllers
         }
 
         [HttpPost]
-        //
         public async Task<JsonResult> PlaceOrder(PlaceOrderRequestModelLocal userObj)
         {
-            string path = "http://www.delivers.pk/api/order/place";
             PlaceOrderResponseModel responseContent = null;
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri(path);
-                    var byteArray = Encoding.ASCII.GetBytes("0336633663:Sp@cein786");
-                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-
-                    //client.BaseAddress = new Uri(path);
+                    string actionPath = "order/place";
+                    client.BaseAddress = baseApiUrl;
+                    client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
 
                     //validate the userobj before sending it fruther to prevent sql injections and stuff 
 
                     //here
 
-                    HttpResponseMessage response = await client.PostAsJsonAsync(path, userObj);
+                    HttpResponseMessage response = await client.PostAsJsonAsync(actionPath, userObj);
                     if (response.IsSuccessStatusCode)
                     {
                         responseContent = await response.Content.ReadAsAsync<PlaceOrderResponseModel>();
@@ -99,70 +92,49 @@ namespace Delives.pk.Controllers
                 //throw;
             }
 
-            
-            
+
+
             return Json(responseContent);
         }
-        
+
         [HttpGet]
         public async Task<ActionResult> OrderConfirmed(List<string> OrderIds)
         {
-            string path = "http://www.delivers.pk/api/order/getDetailsBySerialNo";
             OrderConfirmedResponseModel responseContent = null;
-
-            //List<OrderLocal> returnObj = new List<OrderLocal>(); 
 
             try
             {
                 var OrderSerialNo = System.Web.HttpContext.Current.Session["ConfirmedOrderSerialNo"] as string;
-                
-                //System.Web.HttpContext.Current.Session["ConfirmedOrderIds"] = null;
-
-
-                //OrderIdsList
-
-               // foreach (var item in OrderIdsList)
-                //{
-                    using (HttpClient client = new HttpClient())
+                using (HttpClient client = new HttpClient())
+                {
+                    string actionPath = "order/getDetailsBySerialNo";
+                    client.BaseAddress = baseApiUrl;
+                    client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
+                    OrderConfirmedRequestModel msModel = new OrderConfirmedRequestModel()
                     {
-                        client.BaseAddress = new Uri(path);
-                        var byteArray = Encoding.ASCII.GetBytes("0336633663:Sp@cein786");
-                        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+                        SerialNo = OrderSerialNo
+                    };
 
-                        //client.BaseAddress = new Uri(path);
-                        OrderConfirmedRequestModel msModel = new OrderConfirmedRequestModel()
-                        {
-                            SerialNo = OrderSerialNo
-                        };
+                    HttpResponseMessage response = await client.PostAsJsonAsync(actionPath, msModel);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        responseContent = await response.Content.ReadAsAsync<OrderConfirmedResponseModel>();
+                    }
 
-                        HttpResponseMessage response = await client.PostAsJsonAsync(path, msModel);
-                        if (response.IsSuccessStatusCode)
-                        {
-                            responseContent = await response.Content.ReadAsAsync<OrderConfirmedResponseModel>();
-                        }
-
-                        //if (responseContent!=null)
-                        //{
-                        //    returnObj.Add(responseContent.Data);
-                        //}
-              //      }
                 }
-                
-                
+
             }
             catch (Exception e)
             {
                 //log here
-//                throw;
+                //                throw;
             }
-            
+
             return View("~/Views/Cart/Confirmed/Index.cshtml", responseContent);
         }
 
         public async Task<ActionResult> Snapshot()
         {
-            //var searchTerm = Request.QueryString["q"];
-            //var menuDetails = await GetMenuAsync(id);
             return View("Snapshot/Index");
         }
 

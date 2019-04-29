@@ -73,6 +73,12 @@ const cartSnapShotJSObj = {
 
         const orderDetails = JSON.parse(localStorage.getItem("orderDetailsObj"));
         const itemsIncart = JSON.parse(localStorage.getItem("itemsInCart"));
+
+        if (itemsIncart === null || itemsIncart.length === 0) {
+            toastr.error("Please add one or more items to continue!");
+            return;
+        }
+
         let Items = [];
 
         itemsIncart.forEach((pObj, index) => {
@@ -152,7 +158,6 @@ const cartSnapShotJSObj = {
 
 
 $(document).ready(() => {
-
     orderSummaryJSObj.paintItemsFromLocalStorageToCart();
     cartSnapShotJSObj.paintItemsFromLocalStorageToCartSnapShot();
 });

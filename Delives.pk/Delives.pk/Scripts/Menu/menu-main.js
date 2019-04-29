@@ -150,5 +150,5 @@ const menuJSObj = {
 
 $(document).ready(() => {
 
-    orderSummaryJSObj.paintItemsFromLocalStorageToCart();
+    orderSummaryJSObj.paintItemsFromLocalStorageToCart('fromMenu');
 });
