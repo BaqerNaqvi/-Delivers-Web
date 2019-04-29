@@ -15,7 +15,7 @@
                 <div class="col-md-9 col-sm-9">
                     <div class="desc">
                         <div class="thumb_strip">
-                            <a href="detail_page.html"><img src=@item.LogoImage alt=""></a>
+                            <a href="~/Menu/Index/@item.Id" onclick="showMenuFunc()"><img src=@item.LogoImage alt=""></a>
                         </div>
                         <div class="rating">
                             @for (int i = 0; i < 5; i++)
@@ -24,7 +24,7 @@
                                 <i class="icon_star @voted"></i>
                             } (<small><a href="#0">@(item.Reviewes != null ? item.Reviewes.Count() : 0) reviews</a></small>)
                         </div>
-                        <h3>@item.Name</h3>
+                        <h3><a href="~/Menu/Index/@item.Id" onclick="showMenuFunc()">@item.Name</a></h3>
                         <div class="type">
                             @item.TypeName
                         </div>
@@ -40,7 +40,7 @@
                 <div class="col-md-3 col-sm-3">
                     <div class="go_to">
                         <div>
-                            <a href="~/Menu/Index/@item.Id" class="btn_1">View Menu</a>
+                            <a href="~/Menu/Index/@item.Id" class="btn_1" onclick="showMenuFunc()">View Menu</a>
                         </div>
                     </div>
                 </div>

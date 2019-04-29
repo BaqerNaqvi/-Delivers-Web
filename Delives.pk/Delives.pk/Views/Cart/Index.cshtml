@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-md-3">
 
-            <div class="box_style_2 hidden-xs info">
+            <div class="box_style_2 hidden-xs info" style="display:none">
                 <h4 class="nomargin_top">Delivery time <i class="icon_clock_alt pull-right"></i></h4>
                 <p>
                     Lorem ipsum dolor sit amet, in pri partem essent. Qui debitis meliore ex, tollit debitis conclusionemque te eos.
@@ -37,8 +37,8 @@
             <div class="box_style_2 hidden-xs" id="help">
                 <i class="icon_lifesaver"></i>
                 <h4>Need <span>Help?</span></h4>
-                <a href="tel://004542344599" class="phone">+45 423 445 99</a>
-                <small>Monday to Friday 9.00am - 7.30pm</small>
+                <a href="tel://0553828677" class="phone">055 3828677</a>
+                <small>Monday to Saturday 9.00am - 6.00pm </small>
             </div>
 
         </div><!-- End col-md-3 -->
@@ -123,15 +123,15 @@
                     <div id="cart_box_section-2">
                         <hr>
                         <a class="btn_full" onclick="cartJSObj.addAllOrderDetailsToLocalStorage()" href="~/cart/Snapshot">Go to checkout</a>
-                        <a class="btn_full_outline" href="detail_page.html"><i class="icon-right"></i> Add other items</a>
+                        <a class="btn_full_outline" href="/List/index"><i class="icon-right"></i> Add other items</a>
                     </div>
                 </div><!-- End cart_box -->
             </div><!-- End theiaStickySidebar -->
         </div><!-- End col-md-3 -->
 
-    </div><!-- End row -->
+    </div><!-- End row class
 
-    <div class="row">
+    <div -->="row">
         <div class="col-md-3">
             &nbsp;
         </div>
@@ -163,7 +163,7 @@
                         </div>
                     </div>
                 </div>
-                <a class="btn_full" href="javascript:void(0)" style="background: #ad3638d1" onclick="cartJSObj.updateUserInfo()">Update</a>
+                <a class="btn_full" title="Update info only" href="javascript:void(0)" id="updateInfoBtn" onclick="cartJSObj.updateUserInfo()">Update</a>
             </div><!-- End box_style_1 -->
         </div>
         <div class="col-md-3">

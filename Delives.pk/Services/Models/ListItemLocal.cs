@@ -83,6 +83,9 @@ namespace Services.Models
             Random rnd = new Random();
             int img = rnd.Next(1, 5);
 
+                      //  var er = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
+
+
             return new ListItemLocal
             {
                 Address = source.Address,

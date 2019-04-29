@@ -65,7 +65,7 @@
     },
     getListItems: function (recenterMap = false) {
 
-        $('#preloader').delay(200).fadeIn('slow');
+        showProgress() ;
         $('#search-address').text("Please wait")
 
 
@@ -78,12 +78,10 @@
             data: JSON.stringify({ itemSearchModel: listConfig.searchFilters })
         }).done(function (response) {
             $('#res-result-count').text(localStorage.getItem("search-add"));
-            $('#preloader').hide();
+            hideProgress();
             $('#search-address').text("")
-
             //let data = JSON.parse(response);
             if (response.Success) {
-                debugger
                 if (response.Status === 404) {
                     $('.load_more_bt').hide();
                     toastr.error(response.Message);
@@ -198,6 +196,7 @@ $(() => {
     //    }
     //}
     $(window).load(function () {
+        $('#list-load-more').hide();
         listConfig.getListItems(true);
 
     });
@@ -211,3 +210,7 @@ $('#performSearch').on('click', () => {
     listConfig.getListItems();
     $(".search-overlay-close").trigger('click');
 });
+
+function showMenuFunc(){
+    showProgress();
+}

@@ -320,9 +320,9 @@
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6">
                             <label><input type="radio" value="" checked name="option_2" class="icheck">Delivery</label>
                         </div>
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6">
-                            <label><input type="radio" value="" name="option_2" class="icheck">Take Away</label>
-                        </div>
+                        //<div class="col-lg-6 col-md-12 col-sm-12 col-xs-6">
+                        //    <label><input type="radio" value="" name="option_2" class="icheck">Take Away</label>
+                        //</div>
                     </div><!-- Edn options 2 -->
 
                     <hr>
@@ -372,3 +372,7 @@ const groupBy = (items, key) => items.reduce(
 //        orderSummaryJSObj.paintItemsFromLocalStorageToCart();
 //    }
 //}, false);
+
+function orderNowfunc(){
+    showProgress();
+}

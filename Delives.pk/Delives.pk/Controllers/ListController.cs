@@ -49,7 +49,7 @@ namespace Delives.pk.Controllers
                     else if (itemsResponseModel.TotalItems <= (itemsResponseModel.CurrentPage * itemsResponseModel.ItemsPerPage))
                     {
                         var html = RenderRazorViewToString("~/Views/List/_ListItemPartial.cshtml", itemsResponseModel.Items);
-                        return Json(new { Success = true, Status = HttpStatusCode.ResetContent, Message = "Change filters to search for more items" }, JsonRequestBehavior.AllowGet);
+                        return Json(new { Success = true, Status = HttpStatusCode.OK, Html=html, Message = "Change filters to search for more items" }, JsonRequestBehavior.AllowGet);
                     }
                     else if (itemsResponseModel.Items != null)
                     {

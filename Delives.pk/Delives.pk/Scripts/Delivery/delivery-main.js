@@ -78,16 +78,3 @@ $(() => {
     deliveryConfig.getListItems();
 });
 
-window.onscroll = function () { scrollFunction() };
-
-function scrollFunction() {
-    if (document.body.scrollTop > 40 || document.documentElement.scrollTop >=40) {
-        document.getElementById("logoImage").style.height = "50px";
-        document.getElementById("logoImage").style.width = "50px";
-       
-    } else {
-        document.getElementById("logoImage").style.height = "100px";
-        document.getElementById("logoImage").style.width = "100px";
-       
-    }
-}

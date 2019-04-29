@@ -9,10 +9,11 @@ const cartJSObj = {
             Address: $("#user-address").val(),
             Cords: null
         };
-
+        showProgress();
         var jqxhr = $.post("UpdateUserInfo", objToSend, function (obj) {
+            hideProgress()
             if (obj.Success === "true") {
-
+                toastr.success("your info has been updated");
                 //paint these values where ever required
                 //console.log(obj);
                 console.log("your info has been updated");
@@ -21,6 +22,7 @@ const cartJSObj = {
             }
         }
         ).fail(function (err) {
+            hideProgress()
             console.log(err);
         });
 

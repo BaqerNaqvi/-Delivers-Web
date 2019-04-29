@@ -1335,7 +1335,7 @@ ul.opening_list li span{
   font-size: 10px;
  }
 .sk-spinner-wave div {
-  background-color: #fff;
+  background-color: #ad3638f7;
   height: 100%;
   width: 6px;
   display: inline-block;
@@ -2699,7 +2699,7 @@ ul.plan-features {
 }
 
 .pac-item{
-    font-family: cursive !important;
+    font-family: 'Lato', "Helvetica Neue", Helvetica, Arial, sans-serif !important;
     padding: 5px !important;
     cursor: default;
     padding: 0 4px;
@@ -2716,8 +2716,47 @@ ul.plan-features {
     border-radius: 12px !important;
 }
 
+#pac-input{
+        font-family: 'Lato', "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
 .pac-item-query {
     font-size: 13px !important;
     padding-right: 3px !important;
     color: #ad3638d1 !important;
+}
+
+
+
+
+@media screen and (max-width: 480px) {
+ #sub_content h1{
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #ba585ab0;
+    color: white;
+}
+
+  .sub_content h3, #office_p{
+    border-radius: 5px;
+    padding: 3px;
+    background-color: #ba585ab0;
+    color: white;
+}
+
+  #logoImage{
+      height:50px !important;
+      width:50px !important;
+  }
+}
+
+#status-loading-p{
+    font-size: 12px;
+    color: black;
+}
+
+#updateInfoBtn{
+    color: #ad3638d1;
+    background: none;
+    border: 2px solid #ad3638d1;
 }

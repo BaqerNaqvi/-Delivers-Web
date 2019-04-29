@@ -60,6 +60,7 @@
                                 <li><a href="icon_pack_2.html">Icon pack 2</a></li>
                             </ul>
                         </li>
+
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li><a href="~/Account/logoff" >Log Out</a></li>
@@ -69,9 +70,10 @@
                             <li><a href="#0" data-toggle="modal" data-target="#login_2">Login</a></li>
 
                         }
-                        <li><a href="#0">Purchase this template</a></li>
+                        
                     </ul>
-                <ul>
+                <ul id="custom-menu">
+                    <li><a href="~/Delivery/Index">Home</a></li>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li><a href="~/Account/logoff">Log Out</a></li>
