@@ -10,13 +10,28 @@
         top: 23px;
         z-index: 99;
     }
+    .pac-container {
+        background-color: #FFF;
+        z-index: 20 !important;
+        position: fixed;
+        display: inline-block;
+        float: left;
+    }
 
+    .modal {
+        z-index: 20 !important;
+    }
 
+    .modal-backdrop {
+        z-index: 10 !important;
+    }
+
+    ​
     /* The Modal (background) */
     .modal {
         display: none; /* Hidden by default */
         position: fixed; /* Stay in place */
-        z-index: 99999; /* Sit on top */
+        z-index: 5; /* Sit on top */
         left: 0;
         top: 0;
         width: 100%; /* Full width */
@@ -312,17 +327,15 @@
             <div id="over_map">
                 <div id="custom-search-input-in-cart">
                     <div class="input-group">
-                        <input type="text" readonly="true" id="delivery-address-input" style="text-transform:uppercase;max-width: 70%" class="search-query input-in-address-map" placeholder="Type your address to search" autocomplete="off">
-                        <span class="input-group-btn">
-                            <input type="submit" class="btn_search" value="submit">
-                        </span>
+                        <input type="text"  id="delivery-address-input" style="text-transform:uppercase;max-width: 70%" class="search-query input-in-address-map" placeholder="Type your address to search" autocomplete="off">
+                        
                     </div>
                 </div>
             </div>
         </div>
-        @*<div class="modal-footer">
-                <h3>Modal Footer</h3>
-            </div>*@
+        <div class="modal-footer">
+            <a class="btn_full" onclick="closeModalLocal('mapModal')">Update Address</a>
+            </div>
 
     </div>
 
@@ -332,7 +345,11 @@
 @*Modal ends here*@
 
 
-
+<div id="infowindow-content-delivery-address" style="display:none">
+    <img src="" width="16" height="16" id="place-icon">
+    <span id="place-name" class="title"></span><br>
+    <span id="place-address"></span>
+</div>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8Mj9nHFZn1Wh7wZriz4Mpq0uF26vVhig&libraries=places&callback=initMapForDeliveryAddress"
         async defer></script>
@@ -347,6 +364,18 @@
 
 
 <script>
+
+    var closeModalLocal = (id) => {
+        try {
+            $("#address_delivery").val($("#delivery-address-input").val());
+
+            const obj = "#" + id;
+            $(obj).hide();
+        } catch (e) {
+            console.log(e);
+        }
+        
+    }
 
     try {
         jQuery('#sidebar').theiaStickySidebar({

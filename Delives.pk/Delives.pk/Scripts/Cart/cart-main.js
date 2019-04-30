@@ -124,7 +124,7 @@ function initMapForDeliveryAddress() {
 
 
     var map = new google.maps.Map(document.getElementById('map-for-delivery-address'), {
-        zoom: 13,
+        zoom: 17,
         center: { lat: cood_1, lng: cood_2 }
     });
 
@@ -134,6 +134,77 @@ function initMapForDeliveryAddress() {
         //animation: google.maps.Animation.DROP,
         position: { lat: cood_1, lng: cood_2 }
     });
+
+    var input = document.getElementById('delivery-address-input');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.setFields(
+        ['address_components', 'geometry', 'icon', 'name']);
+    //
+    var infowindow = new google.maps.InfoWindow();
+    //var infowindowContent = document.getElementById('infowindow-content-delivery-address');
+    var infowindowContent = document.getElementById('infowindow-content-delivery-address');
+    //
+    infowindow.setContent(infowindowContent);
+
+    autocomplete.addListener('place_changed', function () {
+
+        try {
+            infowindow.close();
+
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                // User entered the name of a Place that was not suggested and
+                // pressed the Enter key, or the Place Details request failed.
+                toastr.error("No details available for input: '" + place.name + "'");
+                return;
+            }
+
+            // If the place has a geometry, then present it on a map.
+            var address = '';
+            if (place.address_components) {
+                address = [
+                    (place.address_components[0] && place.address_components[0].short_name || ''),
+                    (place.address_components[1] && place.address_components[1].short_name || ''),
+                    (place.address_components[2] && place.address_components[2].short_name || '')
+                ].join(' ');
+            }
+
+
+            //$("#delivery-address-input").val(results[0].formatted_address);
+            $("#address_delivery").val(address);
+
+            var latLngObj = { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() };
+            markerForDeliveryAddress.setPosition(latLngObj);
+
+            map.setZoom(17);      // This will trigger a zoom_changed on the map
+            map.setCenter(latLngObj);
+
+
+        } catch (e) {
+            console.log(e);
+        }
+
+        
+        
+    });
+
+    // Sets a listener on a radio button to change the filter type on Places
+    // Autocomplete.
+    function setupClickListener(id, types) {
+        var radioButton = document.getElementById(id);
+        if (radioButton != null) {
+            radioButton.addEventListener('click', function () {
+                autocomplete.setTypes(types);
+            });
+        }
+
+    }
+
+    setupClickListener('changetype-all', []);
+    setupClickListener('changetype-address', ['address']);
+    setupClickListener('changetype-establishment', ['establishment']);
+    setupClickListener('changetype-geocode', ['geocode']);
+
     // markerForDeliveryAddress.addListener('click', toggleBounce);
     markerForDeliveryAddress.addListener('dragend', (event) => {
         console.log("dragend");
