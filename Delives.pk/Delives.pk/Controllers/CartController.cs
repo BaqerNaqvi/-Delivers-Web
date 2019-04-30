@@ -26,7 +26,7 @@ namespace Delives.pk.Controllers
             UserInfoInCartResponseModel responseContent = null;
             using (HttpClient client = new HttpClient())
             {
-                var uid= User.Identity.GetUserId();
+                var uid = User.Identity.GetUserId();
                 string actionPath = "Account/GetUserInfo";
                 client.BaseAddress = baseApiUrl;
                 client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
@@ -134,6 +134,41 @@ namespace Delives.pk.Controllers
             }
 
             return View("~/Views/Cart/Confirmed/Index.cshtml", responseContent);
+        }
+
+
+        [HttpPost]
+        public async Task<JsonResult> FetchDeliveryChargesAndTime(PlaceOrderRequestModelLocal userObj)
+        {
+            DeliveryChargesResponseModel responseContent = null;
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string actionPath = "order/estimatedDeliveryCharges";
+                    client.BaseAddress = baseApiUrl;
+                    client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
+
+                    //validate the userobj before sending it fruther to prevent sql injections and stuff 
+
+                    //here
+
+                    HttpResponseMessage response = await client.PostAsJsonAsync(actionPath, userObj);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        responseContent = await response.Content.ReadAsAsync<DeliveryChargesResponseModel>();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                //log ex here
+                //throw;
+            }
+
+
+
+            return Json(responseContent);
         }
 
         public async Task<ActionResult> Snapshot()

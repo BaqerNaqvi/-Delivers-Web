@@ -1,15 +1,15 @@
 ﻿
-
+var deliveryChargesObjGlobal = null;
 const cartSnapShotJSObj = {
     paintItemsFromLocalStorageToCartSnapShot: () => {
         try {
             const retrievedList = JSON.parse(localStorage.getItem("itemsInCart"));
             let HTML = ``;
-            let subTotal = 0;
+            
             let price = 0;
             //get these delivery charges from server
-            let deliveryCharges = 50;
-
+            let deliveryCharges = deliveryChargesObjGlobal.DeliveryAmount;
+            let subTotal = deliveryCharges;
 
             retrievedList.forEach((parentObj, index) => {
 
@@ -42,7 +42,7 @@ const cartSnapShotJSObj = {
                                 Delivery charges
                             </td>
                             <td>
-                                <strong class="pull-right">Rs 50</strong>
+                                <strong class="pull-right">Rs ${deliveryCharges}</strong>
                             </td>
                         </tr>
                         <tr>
@@ -50,7 +50,7 @@ const cartSnapShotJSObj = {
                                 Delivery schedule <a href="#" class="tooltip-1" data-placement="top" title="" data-original-title="Please consider 30 minutes of margin for the delivery!"><i class="icon_question_alt"></i></a>
                             </td>
                             <td>
-                                <strong class="pull-right">Today 07.30 pm</strong>
+                                <strong class="pull-right">${deliveryChargesObjGlobal.DeliveryTime} minutes</strong>
                             </td>
                         </tr>
                         <tr>
@@ -70,7 +70,7 @@ const cartSnapShotJSObj = {
         }
     },
     placeOrder: () => {
-
+        showProgress();
         const orderDetails = JSON.parse(localStorage.getItem("orderDetailsObj"));
         const itemsIncart = JSON.parse(localStorage.getItem("itemsInCart"));
 
@@ -105,6 +105,8 @@ const cartSnapShotJSObj = {
         };
 
         var jqxhr = $.post("PlaceOrder", objToServer, function (obj) {
+
+            hideProgress();
             if (obj.Success === "true") {
 
                 //paint these values where ever required
@@ -151,6 +153,55 @@ const cartSnapShotJSObj = {
             }
         }
         ).fail(function (err) {
+            hideProgress();
+            console.log(err);
+        });
+    },
+    fetchDeliveryChargesAndTime: () => {
+
+        const orderDetails = JSON.parse(localStorage.getItem("orderDetailsObj"));
+        const itemsIncart = JSON.parse(localStorage.getItem("itemsInCart"));
+
+        if (itemsIncart === null || itemsIncart.length === 0) {
+            toastr.error("Please add one or more items to continue!");
+            return;
+        }
+
+        let Items = [];
+
+        itemsIncart.forEach((pObj, index) => {
+
+            pObj.items.forEach((cObj, index) => {
+                const item = {
+                    "ItemId": cObj.Id,
+                    "Quantity": cObj.Count,
+                    "StoreId": pObj.resId
+                };
+                Items.push(item);
+            });
+
+
+
+        });
+
+        const objToServer = {
+            Address: orderDetails.Address,
+            Instructions: orderDetails.Instructions,
+            PaymentMethod: orderDetails.PaymentMethod,
+            Cords: orderDetails.Cords,
+            Items: Items
+        };
+
+        var jqxhr = $.post("FetchDeliveryChargesAndTime", objToServer, function (obj) {
+            if (obj.Success === "true") {
+                deliveryChargesObjGlobal = obj.Data;
+                orderSummaryJSObj.paintItemsFromLocalStorageToCart('fromSnapshot',obj.Data);
+                cartSnapShotJSObj.paintItemsFromLocalStorageToCartSnapShot();
+            } else {
+                console.log("something went wrong, couldn't fetch delivery charges");
+            }
+        }
+        ).fail(function (err) {
             console.log(err);
         });
     }
@@ -158,6 +209,7 @@ const cartSnapShotJSObj = {
 
 
 $(document).ready(() => {
-    orderSummaryJSObj.paintItemsFromLocalStorageToCart();
-    cartSnapShotJSObj.paintItemsFromLocalStorageToCartSnapShot();
+
+    cartSnapShotJSObj.fetchDeliveryChargesAndTime();
+    
 });

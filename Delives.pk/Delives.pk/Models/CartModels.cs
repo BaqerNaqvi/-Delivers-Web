@@ -186,5 +186,16 @@ namespace Delives.pk.Models
 
     }
 
+    public class DeliveryChargesResponseModel
+    {
+        public DeliveryChargesResponse Data { get; set; }
+        public string Success { get; set; }
+        public List<string> Messages { get; set; }
+    }
 
+    public class DeliveryChargesResponse
+    {
+        public double DeliveryAmount { get; set; }
+        public double DeliveryTime { get; set; }
+    }
 }

@@ -291,7 +291,7 @@
 
     //    }
 
-    paintItemsFromLocalStorageToCart: (flow=null) => {
+    paintItemsFromLocalStorageToCart: (flow=null,deliveryChargesObj) => {
 
         try {
 
@@ -301,7 +301,9 @@
             let price = 0;
             //get these delivery charges from server
             let deliveryCharges = flow === 'fromMenu' ? 0 : 50;
-
+            if (flow === 'fromSnapshot') {
+                deliveryCharges = deliveryChargesObj.DeliveryAmount;
+            }
             //Rs ${deliveryCharges}
 
             let deliveryFeeHTML = `Delivery fee <span class="pull-right">Rs ${deliveryCharges}</span>`;
