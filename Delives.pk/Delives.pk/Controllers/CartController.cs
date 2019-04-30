@@ -75,6 +75,7 @@ namespace Delives.pk.Controllers
             try
             {
                 userObj.OrderPlacedById= User.Identity.GetUserId();
+                userObj.FromWeb = true;
                 using (HttpClient client = new HttpClient())
                 {
                     string actionPath = "order/place";

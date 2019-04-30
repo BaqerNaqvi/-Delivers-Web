@@ -67,6 +67,8 @@ namespace Delives.pk.Models
         public string PaymentMethod { get; set; }
         public string Cords { get; set; }
         public string OrderPlacedById { get; set; }  // for web only
+        public bool FromWeb { get; set; }  // for web only
+
 
     }
 
