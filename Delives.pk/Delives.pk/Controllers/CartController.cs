@@ -12,6 +12,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 
 
+
+
 namespace Delives.pk.Controllers
 {
     [Authorize]
@@ -72,16 +74,12 @@ namespace Delives.pk.Controllers
             PlaceOrderResponseModel responseContent = null;
             try
             {
+                userObj.OrderPlacedById= User.Identity.GetUserId();
                 using (HttpClient client = new HttpClient())
                 {
                     string actionPath = "order/place";
                     client.BaseAddress = baseApiUrl;
                     client.DefaultRequestHeaders.Authorization = AuthHandler.AuthenticationHeader();
-
-                    //validate the userobj before sending it fruther to prevent sql injections and stuff 
-
-                    //here
-
                     HttpResponseMessage response = await client.PostAsJsonAsync(actionPath, userObj);
                     if (response.IsSuccessStatusCode)
                     {
