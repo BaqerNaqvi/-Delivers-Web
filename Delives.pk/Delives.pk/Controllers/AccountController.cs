@@ -63,15 +63,16 @@ namespace Delives.pk.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
-            if (returnUrl != "")
-            {
-                return Json(true, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return View();
-            }
+            return RedirectToAction("Index", "Delivery");
+            //ViewBag.ReturnUrl = returnUrl;
+            //if (returnUrl != "")
+            //{
+            //    return Json(true, JsonRequestBehavior.AllowGet);
+            //}
+            //else
+            //{
+            //    return View();
+            //}
         }
 
         //

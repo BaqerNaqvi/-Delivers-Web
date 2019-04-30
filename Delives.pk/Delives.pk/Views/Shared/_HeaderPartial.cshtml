@@ -74,7 +74,7 @@
                 <ul id="custom-menu">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li title="View Cart"><img id="cartImg" src="~/Images/cart_icon.png" /></li>
+                        <li title="View Cart"><a href="~/cart/index"><img id="cartImg" src="~/Images/cart_icon.png" /></a></li>
                     }
                     <li><a href="~/Delivery/Index">Home</a></li>
                     @if (User.Identity.IsAuthenticated)

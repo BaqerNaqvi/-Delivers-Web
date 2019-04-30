@@ -54,6 +54,7 @@ const cartJSObj = {
         localStorage.setItem('orderDetailsObj', JSON.stringify(orderDetailsObj));
 
         window.location.href = `${window.location.origin}/cart/Snapshot`;
+        showProgress();
     },
     openMapPopup: () => {
 
