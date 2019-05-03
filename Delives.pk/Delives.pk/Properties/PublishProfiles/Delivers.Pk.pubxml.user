@@ -19,7 +19,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/22/2019 17:14:23</publishTime>
     </File>
     <File Include="bin/Delives.pk.dll">
-      <publishTime>04/25/2019 02:20:29</publishTime>
+      <publishTime>05/03/2019 04:45:49</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>04/22/2019 17:14:25</publishTime>
@@ -133,7 +133,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/22/2019 17:14:26</publishTime>
     </File>
     <File Include="bin/Services.dll">
-      <publishTime>04/25/2019 02:20:24</publishTime>
+      <publishTime>05/01/2019 05:28:19</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>04/22/2019 17:14:26</publishTime>
@@ -226,10 +226,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/22/2019 17:59:21</publishTime>
     </File>
     <File Include="Content/images/homepage_partner.JPG">
-      <publishTime>04/22/2019 17:59:21</publishTime>
+      <publishTime>04/28/2019 02:48:31</publishTime>
     </File>
     <File Include="Content/images/homepage_Rider.JPG">
-      <publishTime>04/22/2019 17:59:21</publishTime>
+      <publishTime>04/28/2019 02:48:38</publishTime>
     </File>
     <File Include="Content/images/icon.ico">
       <publishTime>04/24/2019 22:53:05</publishTime>
@@ -248,6 +248,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/magnific-popup.css">
       <publishTime>04/22/2019 17:14:24</publishTime>
+    </File>
+    <File Include="Content/map-modal.css">
+      <publishTime>04/29/2019 16:17:51</publishTime>
     </File>
     <File Include="Content/menu.css">
       <publishTime>04/25/2019 00:37:15</publishTime>
@@ -607,10 +610,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/22/2019 17:14:24</publishTime>
     </File>
     <File Include="Content/style.css">
-      <publishTime>04/24/2019 23:49:47</publishTime>
+      <publishTime>05/02/2019 00:27:01</publishTime>
     </File>
     <File Include="Content/toastr.css">
-      <publishTime>04/22/2019 17:14:24</publishTime>
+      <publishTime>04/27/2019 14:20:51</publishTime>
     </File>
     <File Include="Content/toastr.less">
       <publishTime>04/22/2019 17:14:24</publishTime>
@@ -645,8 +648,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Global.asax">
       <publishTime>04/22/2019 17:14:24</publishTime>
     </File>
+    <File Include="Images/cart_icon.png">
+      <publishTime>04/30/2019 03:17:26</publishTime>
+    </File>
     <File Include="Images/DELIVERY-LOGO.png">
       <publishTime>04/22/2019 17:14:24</publishTime>
+    </File>
+    <File Include="Images/money.png">
+      <publishTime>05/02/2019 00:15:43</publishTime>
     </File>
     <File Include="Images/pins/.DS_Store">
       <publishTime>04/22/2019 17:14:24</publishTime>
@@ -666,6 +675,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Images/pins/Hamburger.png">
       <publishTime>04/22/2019 17:14:24</publishTime>
     </File>
+    <File Include="Images/pins/meat.png">
+      <publishTime>05/01/2019 05:30:39</publishTime>
+    </File>
     <File Include="Images/pins/MEET.png">
       <publishTime>04/22/2019 17:14:24</publishTime>
     </File>
@@ -676,7 +688,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/22/2019 17:14:24</publishTime>
     </File>
     <File Include="Images/Rest/Large/large_01.jpg">
-      <publishTime>04/22/2019 17:14:24</publishTime>
+      <publishTime>04/26/2019 19:54:48</publishTime>
     </File>
     <File Include="Images/Rest/Small/small_01.jpg">
       <publishTime>04/22/2019 17:14:24</publishTime>
@@ -697,7 +709,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/22/2019 17:14:24</publishTime>
     </File>
     <File Include="Images/sub_header_short.jpg">
-      <publishTime>04/23/2019 05:42:38</publishTime>
+      <publishTime>04/26/2019 19:54:48</publishTime>
+    </File>
+    <File Include="Images/thankyou.jpg">
+      <publishTime>04/30/2019 02:00:59</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>04/22/2019 17:14:25</publishTime>
@@ -709,10 +724,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/22/2019 17:14:25</publishTime>
     </File>
     <File Include="Scripts/Cart/cart-main.js">
-      <publishTime>04/24/2019 02:46:49</publishTime>
+      <publishTime>05/01/2019 03:21:30</publishTime>
     </File>
     <File Include="Scripts/Cart/cart-snapshot.js">
-      <publishTime>04/24/2019 02:46:49</publishTime>
+      <publishTime>05/01/2019 04:22:52</publishTime>
     </File>
     <File Include="Scripts/cat_nav_mobile.js">
       <publishTime>04/22/2019 17:14:25</publishTime>
@@ -721,10 +736,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/24/2019 23:04:51</publishTime>
     </File>
     <File Include="Scripts/Delivery/delivery-main.js">
-      <publishTime>04/24/2019 22:55:27</publishTime>
+      <publishTime>04/27/2019 14:27:01</publishTime>
     </File>
     <File Include="Scripts/functions.js">
-      <publishTime>04/25/2019 00:07:30</publishTime>
+      <publishTime>04/28/2019 03:04:16</publishTime>
     </File>
     <File Include="Scripts/infobox.js">
       <publishTime>04/22/2019 17:14:25</publishTime>
@@ -760,13 +775,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/22/2019 17:14:25</publishTime>
     </File>
     <File Include="Scripts/List/list-main.js">
-      <publishTime>04/25/2019 00:07:30</publishTime>
+      <publishTime>05/01/2019 04:43:48</publishTime>
     </File>
     <File Include="Scripts/map.js">
       <publishTime>04/25/2019 00:07:30</publishTime>
     </File>
     <File Include="Scripts/Menu/menu-main.js">
-      <publishTime>04/24/2019 02:46:49</publishTime>
+      <publishTime>04/30/2019 03:43:41</publishTime>
     </File>
     <File Include="Scripts/modernizr-2.6.2.js">
       <publishTime>04/22/2019 17:14:25</publishTime>
@@ -778,10 +793,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/22/2019 17:14:25</publishTime>
     </File>
     <File Include="Scripts/Shared/functions.js">
-      <publishTime>04/25/2019 00:07:30</publishTime>
+      <publishTime>05/01/2019 05:17:38</publishTime>
     </File>
     <File Include="Scripts/Shared/order-summary.js">
-      <publishTime>04/24/2019 02:46:49</publishTime>
+      <publishTime>05/01/2019 04:22:52</publishTime>
     </File>
     <File Include="Scripts/toastr.js">
       <publishTime>04/22/2019 17:14:25</publishTime>
@@ -814,7 +829,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/22/2019 17:14:25</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
-      <publishTime>04/25/2019 00:45:18</publishTime>
+      <publishTime>05/01/2019 05:24:30</publishTime>
     </File>
     <File Include="Views/Account/ResetPassword.cshtml">
       <publishTime>04/22/2019 17:14:25</publishTime>
@@ -832,31 +847,31 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/22/2019 17:14:25</publishTime>
     </File>
     <File Include="Views/Cart/Confirmed/Index.cshtml">
-      <publishTime>04/24/2019 04:14:25</publishTime>
+      <publishTime>05/01/2019 23:19:21</publishTime>
     </File>
     <File Include="Views/Cart/Confirmed/_SubHeaderPartial.cshtml">
-      <publishTime>04/24/2019 02:46:49</publishTime>
+      <publishTime>04/30/2019 02:04:00</publishTime>
     </File>
     <File Include="Views/Cart/Index.cshtml">
-      <publishTime>04/24/2019 23:50:53</publishTime>
+      <publishTime>05/01/2019 23:19:28</publishTime>
     </File>
     <File Include="Views/Cart/OrderSnapshot.cshtml">
-      <publishTime>04/24/2019 02:46:49</publishTime>
+      <publishTime>05/01/2019 23:22:19</publishTime>
     </File>
     <File Include="Views/Cart/Snapshot/Index.cshtml">
-      <publishTime>04/24/2019 02:46:49</publishTime>
+      <publishTime>05/01/2019 23:22:09</publishTime>
     </File>
     <File Include="Views/Cart/Snapshot/_SubHeaderPartial.cshtml">
-      <publishTime>04/24/2019 02:46:49</publishTime>
+      <publishTime>04/29/2019 18:01:14</publishTime>
     </File>
     <File Include="Views/Cart/_SubHeaderPartial.cshtml">
-      <publishTime>04/24/2019 02:46:49</publishTime>
+      <publishTime>04/29/2019 17:55:45</publishTime>
     </File>
     <File Include="Views/Delivery/Index.cshtml">
-      <publishTime>04/24/2019 23:22:43</publishTime>
+      <publishTime>05/02/2019 00:27:28</publishTime>
     </File>
     <File Include="Views/Delivery/_ListItemPartial.cshtml">
-      <publishTime>04/22/2019 17:14:25</publishTime>
+      <publishTime>05/01/2019 05:09:27</publishTime>
     </File>
     <File Include="Views/Delivery/_PopularItemsPartial.cshtml">
       <publishTime>04/25/2019 00:07:30</publishTime>
@@ -871,34 +886,34 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/22/2019 17:14:25</publishTime>
     </File>
     <File Include="Views/Home/_SubHeaderPartial.cshtml">
-      <publishTime>04/25/2019 00:07:30</publishTime>
+      <publishTime>04/30/2019 02:14:59</publishTime>
     </File>
     <File Include="Views/List/Index.cshtml">
-      <publishTime>04/22/2019 17:14:25</publishTime>
+      <publishTime>05/01/2019 04:43:59</publishTime>
     </File>
     <File Include="Views/List/SearchModal.cshtml">
       <publishTime>04/25/2019 00:07:30</publishTime>
     </File>
     <File Include="Views/List/_ListFilterPartial.cshtml">
-      <publishTime>04/22/2019 17:14:25</publishTime>
+      <publishTime>04/28/2019 12:01:56</publishTime>
     </File>
     <File Include="Views/List/_ListItemPartial.cshtml">
-      <publishTime>04/22/2019 17:14:25</publishTime>
+      <publishTime>05/01/2019 05:09:26</publishTime>
     </File>
     <File Include="Views/List/_ListItemTypePartial.cshtml">
       <publishTime>04/22/2019 17:14:25</publishTime>
     </File>
     <File Include="Views/List/_ListViewPartial.cshtml">
-      <publishTime>04/22/2019 17:14:25</publishTime>
+      <publishTime>04/28/2019 12:00:44</publishTime>
     </File>
     <File Include="Views/List/_ResultPartial.cshtml">
-      <publishTime>04/22/2019 17:14:25</publishTime>
+      <publishTime>04/29/2019 16:17:51</publishTime>
     </File>
     <File Include="Views/List/_SubHeaderPartial.cshtml">
-      <publishTime>04/22/2019 17:14:25</publishTime>
+      <publishTime>04/27/2019 13:14:36</publishTime>
     </File>
     <File Include="Views/List/_ToolsPartial.cshtml">
-      <publishTime>04/25/2019 00:07:30</publishTime>
+      <publishTime>04/27/2019 13:17:15</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>04/22/2019 17:14:25</publishTime>
@@ -919,34 +934,40 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/22/2019 17:14:25</publishTime>
     </File>
     <File Include="Views/Menu/Index.cshtml">
-      <publishTime>04/25/2019 00:02:02</publishTime>
+      <publishTime>05/01/2019 23:20:35</publishTime>
     </File>
     <File Include="Views/Menu/_SubHeaderPartial.cshtml">
-      <publishTime>04/24/2019 02:46:49</publishTime>
+      <publishTime>04/30/2019 01:42:32</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>04/22/2019 17:14:25</publishTime>
+    </File>
+    <File Include="Views/Shared/ForgotPasswordModal.cshtml">
+      <publishTime>04/29/2019 16:17:51</publishTime>
     </File>
     <File Include="Views/Shared/Lockout.cshtml">
       <publishTime>04/22/2019 17:14:25</publishTime>
     </File>
     <File Include="Views/Shared/LoginModal.cshtml">
-      <publishTime>04/25/2019 00:07:30</publishTime>
+      <publishTime>05/01/2019 05:22:57</publishTime>
+    </File>
+    <File Include="Views/Shared/PasswordResetModal.cshtml">
+      <publishTime>04/29/2019 16:17:51</publishTime>
     </File>
     <File Include="Views/Shared/RegisterModal.cshtml">
       <publishTime>04/22/2019 17:14:25</publishTime>
     </File>
     <File Include="Views/Shared/VerifyPhoneModal.cshtml">
-      <publishTime>04/22/2019 17:14:25</publishTime>
+      <publishTime>04/29/2019 16:17:51</publishTime>
     </File>
     <File Include="Views/Shared/_FooterPartial.cshtml">
       <publishTime>04/24/2019 23:03:08</publishTime>
     </File>
     <File Include="Views/Shared/_HeaderPartial.cshtml">
-      <publishTime>04/25/2019 00:10:27</publishTime>
+      <publishTime>04/30/2019 03:59:08</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>04/24/2019 23:05:46</publishTime>
+      <publishTime>05/01/2019 23:36:28</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>04/22/2019 17:14:25</publishTime>
@@ -961,7 +982,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/22/2019 17:14:25</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/25/2019 02:20:30</publishTime>
+      <publishTime>05/03/2019 04:45:50</publishTime>
     </File>
   </ItemGroup>
 </Project>

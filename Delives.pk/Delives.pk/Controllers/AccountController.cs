@@ -63,7 +63,7 @@ namespace Delives.pk.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            return RedirectToAction("Index", "Delivery");
+            return RedirectToAction("Index", "List");
             //ViewBag.ReturnUrl = returnUrl;
             //if (returnUrl != "")
             //{

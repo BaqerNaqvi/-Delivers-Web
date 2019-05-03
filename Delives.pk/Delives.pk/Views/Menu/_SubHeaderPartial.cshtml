@@ -13,7 +13,7 @@
     }
     var reviewText = reviewCount == 0 ? "" : $"(<small><a href=\"#0\">read {reviewCount} {singleOrNot}</a></small>)";
 
-    var rating = Int32.Parse(Model.Rating);
+    var rating = float.Parse(Model.Rating);
 }
 <section class="parallax-window" data-parallax="scroll" data-image-src="@Model.BgImage" data-natural-width="1400" data-natural-height="470">
     <div id="subheader">

@@ -153,7 +153,17 @@
         locationConfig.geoLocationSuccess(position);
         listConfig.resetSearchFilters();
         
-    }
+    },
+        refreshSearch: function (clearSearchTerm = false){
+            if (clearSearchTerm)
+                $('#searchTerm').val('');
+            $('.load_more_bt').show();
+            listConfig.setSearchFilters(true);
+            $('#tools').nextAll('div').remove();
+            mapConfig.removeAllMarkers();
+            listConfig.getListItems();
+            $(".search-overlay-close").trigger('click');
+        }
 };
 
 
@@ -208,12 +218,7 @@ $(() => {
 });
 
 $('#performSearch').on('click', () => {
-    $('.load_more_bt').show();
-    listConfig.setSearchFilters(true);
-    $('#tools').nextAll('div').remove();
-    mapConfig.removeAllMarkers();
-    listConfig.getListItems();
-    $(".search-overlay-close").trigger('click');
+    listConfig.refreshSearch();
 });
 
 function showMenuFunc(){

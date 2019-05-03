@@ -100,8 +100,11 @@ window.onclick = function (event) {
 var markerForDeliveryAddress;
 var coordsForDelivery = null;
 function initMapForDeliveryAddress() {
-
-    const cooridnates = localStorage.getItem("coords").split('_');
+    var co = localStorage.getItem("coords");
+    if (co == undefined || co == "") {
+        co = "32.22674287_74.17007446";
+    }
+    const cooridnates = co.split('_');
     const cood_1 = parseFloat(cooridnates[0]);
     const cood_2 = parseFloat(cooridnates[1]);
     //to pre-populate address field inside map

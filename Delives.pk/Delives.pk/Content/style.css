@@ -634,10 +634,10 @@ video {
 	background:#fff url(../Images/icon_home_2.png) no-repeat center 40px;
 }
 .box_home#three{
-	background:#fff url(../Images/icon_home_3.png) no-repeat center 40px;
+	background:#fff url(../Images/icon_home_4.png) no-repeat center 40px;
 }
 .box_home#four{
-	background:#fff url(../Images/icon_home_4.png) no-repeat center 40px;
+	background:#fff url(../Images/money.png) no-repeat center 40px;
 }
 .box_home h3{
 	font-size:16px;
@@ -923,7 +923,7 @@ a.strip_list:hover h3{
 .box_style_2#help i{
 	font-size:52px;
 	display:inline-block;
-	color:#4CAF50;
+	color:#bc5a5c;
 }
 .box_style_2#help a.phone{
 	font-size:26px;
@@ -2780,4 +2780,8 @@ height: 333px;
     padding: 7px;
     border: solid 1px;
     border-radius: 5px;
+}
+.type-cust{
+    margin-bottom: 4px;
+    margin-top: -8px;
 }

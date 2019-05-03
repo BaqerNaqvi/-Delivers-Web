@@ -246,7 +246,7 @@ let userConfig = {
             if (response.Success) {
                 toastr.success(response.Message);
                 //location.reload(true);
-                window.location.href = "/Delivery/Index";
+                window.location.href = "/List/Index";
                 //open modal to verify 4 digit code
             }
             else {
@@ -644,5 +644,6 @@ $(() => {
 
 
 function goToRegisterPage(){
+    showProgress();
     window.location.href="/Account/Register";
 }

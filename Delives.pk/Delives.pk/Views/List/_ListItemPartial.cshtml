@@ -26,10 +26,13 @@
                         </div>
                         <h3><a href="~/Menu/Index/@item.Id" onclick="showMenuFunc()">@item.Name</a></h3>
                         <div class="type">
+                            @item.Description
+                        </div>
+                        <div class="type-cust">
                             @item.TypeName
                         </div>
                         <div class="location">
-                            @item.Address <span class="opening">Opens at @item.Opens.</span> Minimum order: Rs.@item.MinOrder
+                            @item.Address <span><strong>(@item.Distance KMs away)</strong></span> <span class="opening">Opens at @item.Opens.</span><br /> Minimum order: Rs.@item.MinOrder
                         </div>
                         <ul>
                             @*<li>Take away<i class="icon_check_alt2 okno"></i></li>*@

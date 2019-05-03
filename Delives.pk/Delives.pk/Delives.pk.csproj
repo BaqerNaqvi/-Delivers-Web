@@ -399,13 +399,14 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\cart_icon.png" />
     <Content Include="Images\DELIVERY-LOGO.png" />
+    <Content Include="Images\money.png" />
     <Content Include="Images\pins\FOOD.png" />
     <Content Include="Images\pins\GROCERY.png" />
     <Content Include="Images\pins\Contact.png" />
     <Content Include="Images\pins\Fish.png" />
     <Content Include="Images\pins\Hamburger.png" />
+    <Content Include="Images\pins\meat.png" />
     <Content Include="Images\pins\Mexican.png" />
-    <Content Include="Images\pins\MEET.png" />
     <Content Include="Images\pins\Sushi.png" />
     <Content Include="Images\Rest\Large\large_01.jpg" />
     <Content Include="Images\Rest\Small\small_01.jpg" />
@@ -561,7 +562,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>2808</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:2808/</IISUrl>
+          <IISUrl>http://localhost:44301/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
